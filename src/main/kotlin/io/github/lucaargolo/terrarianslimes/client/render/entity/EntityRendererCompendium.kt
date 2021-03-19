@@ -1,9 +1,6 @@
 package io.github.lucaargolo.terrarianslimes.client.render.entity
 
-import io.github.lucaargolo.terrarianslimes.client.render.entity.slimes.LavaSlimeEntityRenderer
-import io.github.lucaargolo.terrarianslimes.client.render.entity.slimes.ModdedSlimeEntityRenderer
-import io.github.lucaargolo.terrarianslimes.client.render.entity.slimes.RainbowSlimeEntityRenderer
-import io.github.lucaargolo.terrarianslimes.client.render.entity.slimes.UmbrellaSlimeEntityRenderer
+import io.github.lucaargolo.terrarianslimes.client.render.entity.slimes.*
 import io.github.lucaargolo.terrarianslimes.common.entity.EntityCompendium
 import io.github.lucaargolo.terrarianslimes.utils.GenericCompendium
 import net.fabricmc.fabric.api.client.rendereregistry.v1.EntityRendererRegistry
@@ -25,6 +22,10 @@ object EntityRendererCompendium: GenericCompendium<EntityRendererRegistry.Factor
         register("lava_slime") { dispatcher, _ -> LavaSlimeEntityRenderer(dispatcher) }
         register("pinky") { dispatcher, _ -> ModdedSlimeEntityRenderer(dispatcher) }
         register("umbrella_slime") { dispatcher, _ -> UmbrellaSlimeEntityRenderer(dispatcher) }
+        register("corrupt_slime") { dispatcher, _ -> ModdedSlimeEntityRenderer(dispatcher) }
+        register("slimeling") { dispatcher, _ -> ModdedSlimeEntityRenderer(dispatcher) }
+        register("crimslime") { dispatcher, _ -> ModdedSlimeEntityRenderer(dispatcher) }
+        register("illuminant_slime") { dispatcher, _ -> IlluminantSlimeEntityRenderer(dispatcher) }
         register("rainbow_slime") { dispatcher, _ -> RainbowSlimeEntityRenderer(dispatcher) }
     }
 

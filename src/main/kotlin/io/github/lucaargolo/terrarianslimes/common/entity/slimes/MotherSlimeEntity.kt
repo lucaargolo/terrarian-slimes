@@ -9,7 +9,7 @@ class MotherSlimeEntity(entityType: EntityType<ModdedSlimeEntity>, world: World,
     override fun getDefaultSize() = 3
 
     override fun getChildrenType() = EntityCompendium.BABY_SLIME
-    override fun getChildrenQnt() = 3
+    override fun getChildrenQnt() = 3..3
 
     override fun hasBonusDrops() = false
 

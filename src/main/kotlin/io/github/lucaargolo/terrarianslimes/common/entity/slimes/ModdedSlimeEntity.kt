@@ -26,7 +26,7 @@ open class ModdedSlimeEntity(entityType: EntityType<ModdedSlimeEntity>, world: W
     protected open fun getDefaultSize() = 2
 
     protected open fun getChildrenType(): EntityType<ModdedSlimeEntity>? = null
-    protected open fun getChildrenQnt() = 0
+    protected open fun getChildrenQnt() = 0..0
 
     open fun hasBonusDrops() = true
     fun getBonusDrops(): ItemStack = this.dataTracker.get(BONUS_DROPS)
@@ -53,7 +53,7 @@ open class ModdedSlimeEntity(entityType: EntityType<ModdedSlimeEntity>, world: W
             if(this.hasBonusDrops() && !this.getBonusDrops().isEmpty) {
                 ItemScatterer.spawn(world, pos.x, pos.y, pos.z, this.getBonusDrops())
             }
-            for (l in 0 until getChildrenQnt()) {
+            for (l in 0 until getChildrenQnt().random()) {
                 val g = ((l % 2) - 0.5f) * this.size/4
                 val h = ((l / 2) - 0.5f) * this.size/4
                 val childrenEntity = this.getChildrenType()?.create(this.world) ?: break

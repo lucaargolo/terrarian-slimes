@@ -37,6 +37,10 @@ class TerrarianSlimes: ModInitializer {
         FabricDefaultAttributeRegistry.register(EntityCompendium.LAVA_SLIME, HostileEntity.createHostileAttributes())
         FabricDefaultAttributeRegistry.register(EntityCompendium.PINKY, HostileEntity.createHostileAttributes())
         FabricDefaultAttributeRegistry.register(EntityCompendium.UMBRELLA_SLIME, HostileEntity.createHostileAttributes())
+        FabricDefaultAttributeRegistry.register(EntityCompendium.CORRUPT_SLIME, HostileEntity.createHostileAttributes())
+        FabricDefaultAttributeRegistry.register(EntityCompendium.SLIMELING, HostileEntity.createHostileAttributes())
+        FabricDefaultAttributeRegistry.register(EntityCompendium.CRIMSLIME, HostileEntity.createHostileAttributes())
+        FabricDefaultAttributeRegistry.register(EntityCompendium.ILLUMINANT_SLIME, HostileEntity.createHostileAttributes())
         FabricDefaultAttributeRegistry.register(EntityCompendium.RAINBOW_SLIME, HostileEntity.createHostileAttributes())
 
     }

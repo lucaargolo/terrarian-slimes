@@ -23,13 +23,16 @@ object ItemCompendium: RegistryCompendium<Item>(Registry.ITEM) {
 
     val MOTHER_SLIME_EGG = register("mother_slime_spawn_egg", SpawnEggItem(EntityCompendium.MOTHER_SLIME, 0x131313, 0x181818, creativeGroupSettings()))
     val BABY_SLIME_EGG = register("baby_slime_spawn_egg", SpawnEggItem(EntityCompendium.BABY_SLIME, 0x4E4E4E, 0x525252, creativeGroupSettings()))
-
     val LAVA_SLIME_EGG = register("lava_slime_spawn_egg", SpawnEggItem(EntityCompendium.LAVA_SLIME, 0xC94D00, 0xE27C3C, creativeGroupSettings()))
 
     val PINKY_EGG = register("pinky_spawn_egg", SpawnEggItem(EntityCompendium.PINKY, 0xC3588D, 0xD880AC, creativeGroupSettings()))
-
     val UMBRELLA_SLIME_EGG = register("umbrella_slime_spawn_egg", SpawnEggItem(EntityCompendium.UMBRELLA_SLIME, 0x1F2DB1, 0xFF0000, creativeGroupSettings()))
 
+    val CORRUPT_SLIME_EGG = register("corrupt_slime_spawn_egg", SpawnEggItem(EntityCompendium.CORRUPT_SLIME, 0x120B6C, 0x2C2676, creativeGroupSettings()))
+    val SLIMELING_EGG = register("slimeling_spawn_egg", SpawnEggItem(EntityCompendium.SLIMELING, 0x120B6C, 0x2C2676, creativeGroupSettings()))
+    val CRIMSLIME_SLIME_EGG = register("crimslime_spawn_egg", SpawnEggItem(EntityCompendium.CRIMSLIME, 0x7E1515, 0x923B3B, creativeGroupSettings()))
+
+    val ILLUMINANT_SLIME_EGG = register("illuminant_slime_spawn_egg", SpawnEggItem(EntityCompendium.ILLUMINANT_SLIME, 0xD000FF, 0xE52FFF, creativeGroupSettings()))
     val RAINBOW_SLIME_EGG = register("rainbow_slime_spawn_egg", SpawnEggItem(EntityCompendium.RAINBOW_SLIME, 0xFFFFFF, 0xFFFFFF, creativeGroupSettings()))
 
     val UMBRELLA = register("umbrella", Item(creativeGroupSettings().maxCount(1)))

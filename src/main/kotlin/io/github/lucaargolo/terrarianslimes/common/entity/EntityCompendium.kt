@@ -64,7 +64,7 @@ object EntityCompendium: RegistryCompendium<EntityType<*>>(Registry.ENTITY_TYPE)
 
     val ICE_SLIME = register ("ice_slime",
         FabricEntityTypeBuilder.create(SpawnGroup.MONSTER) { type: EntityType<ModdedSlimeEntity>, world: World ->
-            StatusEffectSlimeEntity(type, world, 2.0, 1.0,1.5, StatusEffects.SLOWNESS)
+            NoBonusStatusEffectSlimeEntity(type, world, 2.0, 1.0,1.5, StatusEffects.SLOWNESS)
         }.dimensions(EntityDimensions.changing(2.04F, 2.04F)).trackRangeChunks(
             10
         ).build()
@@ -72,7 +72,7 @@ object EntityCompendium: RegistryCompendium<EntityType<*>>(Registry.ENTITY_TYPE)
 
     val SAND_SLIME = register ("sand_slime",
         FabricEntityTypeBuilder.create(SpawnGroup.MONSTER) { type: EntityType<ModdedSlimeEntity>, world: World ->
-            StatusEffectSlimeEntity(type, world, 3.33, 1.0,3.0, StatusEffects.HUNGER)
+            NoBonusStatusEffectSlimeEntity(type, world, 3.33, 1.0,3.0, StatusEffects.HUNGER)
         }.dimensions(EntityDimensions.changing(2.04F, 2.04F)).trackRangeChunks(
             10
         ).build()
@@ -126,9 +126,41 @@ object EntityCompendium: RegistryCompendium<EntityType<*>>(Registry.ENTITY_TYPE)
         ).build()
     ) as EntityType<ModdedSlimeEntity>
 
+    val CORRUPT_SLIME = register ("corrupt_slime",
+        FabricEntityTypeBuilder.create(SpawnGroup.MONSTER) { type: EntityType<ModdedSlimeEntity>, world: World ->
+            CorruptSlimeEntity(type, world, 12.15, 1.0,9.15)
+        }.dimensions(EntityDimensions.changing(2.04F, 2.04F)).trackRangeChunks(
+            10
+        ).build()
+    ) as EntityType<ModdedSlimeEntity>
+
+    val SLIMELING = register ("slimeling",
+        FabricEntityTypeBuilder.create(SpawnGroup.MONSTER) { type: EntityType<ModdedSlimeEntity>, world: World ->
+            NoBonusStatusEffectSlimeEntity(type, world, 6.4, 1.0,7.5, StatusEffects.BLINDNESS)
+        }.dimensions(EntityDimensions.changing(2.04F, 2.04F)).trackRangeChunks(
+            10
+        ).build()
+    ) as EntityType<ModdedSlimeEntity>
+
+    val CRIMSLIME = register ("crimslime",
+        FabricEntityTypeBuilder.create(SpawnGroup.MONSTER) { type: EntityType<ModdedSlimeEntity>, world: World ->
+            CrimslimeEntity(type, world, 14.2, 1.0,10.0)
+        }.dimensions(EntityDimensions.changing(2.04F, 2.04F)).trackRangeChunks(
+            10
+        ).build()
+    ) as EntityType<ModdedSlimeEntity>
+
+    val ILLUMINANT_SLIME = register ("illuminant_slime",
+        FabricEntityTypeBuilder.create(SpawnGroup.MONSTER) { type: EntityType<ModdedSlimeEntity>, world: World ->
+            IlluminantSlimeEntity(type, world, 12.85, 3.0,11.66)
+        }.dimensions(EntityDimensions.changing(2.04F, 2.04F)).trackRangeChunks(
+            10
+        ).build()
+    ) as EntityType<ModdedSlimeEntity>
+
     val RAINBOW_SLIME = register ("rainbow_slime",
         FabricEntityTypeBuilder.create(SpawnGroup.MONSTER) { type: EntityType<ModdedSlimeEntity>, world: World ->
-            RainbowSlimeEntity(type, world, 28.5, 1.0,14.166)
+            RainbowSlimeEntity(type, world, 28.5, 1.0,14.16)
         }.dimensions(EntityDimensions.changing(2.04F, 2.04F)).trackRangeChunks(
             10
         ).build()
