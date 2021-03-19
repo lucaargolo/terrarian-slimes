@@ -1,5 +1,6 @@
 package io.github.lucaargolo.terrarianslimes.client.render.entity.slimes
 
+import io.github.lucaargolo.terrarianslimes.TerrarianSlimes
 import io.github.lucaargolo.terrarianslimes.client.render.entity.feature.ModdedSlimeOverlayFeatureRenderer
 import io.github.lucaargolo.terrarianslimes.common.entity.slimes.ModdedSlimeEntity
 import io.github.lucaargolo.terrarianslimes.utils.ItemLayerReplacement
@@ -30,7 +31,7 @@ open class ModdedSlimeEntityRenderer(entityRenderDispatcher: EntityRenderDispatc
     }
 
     override fun getRenderLayer(slimeEntity: ModdedSlimeEntity, showBody: Boolean, translucent: Boolean, showOutline: Boolean): RenderLayer? {
-        return RenderLayer.getEntityTranslucentCull(getTexture(slimeEntity))
+        return if(TerrarianSlimes.isCanvasLoaded) RenderLayer.getEntityTranslucentCull(getTexture(slimeEntity)) else RenderLayer.getEntityTranslucent(getTexture(slimeEntity))
     }
 
     override fun render(slimeEntity: ModdedSlimeEntity, yaw: Float, tickDelta: Float, matrixStack: MatrixStack, vertexConsumers: VertexConsumerProvider?, light: Int) {

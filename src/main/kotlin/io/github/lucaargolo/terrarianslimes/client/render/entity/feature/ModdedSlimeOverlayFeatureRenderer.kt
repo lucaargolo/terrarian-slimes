@@ -1,5 +1,6 @@
 package io.github.lucaargolo.terrarianslimes.client.render.entity.feature
 
+import io.github.lucaargolo.terrarianslimes.TerrarianSlimes
 import io.github.lucaargolo.terrarianslimes.common.entity.slimes.ModdedSlimeEntity
 import net.minecraft.client.render.*
 import net.minecraft.client.render.entity.LivingEntityRenderer
@@ -18,7 +19,8 @@ class ModdedSlimeOverlayFeatureRenderer(context: FeatureRendererContext<ModdedSl
             this.contextModel?.copyStateTo(this.model)
             this.model.animateModel(slimeEntity, limbAngle, limbDistance, tickDelta)
             this.model.setAngles(slimeEntity, limbAngle, limbDistance, animationProgress, headYaw, headPitch)
-            val vertexConsumer = vertexConsumers.getBuffer(RenderLayer.getEntityTranslucent(getTexture(slimeEntity)))
+            val overlayLayer = if(TerrarianSlimes.isCanvasLoaded) RenderLayer.getEntityTranslucent(getTexture(slimeEntity)) else RenderLayer.getItemEntityTranslucentCull(getTexture(slimeEntity))
+            val vertexConsumer = vertexConsumers.getBuffer(overlayLayer)
             this.model.render(matrices, vertexConsumer, light, LivingEntityRenderer.getOverlay(slimeEntity, 0.0f), 1.0f, 1.0f, 1.0f, 1.0f)
         }
     }

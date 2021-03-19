@@ -7,6 +7,7 @@ import io.github.lucaargolo.terrarianslimes.utils.ModIdentifier
 import net.fabricmc.api.ModInitializer
 import net.fabricmc.fabric.api.`object`.builder.v1.entity.FabricDefaultAttributeRegistry
 import net.fabricmc.fabric.api.client.itemgroup.FabricItemGroupBuilder
+import net.fabricmc.loader.api.FabricLoader
 import net.minecraft.block.Blocks
 import net.minecraft.entity.mob.HostileEntity
 import net.minecraft.entity.mob.SlimeEntity
@@ -16,6 +17,8 @@ import net.minecraft.item.ItemStack
 class TerrarianSlimes: ModInitializer {
 
     override fun onInitialize() {
+        isCanvasLoaded = FabricLoader.getInstance().isModLoaded("canvas")
+
         PacketCompendium.onInitialize()
         ItemCompendium.initialize()
         EntityCompendium.initialize()
@@ -36,7 +39,8 @@ class TerrarianSlimes: ModInitializer {
 
     companion object {
         const val MOD_ID = "terrarianslimes"
-
+        var isCanvasLoaded = false
+            private set
         private val creativeTab = FabricItemGroupBuilder.create(ModIdentifier("creative_tab")).icon{ ItemStack(Blocks.SLIME_BLOCK) }.build()
         fun creativeGroupSettings(): Item.Settings = Item.Settings().group(creativeTab)
     }
