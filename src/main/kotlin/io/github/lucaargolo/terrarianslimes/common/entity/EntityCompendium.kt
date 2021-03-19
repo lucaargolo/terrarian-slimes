@@ -110,12 +110,19 @@ object EntityCompendium: RegistryCompendium<EntityType<*>>(Registry.ENTITY_TYPE)
         ).build()
     ) as EntityType<ModdedSlimeEntity>
 
-
     val PINKY = register ("pinky",
         FabricEntityTypeBuilder.create(SpawnGroup.MONSTER) { type: EntityType<ModdedSlimeEntity>, world: World ->
             PinkyEntity(type, world, 10.66, 2.0,1.0)
         }.dimensions(EntityDimensions.changing(2.04F, 2.04F)).trackRangeChunks(
             20
+        ).build()
+    ) as EntityType<ModdedSlimeEntity>
+
+    val UMBRELLA_SLIME = register ("umbrella_slime",
+        FabricEntityTypeBuilder.create(SpawnGroup.MONSTER) { type: EntityType<ModdedSlimeEntity>, world: World ->
+            UmbrellaSlimeEntity(type, world, 2.33, 1.0,1.8)
+        }.dimensions(EntityDimensions.changing(2.04F, 2.04F)).trackRangeChunks(
+            10
         ).build()
     ) as EntityType<ModdedSlimeEntity>
 
