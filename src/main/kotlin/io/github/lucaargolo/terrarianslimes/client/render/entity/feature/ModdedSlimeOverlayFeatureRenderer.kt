@@ -13,7 +13,6 @@ class ModdedSlimeOverlayFeatureRenderer(context: FeatureRendererContext<ModdedSl
 
     private val model: SlimeEntityModel<ModdedSlimeEntity> = SlimeEntityModel(0)
 
-    @Suppress("INACCESSIBLE_TYPE")
     override fun render(matrices: MatrixStack, vertexConsumers: VertexConsumerProvider, light: Int, slimeEntity: ModdedSlimeEntity, limbAngle: Float, limbDistance: Float, tickDelta: Float, animationProgress: Float, headYaw: Float, headPitch: Float) {
         if (!slimeEntity.isInvisible) {
             this.contextModel?.copyStateTo(this.model)
