@@ -15,11 +15,13 @@ object EntityRendererCompendium: GenericCompendium<EntityRendererRegistry.Factor
         register("purple_slime") { dispatcher, _ -> ModdedSlimeEntityRenderer(dispatcher) }
         register("yellow_slime") { dispatcher, _ -> ModdedSlimeEntityRenderer(dispatcher) }
         register("black_slime") { dispatcher, _ -> ModdedSlimeEntityRenderer(dispatcher) }
+        register("ice_slime") { dispatcher, _ -> ModdedSlimeEntityRenderer(dispatcher) }
+        register("sand_slime") { dispatcher, _ -> ModdedSlimeEntityRenderer(dispatcher) }
         register("jungle_slime") { dispatcher, _ -> ModdedSlimeEntityRenderer(dispatcher) }
         register("mother_slime") { dispatcher, _ -> ModdedSlimeEntityRenderer(dispatcher) }
         register("baby_slime") { dispatcher, _ -> ModdedSlimeEntityRenderer(dispatcher) }
-        register("pinky") { dispatcher, _ -> ModdedSlimeEntityRenderer(dispatcher) }
         register("lava_slime") { dispatcher, _ -> LavaSlimeEntityRenderer(dispatcher) }
+        register("pinky") { dispatcher, _ -> ModdedSlimeEntityRenderer(dispatcher) }
     }
 
     override fun initialize() {

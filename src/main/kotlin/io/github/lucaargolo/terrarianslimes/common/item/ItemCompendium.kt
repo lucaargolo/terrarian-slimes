@@ -17,14 +17,17 @@ object ItemCompendium: RegistryCompendium<Item>(Registry.ITEM) {
     val YELLOW_SLIME_EGG = register("yellow_slime_spawn_egg", SpawnEggItem(EntityCompendium.YELLOW_SLIME, 0xB5AF18, 0xD0CA4F, creativeGroupSettings()))
     val BLACK_SLIME_EGG = register("black_slime_spawn_egg", SpawnEggItem(EntityCompendium.BLACK_SLIME, 0x4E4E4E, 0x525252, creativeGroupSettings()))
 
+    val ICE_SLIME_EGG = register("ice_slime_spawn_egg", SpawnEggItem(EntityCompendium.ICE_SLIME, 0x083C8B, 0x47B1CA, creativeGroupSettings()))
+    val SAND_SLIME_EGG = register("sand_slime_spawn_egg", SpawnEggItem(EntityCompendium.SAND_SLIME, 0x8A693A, 0xF4B76C, creativeGroupSettings()))
     val JUNGLE_SLIME_EGG = register("jungle_slime_spawn_egg", SpawnEggItem(EntityCompendium.JUNGLE_SLIME, 0x7FAC27, 0xA4C95B, creativeGroupSettings()))
 
     val MOTHER_SLIME_EGG = register("mother_slime_spawn_egg", SpawnEggItem(EntityCompendium.MOTHER_SLIME, 0x131313, 0x181818, creativeGroupSettings()))
     val BABY_SLIME_EGG = register("baby_slime_spawn_egg", SpawnEggItem(EntityCompendium.BABY_SLIME, 0x4E4E4E, 0x525252, creativeGroupSettings()))
 
+    val LAVA_SLIME_EGG = register("lava_slime_spawn_egg", SpawnEggItem(EntityCompendium.LAVA_SLIME, 0xA0713E, 0xBF986E, creativeGroupSettings()))
+
     val PINKY_EGG = register("pinky_spawn_egg", SpawnEggItem(EntityCompendium.PINKY, 0xC3588D, 0xD880AC, creativeGroupSettings()))
 
-    val LAVA_SLIME_EGG = register("lava_slime_spawn_egg", SpawnEggItem(EntityCompendium.LAVA_SLIME, 0xA0713E, 0xBF986E, creativeGroupSettings()))
 
     override fun initialize() {
         BlockCompendium.registerBlockItems(map)
