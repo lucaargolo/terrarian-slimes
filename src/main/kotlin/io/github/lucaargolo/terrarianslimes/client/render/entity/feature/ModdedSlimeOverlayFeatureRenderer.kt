@@ -1,0 +1,26 @@
+package io.github.lucaargolo.terrarianslimes.client.render.entity.feature
+
+import io.github.lucaargolo.terrarianslimes.common.entity.slimes.ModdedSlimeEntity
+import net.minecraft.client.render.*
+import net.minecraft.client.render.entity.LivingEntityRenderer
+import net.minecraft.client.render.entity.feature.FeatureRenderer
+import net.minecraft.client.render.entity.feature.FeatureRendererContext
+import net.minecraft.client.render.entity.model.SlimeEntityModel
+import net.minecraft.client.util.math.MatrixStack
+
+class ModdedSlimeOverlayFeatureRenderer(context: FeatureRendererContext<ModdedSlimeEntity, SlimeEntityModel<ModdedSlimeEntity>>): FeatureRenderer<ModdedSlimeEntity, SlimeEntityModel<ModdedSlimeEntity>>(context) {
+
+    private val model: SlimeEntityModel<ModdedSlimeEntity> = SlimeEntityModel(0)
+
+    @Suppress("INACCESSIBLE_TYPE")
+    override fun render(matrices: MatrixStack, vertexConsumers: VertexConsumerProvider, light: Int, slimeEntity: ModdedSlimeEntity, limbAngle: Float, limbDistance: Float, tickDelta: Float, animationProgress: Float, headYaw: Float, headPitch: Float) {
+        if (!slimeEntity.isInvisible) {
+            this.contextModel?.copyStateTo(this.model)
+            this.model.animateModel(slimeEntity, limbAngle, limbDistance, tickDelta)
+            this.model.setAngles(slimeEntity, limbAngle, limbDistance, animationProgress, headYaw, headPitch)
+            val vertexConsumer = vertexConsumers.getBuffer(RenderLayer.getEntityTranslucent(getTexture(slimeEntity)))
+            this.model.render(matrices, vertexConsumer, light, LivingEntityRenderer.getOverlay(slimeEntity, 0.0f), 1.0f, 1.0f, 1.0f, 1.0f)
+        }
+    }
+
+}

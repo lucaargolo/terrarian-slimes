@@ -1,0 +1,36 @@
+{
+  "schemaVersion": 1,
+  "id": "terrarianslimes",
+  "version": "${version}",
+  "name": "Terrarian Slimes",
+  "description": "A mod strongly inspired by Terraria, that aims to add new slimes and useful items to the game.",
+  "authors": [
+    "D4rkness_King"
+  ],
+  "contact": {
+    "homepage": "https://www.curseforge.com/minecraft/mc-mods/terrarian-slimes",
+    "sources": "https://github.com/lucaargolo/terrarian-slimes",
+    "issues": "https://github.com/lucaargolo/terrarian-slimes/issues"
+  },
+
+  "license": "Mozilla Public License 2.0",
+  "icon": "assets/terrarianslimes/icon.png",
+  "environment": "*",
+  "entrypoints": {
+    "client": [
+      "io.github.lucaargolo.terrarianslimes.client.TerrarianSlimesClient"
+    ],
+    "main": [
+      "io.github.lucaargolo.terrarianslimes.TerrarianSlimes"
+    ]
+  },
+  "mixins": [
+    "terrarianslimes.mixins.json"
+  ],
+  "depends": {
+    "fabricloader": ">=0.10.8",
+    "fabric": ">=0.20.1",
+    "fabric-language-kotlin": ">=1.4.0",
+    "minecraft": "1.16.5"
+  }
+}
