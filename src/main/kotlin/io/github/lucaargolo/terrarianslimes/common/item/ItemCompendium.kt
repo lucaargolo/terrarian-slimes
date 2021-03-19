@@ -28,6 +28,7 @@ object ItemCompendium: RegistryCompendium<Item>(Registry.ITEM) {
 
     val PINKY_EGG = register("pinky_spawn_egg", SpawnEggItem(EntityCompendium.PINKY, 0xC3588D, 0xD880AC, creativeGroupSettings()))
 
+    val RAINBOW_EGG = register("rainbow_slime_spawn_egg", SpawnEggItem(EntityCompendium.RAINBOW_SLIME, 0xFFFFFF, 0xFFFF00, creativeGroupSettings()))
 
     override fun initialize() {
         BlockCompendium.registerBlockItems(map)

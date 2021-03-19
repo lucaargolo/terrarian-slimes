@@ -4,10 +4,12 @@
   "package": "io.github.lucaargolo.terrarianslimes.mixin",
   "compatibilityLevel": "JAVA_8",
   "mixins": [
-    "AccessorLootContextTypes",
+    "AccessorLootContextTypes"
+  ],
+  "client": [
+    "LivingEntityRendererMixin",
     "RenderLayersMixin"
   ],
-  "client": [],
   "injectors": {
     "defaultRequire": 1
   }
