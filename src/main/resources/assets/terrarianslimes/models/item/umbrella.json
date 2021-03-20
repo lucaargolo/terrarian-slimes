@@ -4,7 +4,7 @@
 		"0": "terrarianslimes:item/umbrella_top",
 		"1": "terrarianslimes:item/umbrella_bottom",
 		"2": "block/iron_block",
-		"particle": "terrarianslimes:block/umbrella_top"
+		"particle": "terrarianslimes:item/umbrella_top"
 	},
 	"elements": [
 		{
