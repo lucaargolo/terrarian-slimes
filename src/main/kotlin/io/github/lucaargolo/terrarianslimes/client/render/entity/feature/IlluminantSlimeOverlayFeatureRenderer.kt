@@ -44,7 +44,7 @@ class IlluminantSlimeOverlayFeatureRenderer(context: FeatureRendererContext<Modd
                         matrices.scale(-1.0F, -1.0F, 1.0F)
                         scale(slimeEntity, matrices, tickDelta)
                         matrices.translate(0.0, -1.5010000467300415, 0.0)
-                        matrices.scale(0.999f, 0.999f, 0.999f)
+                        matrices.scale(0.95f, 0.95f, 0.95f)
                         this.model.render(matrices, vertexConsumer, light, LivingEntityRenderer.getOverlay(slimeEntity, 0.0f), 1.0f, 1.0f, 1.0f, prevPos.right/20f)
                         matrices.pop()
                     }
