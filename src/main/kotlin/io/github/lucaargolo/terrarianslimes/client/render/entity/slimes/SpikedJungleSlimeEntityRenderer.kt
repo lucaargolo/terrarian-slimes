@@ -1,7 +1,8 @@
 package io.github.lucaargolo.terrarianslimes.client.render.entity.slimes
 
 import io.github.lucaargolo.terrarianslimes.TerrarianSlimes
-import io.github.lucaargolo.terrarianslimes.client.render.entity.feature.ModdedSlimeOverlayFeatureRenderer
+import io.github.lucaargolo.terrarianslimes.client.render.entity.feature.SpikedJungleSlimeOverlayFeatureRenderer
+import io.github.lucaargolo.terrarianslimes.client.render.entity.model.SpikedJungleSlimeEntityModel
 import io.github.lucaargolo.terrarianslimes.common.entity.slimes.ModdedSlimeEntity
 import io.github.lucaargolo.terrarianslimes.utils.ItemLayerReplacement
 import io.github.lucaargolo.terrarianslimes.utils.ModIdentifier
@@ -11,7 +12,6 @@ import net.minecraft.client.render.VertexConsumerProvider
 import net.minecraft.client.render.entity.EntityRenderDispatcher
 import net.minecraft.client.render.entity.LivingEntityRenderer
 import net.minecraft.client.render.entity.MobEntityRenderer
-import net.minecraft.client.render.entity.model.SlimeEntityModel
 import net.minecraft.client.render.model.json.ModelTransformation
 import net.minecraft.client.util.math.MatrixStack
 import net.minecraft.client.util.math.Vector3f
@@ -20,11 +20,10 @@ import net.minecraft.util.Identifier
 import net.minecraft.util.math.MathHelper
 import net.minecraft.util.registry.Registry
 
-open class ModdedSlimeEntityRenderer(entityRenderDispatcher: EntityRenderDispatcher): MobEntityRenderer<ModdedSlimeEntity, SlimeEntityModel<ModdedSlimeEntity>>(entityRenderDispatcher, SlimeEntityModel(16), 0.25f) {
+class SpikedJungleSlimeEntityRenderer(entityRenderDispatcher: EntityRenderDispatcher): MobEntityRenderer<ModdedSlimeEntity, SpikedJungleSlimeEntityModel>(entityRenderDispatcher, SpikedJungleSlimeEntityModel(), 0.25f) {
 
     init {
-        @Suppress("LeakingThis")
-        this.addFeature(ModdedSlimeOverlayFeatureRenderer(this))
+        this.addFeature(SpikedJungleSlimeOverlayFeatureRenderer(this))
     }
 
     override fun getTexture(slimeEntity: ModdedSlimeEntity): Identifier {

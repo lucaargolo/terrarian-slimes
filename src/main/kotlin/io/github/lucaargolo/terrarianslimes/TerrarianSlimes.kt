@@ -10,7 +10,6 @@ import net.fabricmc.fabric.api.client.itemgroup.FabricItemGroupBuilder
 import net.fabricmc.loader.api.FabricLoader
 import net.minecraft.block.Blocks
 import net.minecraft.entity.mob.HostileEntity
-import net.minecraft.entity.mob.SlimeEntity
 import net.minecraft.item.Item
 import net.minecraft.item.ItemStack
 
@@ -32,10 +31,13 @@ class TerrarianSlimes: ModInitializer {
         FabricDefaultAttributeRegistry.register(EntityCompendium.ICE_SLIME, HostileEntity.createHostileAttributes())
         FabricDefaultAttributeRegistry.register(EntityCompendium.SAND_SLIME, HostileEntity.createHostileAttributes())
         FabricDefaultAttributeRegistry.register(EntityCompendium.JUNGLE_SLIME, HostileEntity.createHostileAttributes())
+        FabricDefaultAttributeRegistry.register(EntityCompendium.SPIKED_ICE_SLIME, HostileEntity.createHostileAttributes())
+        FabricDefaultAttributeRegistry.register(EntityCompendium.SPIKED_JUNGLE_SLIME, HostileEntity.createHostileAttributes())
         FabricDefaultAttributeRegistry.register(EntityCompendium.MOTHER_SLIME, HostileEntity.createHostileAttributes())
         FabricDefaultAttributeRegistry.register(EntityCompendium.BABY_SLIME, HostileEntity.createHostileAttributes())
         FabricDefaultAttributeRegistry.register(EntityCompendium.LAVA_SLIME, HostileEntity.createHostileAttributes())
         FabricDefaultAttributeRegistry.register(EntityCompendium.PINKY, HostileEntity.createHostileAttributes())
+        FabricDefaultAttributeRegistry.register(EntityCompendium.SPIKED_SLIME, HostileEntity.createHostileAttributes())
         FabricDefaultAttributeRegistry.register(EntityCompendium.UMBRELLA_SLIME, HostileEntity.createHostileAttributes())
         FabricDefaultAttributeRegistry.register(EntityCompendium.CORRUPT_SLIME, HostileEntity.createHostileAttributes())
         FabricDefaultAttributeRegistry.register(EntityCompendium.SLIMELING, HostileEntity.createHostileAttributes())

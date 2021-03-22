@@ -86,6 +86,22 @@ object EntityCompendium: RegistryCompendium<EntityType<*>>(Registry.ENTITY_TYPE)
         ).build()
     ) as EntityType<ModdedSlimeEntity>
 
+    val SPIKED_ICE_SLIME = register ("spiked_ice_slime",
+        FabricEntityTypeBuilder.create(SpawnGroup.MONSTER) { type: EntityType<ModdedSlimeEntity>, world: World ->
+            SpikedIceSlimeEntity(type, world, 4.0, 1.0,2.0)
+        }.dimensions(EntityDimensions.changing(2.04F, 2.04F)).trackRangeChunks(
+            10
+        ).build()
+    ) as EntityType<ModdedSlimeEntity>
+
+    val SPIKED_JUNGLE_SLIME = register ("spiked_jungle_slime",
+        FabricEntityTypeBuilder.create(SpawnGroup.MONSTER) { type: EntityType<ModdedSlimeEntity>, world: World ->
+            SpikedSlimeEntity(type, world, 4.333, 1.0,4.2)
+        }.dimensions(EntityDimensions.changing(2.04F, 2.04F)).trackRangeChunks(
+            10
+        ).build()
+    ) as EntityType<ModdedSlimeEntity>
+
     val MOTHER_SLIME = register ("mother_slime",
         FabricEntityTypeBuilder.create(SpawnGroup.MONSTER) { type: EntityType<ModdedSlimeEntity>, world: World ->
             MotherSlimeEntity(type, world, 6.0, 1.0,4.0)
@@ -115,6 +131,14 @@ object EntityCompendium: RegistryCompendium<EntityType<*>>(Registry.ENTITY_TYPE)
             PinkyEntity(type, world, 10.66, 2.0,1.0)
         }.dimensions(EntityDimensions.changing(2.04F, 2.04F)).trackRangeChunks(
             20
+        ).build()
+    ) as EntityType<ModdedSlimeEntity>
+
+    val SPIKED_SLIME = register ("spiked_slime",
+        FabricEntityTypeBuilder.create(SpawnGroup.MONSTER) { type: EntityType<ModdedSlimeEntity>, world: World ->
+            SpikedSlimeEntity(type, world, 3.8, 1.0,2.4)
+        }.dimensions(EntityDimensions.changing(2.04F, 2.04F)).trackRangeChunks(
+            10
         ).build()
     ) as EntityType<ModdedSlimeEntity>
 

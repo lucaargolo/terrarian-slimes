@@ -2,7 +2,7 @@ package io.github.lucaargolo.terrarianslimes.client.render.entity.slimes
 
 import io.github.lucaargolo.terrarianslimes.client.render.entity.feature.IlluminantSlimeOverlayFeatureRenderer
 import io.github.lucaargolo.terrarianslimes.common.entity.slimes.ModdedSlimeEntity
-import net.minecraft.client.render.*
+import net.minecraft.client.render.VertexConsumerProvider
 import net.minecraft.client.render.entity.EntityRenderDispatcher
 import net.minecraft.client.util.math.MatrixStack
 

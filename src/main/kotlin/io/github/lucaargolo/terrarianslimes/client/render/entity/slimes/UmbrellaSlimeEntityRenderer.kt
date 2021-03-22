@@ -4,12 +4,12 @@ import io.github.lucaargolo.terrarianslimes.common.entity.slimes.ModdedSlimeEnti
 import io.github.lucaargolo.terrarianslimes.common.item.ItemCompendium
 import io.github.lucaargolo.terrarianslimes.utils.ItemLayerReplacement
 import net.minecraft.client.MinecraftClient
-import net.minecraft.client.render.*
+import net.minecraft.client.render.RenderLayer
+import net.minecraft.client.render.VertexConsumerProvider
 import net.minecraft.client.render.entity.EntityRenderDispatcher
 import net.minecraft.client.render.entity.LivingEntityRenderer
 import net.minecraft.client.render.model.json.ModelTransformation
 import net.minecraft.client.util.math.MatrixStack
-import net.minecraft.client.util.math.Vector3f
 import net.minecraft.item.ItemStack
 import net.minecraft.screen.PlayerScreenHandler
 

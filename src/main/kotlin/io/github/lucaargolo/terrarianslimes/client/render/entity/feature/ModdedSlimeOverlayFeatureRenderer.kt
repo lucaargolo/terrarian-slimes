@@ -2,7 +2,8 @@ package io.github.lucaargolo.terrarianslimes.client.render.entity.feature
 
 import io.github.lucaargolo.terrarianslimes.TerrarianSlimes
 import io.github.lucaargolo.terrarianslimes.common.entity.slimes.ModdedSlimeEntity
-import net.minecraft.client.render.*
+import net.minecraft.client.render.RenderLayer
+import net.minecraft.client.render.VertexConsumerProvider
 import net.minecraft.client.render.entity.LivingEntityRenderer
 import net.minecraft.client.render.entity.feature.FeatureRenderer
 import net.minecraft.client.render.entity.feature.FeatureRendererContext
