@@ -1,6 +1,7 @@
 package io.github.lucaargolo.terrarianslimes.mixin;
 
-import io.github.lucaargolo.terrarianslimes.common.entity.slimes.RainbowSlimeEntity;
+import io.github.lucaargolo.terrarianslimes.common.entity.EntityCompendium;
+import io.github.lucaargolo.terrarianslimes.common.entity.slimes.ModdedSlimeEntity;
 import net.minecraft.client.render.RenderLayer;
 import net.minecraft.client.render.VertexConsumer;
 import net.minecraft.client.render.VertexConsumerProvider;
@@ -47,8 +48,8 @@ public abstract class LivingEntityRendererMixin<T extends LivingEntity, M extend
         int light = terrarianslimes_TempLight;
         float tickDelta = terrarianslimes_TempTickDelta;
         RenderLayer renderLayer = this.getRenderLayer(livingEntity, showBody, translucent, showOutline);
-        if(livingEntity instanceof RainbowSlimeEntity) {
-            Color color = Color.getHSBColor((((RainbowSlimeEntity) livingEntity).getItemRotation() + tickDelta) / 200.0f, 1.0f, 1.0f);
+        if(livingEntity.getType() == EntityCompendium.INSTANCE.getRAINBOW_SLIME()) {
+            Color color = Color.getHSBColor((((ModdedSlimeEntity) livingEntity).getItemRotation() + tickDelta) / 200.0f, 1.0f, 1.0f);
             if(renderLayer != null) {
                 VertexConsumer vertexConsumer = vertexConsumerProvider.getBuffer(renderLayer);
                 int overlay = LivingEntityRenderer.getOverlay(livingEntity, this.getAnimationCounter(livingEntity, tickDelta));

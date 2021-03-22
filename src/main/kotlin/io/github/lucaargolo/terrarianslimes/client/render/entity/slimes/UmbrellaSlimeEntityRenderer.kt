@@ -8,14 +8,17 @@ import net.minecraft.client.render.RenderLayer
 import net.minecraft.client.render.VertexConsumerProvider
 import net.minecraft.client.render.entity.EntityRenderDispatcher
 import net.minecraft.client.render.entity.LivingEntityRenderer
+import net.minecraft.client.render.entity.feature.FeatureRenderer
+import net.minecraft.client.render.entity.feature.FeatureRendererContext
+import net.minecraft.client.render.entity.model.EntityModel
 import net.minecraft.client.render.model.json.ModelTransformation
 import net.minecraft.client.util.math.MatrixStack
 import net.minecraft.item.ItemStack
 import net.minecraft.screen.PlayerScreenHandler
 
-class UmbrellaSlimeEntityRenderer(entityRenderDispatcher: EntityRenderDispatcher): ModdedSlimeEntityRenderer(entityRenderDispatcher) {
+class UmbrellaSlimeEntityRenderer<T: ModdedSlimeEntity, M: EntityModel<T>>(entityRenderDispatcher: EntityRenderDispatcher, model: M, overlayFeature: (FeatureRendererContext<T, M>) -> FeatureRenderer<T, M>): ModdedSlimeEntityRenderer<T, M>(entityRenderDispatcher, model, overlayFeature) {
 
-    override fun render(slimeEntity: ModdedSlimeEntity, yaw: Float, tickDelta: Float, matrixStack: MatrixStack, vertexConsumers: VertexConsumerProvider?, light: Int) {
+    override fun render(slimeEntity: T, yaw: Float, tickDelta: Float, matrixStack: MatrixStack, vertexConsumers: VertexConsumerProvider?, light: Int) {
         matrixStack.push()
         val offset = slimeEntity.boundingBox.center.subtract(slimeEntity.pos)
         matrixStack.translate(offset.x, offset.y - 0.25, offset.z)
