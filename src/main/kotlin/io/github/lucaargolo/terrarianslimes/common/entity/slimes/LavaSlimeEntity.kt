@@ -8,7 +8,15 @@ import net.minecraft.item.Items
 import net.minecraft.util.ItemScatterer
 import net.minecraft.world.World
 
-class LavaSlimeEntity(entityType: EntityType<ModdedSlimeEntity>, world: World, healthMultiplier: Double, speedMultiplier: Double, attackMultiplier: Double, defaultSize: Int, hasBonusDrops: Boolean): ModdedSlimeEntity(entityType, world, healthMultiplier, speedMultiplier, attackMultiplier, defaultSize, hasBonusDrops) {
+class LavaSlimeEntity(
+    entityType: EntityType<ModdedSlimeEntity>,
+    world: World,
+    baseHealth: Double,
+    baseSpeed: Double,
+    baseAttack: Double,
+    defaultSize: Int,
+    hasBonusDrops: Boolean
+): ModdedSlimeEntity(entityType, world, baseHealth, baseSpeed, baseAttack, defaultSize, hasBonusDrops) {
 
     init {
         setPathfindingPenalty(PathNodeType.WATER, -1.0f)

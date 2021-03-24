@@ -5,7 +5,15 @@ import net.minecraft.util.math.Vec3d
 import net.minecraft.world.World
 import org.apache.commons.lang3.tuple.MutablePair
 
-class IlluminantSlimeEntity(entityType: EntityType<ModdedSlimeEntity>, world: World, healthMultiplier: Double, speedMultiplier: Double, attackMultiplier: Double, defaultSize: Int, hasBonusDrops: Boolean): ModdedSlimeEntity(entityType, world, healthMultiplier, speedMultiplier, attackMultiplier, defaultSize, hasBonusDrops) {
+class IlluminantSlimeEntity(
+    entityType: EntityType<ModdedSlimeEntity>,
+    world: World,
+    baseHealth: Double,
+    baseSpeed: Double,
+    baseAttack: Double,
+    defaultSize: Int,
+    hasBonusDrops: Boolean
+): ModdedSlimeEntity(entityType, world, baseHealth, baseSpeed, baseAttack, defaultSize, hasBonusDrops) {
 
     val previousPositions = mutableListOf<MutablePair<Vec3d, Float>>()
 

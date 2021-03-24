@@ -5,6 +5,7 @@ import io.github.lucaargolo.terrarianslimes.utils.ModIdentifier
 import net.minecraft.entity.*
 import net.minecraft.entity.attribute.EntityAttributeModifier
 import net.minecraft.entity.attribute.EntityAttributes
+import net.minecraft.entity.damage.DamageSource
 import net.minecraft.entity.data.DataTracker
 import net.minecraft.entity.data.TrackedData
 import net.minecraft.entity.data.TrackedDataHandlerRegistry
@@ -15,6 +16,7 @@ import net.minecraft.item.ItemStack
 import net.minecraft.loot.context.LootContext
 import net.minecraft.loot.context.LootContextType
 import net.minecraft.nbt.CompoundTag
+import net.minecraft.sound.SoundEvents
 import net.minecraft.util.ItemScatterer
 import net.minecraft.util.math.MathHelper
 import net.minecraft.world.LocalDifficulty
@@ -24,9 +26,9 @@ import net.minecraft.world.World
 open class ModdedSlimeEntity(
     entityType: EntityType<ModdedSlimeEntity>,
     world: World,
-    private val healthMultiplier: Double,
-    private val speedMultiplier: Double,
-    private val attackMultiplier: Double,
+    private val baseHealth: Double,
+    private val baseSpeed: Double,
+    private val baseAttack: Double,
     private val defaultSize: Int,
     val hasBonusDrops: Boolean,
     private val statusEffect: StatusEffect? = null,
@@ -42,22 +44,32 @@ open class ModdedSlimeEntity(
         itemRotation++
     }
 
-    override fun onAttacking(target: Entity) {
-        if(this.random.nextFloat() < 0.25f && target is LivingEntity && !this.world.isClient) {
-            statusEffect?.let { target.addStatusEffect(StatusEffectInstance(statusEffect, 10, 1)) }
+    override fun canAttack() = this.canMoveVoluntarily()
+
+    override fun damage(target: LivingEntity) {
+        if (this.isAlive) {
+            if (this.canSee(target) && target.damage(DamageSource.mob(this), this.damageAmount)) {
+                playSound(SoundEvents.ENTITY_SLIME_ATTACK, 1.0f, (random.nextFloat() - random.nextFloat()) * 0.2f + 1.0f)
+                dealDamage(this, target)
+                statusEffect?.let {
+                    if(random.nextFloat() > 0.25f) {
+                        target.addStatusEffect(StatusEffectInstance(statusEffect, 10, 1))
+                    }
+                }
+            }
         }
-        super.onAttacking(target)
     }
+
 
     override fun setSize(size: Int, heal: Boolean) {
         super.setSize(size, heal)
-        this.getAttributeInstance(EntityAttributes.GENERIC_MAX_HEALTH)?.baseValue = (size * size) * this.healthMultiplier
-        this.getAttributeInstance(EntityAttributes.GENERIC_MOVEMENT_SPEED)?.baseValue = (0.2F + 0.1F * size) * this.speedMultiplier
-        this.getAttributeInstance(EntityAttributes.GENERIC_ATTACK_DAMAGE)?.baseValue = size * this.attackMultiplier
+        this.getAttributeInstance(EntityAttributes.GENERIC_MAX_HEALTH)?.baseValue = 4.0 * this.baseHealth
+        this.getAttributeInstance(EntityAttributes.GENERIC_MOVEMENT_SPEED)?.baseValue = 0.4 * this.baseSpeed
+        this.getAttributeInstance(EntityAttributes.GENERIC_ATTACK_DAMAGE)?.baseValue = 2.0 * this.baseAttack
         if (heal) {
             this.health = this.maxHealth
         }
-        this.experiencePoints = MathHelper.floor(size * attackMultiplier)
+        this.experiencePoints = MathHelper.floor(size * baseAttack)
     }
 
     override fun remove() {
