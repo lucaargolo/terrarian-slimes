@@ -2,7 +2,10 @@ package io.github.lucaargolo.terrarianslimes.common.entity.slimes
 
 import io.github.lucaargolo.terrarianslimes.mixin.AccessorLootContextTypes
 import io.github.lucaargolo.terrarianslimes.utils.ModIdentifier
-import net.minecraft.entity.*
+import net.minecraft.entity.EntityData
+import net.minecraft.entity.EntityType
+import net.minecraft.entity.LivingEntity
+import net.minecraft.entity.SpawnReason
 import net.minecraft.entity.attribute.EntityAttributeModifier
 import net.minecraft.entity.attribute.EntityAttributes
 import net.minecraft.entity.damage.DamageSource
