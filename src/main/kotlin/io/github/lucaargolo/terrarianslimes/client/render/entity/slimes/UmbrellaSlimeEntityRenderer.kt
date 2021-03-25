@@ -13,8 +13,10 @@ import net.minecraft.client.render.entity.feature.FeatureRendererContext
 import net.minecraft.client.render.entity.model.EntityModel
 import net.minecraft.client.render.model.json.ModelTransformation
 import net.minecraft.client.util.math.MatrixStack
+import net.minecraft.client.util.math.Vector3f
 import net.minecraft.item.ItemStack
 import net.minecraft.screen.PlayerScreenHandler
+import net.minecraft.util.math.MathHelper
 
 class UmbrellaSlimeEntityRenderer<T: ModdedSlimeEntity, M: EntityModel<T>>(entityRenderDispatcher: EntityRenderDispatcher, model: M, overlayFeature: (FeatureRendererContext<T, M>) -> FeatureRenderer<T, M>): ModdedSlimeEntityRenderer<T, M>(entityRenderDispatcher, model, overlayFeature) {
 
@@ -22,6 +24,8 @@ class UmbrellaSlimeEntityRenderer<T: ModdedSlimeEntity, M: EntityModel<T>>(entit
         matrixStack.push()
         val offset = slimeEntity.boundingBox.center.subtract(slimeEntity.pos)
         matrixStack.translate(offset.x, offset.y - 0.25, offset.z)
+        val bodyYaw = MathHelper.lerpAngleDegrees(tickDelta, slimeEntity.prevBodyYaw, slimeEntity.bodyYaw)
+        matrixStack.multiply(Vector3f.POSITIVE_Y.getDegreesQuaternion(180.0f - bodyYaw))
         matrixStack.scale(4f, 4f, 4f)
         ItemLayerReplacement.setupReplacementLayer(RenderLayer.getItemEntityTranslucentCull(PlayerScreenHandler.BLOCK_ATLAS_TEXTURE))
         MinecraftClient.getInstance().itemRenderer.renderItem(ItemStack(ItemCompendium.UMBRELLA), ModelTransformation.Mode.GROUND, light, LivingEntityRenderer.getOverlay(slimeEntity, 0f), matrixStack, vertexConsumers)

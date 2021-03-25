@@ -52,8 +52,8 @@ open class ModdedSlimeEntity(
                 playSound(SoundEvents.ENTITY_SLIME_ATTACK, 1.0f, (random.nextFloat() - random.nextFloat()) * 0.2f + 1.0f)
                 dealDamage(this, target)
                 statusEffect?.let {
-                    if(random.nextFloat() > 0.25f) {
-                        target.addStatusEffect(StatusEffectInstance(statusEffect, 10, 1))
+                    if(random.nextFloat() < 0.25f) {
+                        target.addStatusEffect(StatusEffectInstance(statusEffect, 200, 0))
                     }
                 }
             }
@@ -63,9 +63,9 @@ open class ModdedSlimeEntity(
 
     override fun setSize(size: Int, heal: Boolean) {
         super.setSize(size, heal)
-        this.getAttributeInstance(EntityAttributes.GENERIC_MAX_HEALTH)?.baseValue = 4.0 * this.baseHealth
-        this.getAttributeInstance(EntityAttributes.GENERIC_MOVEMENT_SPEED)?.baseValue = 0.4 * this.baseSpeed
-        this.getAttributeInstance(EntityAttributes.GENERIC_ATTACK_DAMAGE)?.baseValue = 2.0 * this.baseAttack
+        this.getAttributeInstance(EntityAttributes.GENERIC_MAX_HEALTH)?.baseValue = this.baseHealth
+        this.getAttributeInstance(EntityAttributes.GENERIC_MOVEMENT_SPEED)?.baseValue = this.baseSpeed
+        this.getAttributeInstance(EntityAttributes.GENERIC_ATTACK_DAMAGE)?.baseValue = this.baseAttack
         if (heal) {
             this.health = this.maxHealth
         }

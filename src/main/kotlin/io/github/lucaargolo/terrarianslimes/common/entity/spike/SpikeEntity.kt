@@ -34,7 +34,7 @@ class SpikeEntity: PersistentProjectileEntity {
 
     override fun onHit(target: LivingEntity) {
         super.onHit(target)
-        statusEffect?.let { target.addStatusEffect(StatusEffectInstance(it)) }
+        statusEffect?.let { target.addStatusEffect(StatusEffectInstance(it, 200, 0)) }
     }
 
     override fun onBlockHit(blockHitResult: BlockHitResult?) {
