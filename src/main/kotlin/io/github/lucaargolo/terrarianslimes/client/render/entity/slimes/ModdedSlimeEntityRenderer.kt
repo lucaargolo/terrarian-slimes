@@ -21,7 +21,7 @@ import net.minecraft.util.Identifier
 import net.minecraft.util.math.MathHelper
 import net.minecraft.util.registry.Registry
 
-open class ModdedSlimeEntityRenderer<T: ModdedSlimeEntity, M: EntityModel<T>>(entityRenderDispatcher: EntityRenderDispatcher, model: M, overlayFeature: (FeatureRendererContext<T, M>) -> FeatureRenderer<T, M>, private val isEmissive: Boolean = false): MobEntityRenderer<T, M>(entityRenderDispatcher, model, 0.25f) {
+open class ModdedSlimeEntityRenderer<T: ModdedSlimeEntity<*>, M: EntityModel<T>>(entityRenderDispatcher: EntityRenderDispatcher, model: M, overlayFeature: (FeatureRendererContext<T, M>) -> FeatureRenderer<T, M>, private val isEmissive: Boolean = false): MobEntityRenderer<T, M>(entityRenderDispatcher, model, 0.25f) {
 
     init {
         @Suppress("LeakingThis")
@@ -33,7 +33,7 @@ open class ModdedSlimeEntityRenderer<T: ModdedSlimeEntity, M: EntityModel<T>>(en
     }
 
     override fun getRenderLayer(slimeEntity: T, showBody: Boolean, translucent: Boolean, showOutline: Boolean): RenderLayer? {
-        return if(TerrarianSlimes.isCanvasLoaded) RenderLayer.getEntityTranslucentCull(getTexture(slimeEntity)) else RenderLayer.getEntityTranslucent(getTexture(slimeEntity))
+        return if(TerrarianSlimes.CANVAS) RenderLayer.getEntityTranslucentCull(getTexture(slimeEntity)) else RenderLayer.getEntityTranslucent(getTexture(slimeEntity))
     }
 
     override fun render(slimeEntity: T, yaw: Float, tickDelta: Float, matrixStack: MatrixStack, vertexConsumers: VertexConsumerProvider?, light: Int) {

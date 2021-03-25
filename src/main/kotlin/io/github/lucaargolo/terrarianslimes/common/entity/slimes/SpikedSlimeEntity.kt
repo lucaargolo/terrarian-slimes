@@ -2,33 +2,33 @@ package io.github.lucaargolo.terrarianslimes.common.entity.slimes
 
 import io.github.lucaargolo.terrarianslimes.common.entity.goals.ShootSpikeGoal
 import io.github.lucaargolo.terrarianslimes.common.entity.spike.SpikeEntity
+import io.github.lucaargolo.terrarianslimes.utils.ModConfig
 import net.minecraft.entity.EntityType
 import net.minecraft.entity.LivingEntity
 import net.minecraft.entity.ai.RangedAttackMob
 import net.minecraft.entity.effect.StatusEffect
+import net.minecraft.entity.mob.SlimeEntity
 import net.minecraft.sound.SoundEvents
 import net.minecraft.util.math.MathHelper
 import net.minecraft.world.World
 
 class SpikedSlimeEntity(
-    entityType: EntityType<ModdedSlimeEntity>,
+    entityType: EntityType<out SlimeEntity>,
     world: World,
-    baseHealth: Double,
-    baseSpeed: Double,
-    baseAttack: Double,
+    config: ModConfig.SpikedSlimeConfig,
     defaultSize: Int,
-    hasBonusDrops: Boolean,
-    private val spikeDamage: Double,
     private val spikeStatusEffect: StatusEffect? = null,
     ownStatusEffect: StatusEffect? = null
-): ModdedSlimeEntity(entityType, world, baseHealth, baseSpeed, baseAttack, defaultSize, hasBonusDrops, ownStatusEffect), RangedAttackMob {
+): ModdedSlimeEntity<ModConfig.SpikedSlimeConfig>(entityType, world, config, defaultSize, ownStatusEffect), RangedAttackMob {
+
+    private val baseSpikeAttack = config.baseSpikeAttack
 
     init {
         goalSelector.add(1, ShootSpikeGoal(this))
     }
 
     override fun attack(target: LivingEntity, pullProgress: Float) {
-        val persistentProjectileEntity = SpikeEntity(this.world, this, this.spikeDamage, this.spikeStatusEffect)
+        val persistentProjectileEntity = SpikeEntity(this.world, this, this.baseSpikeAttack, this.spikeStatusEffect)
         val velocityX = target.x - this.x
         val velocityY = target.getBodyY(1.0/3.0) - persistentProjectileEntity.y
         val velocityZ = target.z - this.z

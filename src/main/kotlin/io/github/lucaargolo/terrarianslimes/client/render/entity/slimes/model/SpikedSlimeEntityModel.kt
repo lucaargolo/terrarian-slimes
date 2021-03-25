@@ -6,7 +6,7 @@ import net.minecraft.client.render.VertexConsumer
 import net.minecraft.client.render.entity.model.EntityModel
 import net.minecraft.client.util.math.MatrixStack
 
-class SpikedSlimeEntityModel: EntityModel<ModdedSlimeEntity>() {
+class SpikedSlimeEntityModel: EntityModel<ModdedSlimeEntity<*>>() {
 
     private val slime: ModelPart
 
@@ -174,7 +174,7 @@ class SpikedSlimeEntityModel: EntityModel<ModdedSlimeEntity>() {
         slime.render(matrices, vertices, light, overlay, red, green, blue, alpha)
     }
 
-    override fun setAngles(entity: ModdedSlimeEntity?, limbAngle: Float, limbDistance: Float, animationProgress: Float, headYaw: Float, headPitch: Float) {
+    override fun setAngles(entity: ModdedSlimeEntity<*>?, limbAngle: Float, limbDistance: Float, animationProgress: Float, headYaw: Float, headPitch: Float) {
     }
 
     private fun ModelPart.setRotation(pitch: Float, yaw: Float, roll: Float) {

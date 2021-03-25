@@ -11,13 +11,13 @@ import net.minecraft.client.render.entity.model.EntityModel
 import net.minecraft.client.render.entity.model.SlimeEntityModel
 import net.minecraft.client.util.math.MatrixStack
 
-class ModdedSlimeOverlayFeatureRenderer<T: ModdedSlimeEntity, M: EntityModel<T>>(context: FeatureRendererContext<T, M>): FeatureRenderer<T, M>(context) {
+class ModdedSlimeOverlayFeatureRenderer<T: ModdedSlimeEntity<*>, M: EntityModel<T>>(context: FeatureRendererContext<T, M>): FeatureRenderer<T, M>(context) {
 
-    private val model: SlimeEntityModel<ModdedSlimeEntity> = SlimeEntityModel(0)
+    private val model: SlimeEntityModel<ModdedSlimeEntity<*>> = SlimeEntityModel(0)
 
     override fun render(matrices: MatrixStack, vertexConsumers: VertexConsumerProvider, light: Int, slimeEntity: T, limbAngle: Float, limbDistance: Float, tickDelta: Float, animationProgress: Float, headYaw: Float, headPitch: Float) {
         if (!slimeEntity.isInvisible) {
-            val overlayLayer = if(TerrarianSlimes.isCanvasLoaded) RenderLayer.getEntityTranslucent(getTexture(slimeEntity)) else RenderLayer.getItemEntityTranslucentCull(getTexture(slimeEntity))
+            val overlayLayer = if(TerrarianSlimes.CANVAS) RenderLayer.getEntityTranslucent(getTexture(slimeEntity)) else RenderLayer.getItemEntityTranslucentCull(getTexture(slimeEntity))
             val vertexConsumer = vertexConsumers.getBuffer(overlayLayer)
             this.model.render(matrices, vertexConsumer, light, LivingEntityRenderer.getOverlay(slimeEntity, 0.0f), 1.0f, 1.0f, 1.0f, 1.0f)
         }

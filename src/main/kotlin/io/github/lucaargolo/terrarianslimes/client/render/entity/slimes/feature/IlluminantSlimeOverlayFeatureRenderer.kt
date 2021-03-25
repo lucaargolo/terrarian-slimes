@@ -15,15 +15,15 @@ import net.minecraft.client.util.math.MatrixStack
 import net.minecraft.client.util.math.Vector3f
 import net.minecraft.util.math.MathHelper
 
-class IlluminantSlimeOverlayFeatureRenderer<T: ModdedSlimeEntity, M: EntityModel<T>>(context: FeatureRendererContext<T, M>): FeatureRenderer<T, M>(context) {
+class IlluminantSlimeOverlayFeatureRenderer<T: ModdedSlimeEntity<*>, M: EntityModel<T>>(context: FeatureRendererContext<T, M>): FeatureRenderer<T, M>(context) {
 
-    private val model: SlimeEntityModel<ModdedSlimeEntity> = SlimeEntityModel(0)
+    private val model: SlimeEntityModel<ModdedSlimeEntity<*>> = SlimeEntityModel(0)
 
     override fun render(matrices: MatrixStack, vertexConsumers: VertexConsumerProvider, light: Int, slimeEntity: T, limbAngle: Float, limbDistance: Float, tickDelta: Float, animationProgress: Float, headYaw: Float, headPitch: Float) {
         if (!slimeEntity.isInvisible) {
-            val overlayLayer = if(TerrarianSlimes.isCanvasLoaded) RenderLayer.getEntityTranslucent(getTexture(slimeEntity)) else RenderLayer.getItemEntityTranslucentCull(getTexture(slimeEntity))
+            val overlayLayer = if(TerrarianSlimes.CANVAS) RenderLayer.getEntityTranslucent(getTexture(slimeEntity)) else RenderLayer.getItemEntityTranslucentCull(getTexture(slimeEntity))
             val vertexConsumer = vertexConsumers.getBuffer(overlayLayer)
-            (slimeEntity as? IlluminantSlimeEntity)?.let {
+            (slimeEntity as? IlluminantSlimeEntity<*>)?.let {
                 slimeEntity.previousPositions.forEach { prevPos ->
                     if(slimeEntity.pos.distanceTo(prevPos.left) > 0.2) {
                         matrices.push()
@@ -52,7 +52,7 @@ class IlluminantSlimeOverlayFeatureRenderer<T: ModdedSlimeEntity, M: EntityModel
         }
     }
 
-    private fun scale(slimeEntity: ModdedSlimeEntity, matrixStack: MatrixStack, f: Float) {
+    private fun scale(slimeEntity: ModdedSlimeEntity<*>, matrixStack: MatrixStack, f: Float) {
         matrixStack.scale(0.999f, 0.999f, 0.999f)
         matrixStack.translate(0.0, 0.0010000000474974513, 0.0)
         val smoothStretch = MathHelper.lerp(f, slimeEntity.lastStretch, slimeEntity.stretch) / (slimeEntity.size * 0.5f + 1.0f)
@@ -60,7 +60,7 @@ class IlluminantSlimeOverlayFeatureRenderer<T: ModdedSlimeEntity, M: EntityModel
         matrixStack.scale(correctedSmoothStretch * slimeEntity.size, 1.0f / correctedSmoothStretch * slimeEntity.size, correctedSmoothStretch * slimeEntity.size)
     }
 
-    private fun descale(slimeEntity: ModdedSlimeEntity, matrixStack: MatrixStack, f: Float) {
+    private fun descale(slimeEntity: ModdedSlimeEntity<*>, matrixStack: MatrixStack, f: Float) {
         val smoothStretch = MathHelper.lerp(f, slimeEntity.lastStretch, slimeEntity.stretch) / (slimeEntity.size * 0.5f + 1.0f)
         val correctedSmoothStretch = 1.0f / (smoothStretch + 1.0f)
         matrixStack.scale(1.0f/(correctedSmoothStretch * slimeEntity.size), 1.0f/(1.0f / correctedSmoothStretch * slimeEntity.size), 1.0f/(correctedSmoothStretch * slimeEntity.size))

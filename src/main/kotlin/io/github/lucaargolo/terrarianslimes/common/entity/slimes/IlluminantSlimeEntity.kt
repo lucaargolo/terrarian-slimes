@@ -1,19 +1,18 @@
 package io.github.lucaargolo.terrarianslimes.common.entity.slimes
 
+import io.github.lucaargolo.terrarianslimes.utils.ModConfig
 import net.minecraft.entity.EntityType
+import net.minecraft.entity.mob.SlimeEntity
 import net.minecraft.util.math.Vec3d
 import net.minecraft.world.World
 import org.apache.commons.lang3.tuple.MutablePair
 
-class IlluminantSlimeEntity(
-    entityType: EntityType<ModdedSlimeEntity>,
+class IlluminantSlimeEntity<C: ModConfig.ModdedSlimeConfig>(
+    entityType: EntityType<out SlimeEntity>,
     world: World,
-    baseHealth: Double,
-    baseSpeed: Double,
-    baseAttack: Double,
-    defaultSize: Int,
-    hasBonusDrops: Boolean
-): ModdedSlimeEntity(entityType, world, baseHealth, baseSpeed, baseAttack, defaultSize, hasBonusDrops) {
+    config: C,
+    defaultSize: Int
+): ModdedSlimeEntity<C>(entityType, world, config, defaultSize) {
 
     val previousPositions = mutableListOf<MutablePair<Vec3d, Float>>()
 

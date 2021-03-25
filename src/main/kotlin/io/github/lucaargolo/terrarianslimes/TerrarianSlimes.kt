@@ -4,54 +4,70 @@ import io.github.lucaargolo.terrarianslimes.common.entity.EntityCompendium
 import io.github.lucaargolo.terrarianslimes.common.item.ItemCompendium
 import io.github.lucaargolo.terrarianslimes.network.PacketCompendium
 import io.github.lucaargolo.terrarianslimes.utils.ModIdentifier
+import io.github.lucaargolo.terrarianslimes.utils.ModConfig
 import net.fabricmc.api.ModInitializer
-import net.fabricmc.fabric.api.`object`.builder.v1.entity.FabricDefaultAttributeRegistry
 import net.fabricmc.fabric.api.client.itemgroup.FabricItemGroupBuilder
 import net.fabricmc.loader.api.FabricLoader
 import net.minecraft.block.Blocks
-import net.minecraft.entity.mob.HostileEntity
 import net.minecraft.item.Item
 import net.minecraft.item.ItemStack
+import org.apache.logging.log4j.LogManager
+import org.apache.logging.log4j.Logger
+import java.io.File
+import java.io.PrintWriter
+import java.nio.file.Files
+import com.google.gson.JsonParser
+import com.google.gson.GsonBuilder
 
 class TerrarianSlimes: ModInitializer {
 
     override fun onInitialize() {
-        isCanvasLoaded = FabricLoader.getInstance().isModLoaded("canvas")
-
+        CONFIG.load()
         PacketCompendium.onInitialize()
         ItemCompendium.initialize()
         EntityCompendium.initialize()
-
-        FabricDefaultAttributeRegistry.register(EntityCompendium.GREEN_SLIME, HostileEntity.createHostileAttributes())
-        FabricDefaultAttributeRegistry.register(EntityCompendium.BLUE_SLIME, HostileEntity.createHostileAttributes())
-        FabricDefaultAttributeRegistry.register(EntityCompendium.RED_SLIME, HostileEntity.createHostileAttributes())
-        FabricDefaultAttributeRegistry.register(EntityCompendium.PURPLE_SLIME, HostileEntity.createHostileAttributes())
-        FabricDefaultAttributeRegistry.register(EntityCompendium.YELLOW_SLIME, HostileEntity.createHostileAttributes())
-        FabricDefaultAttributeRegistry.register(EntityCompendium.BLACK_SLIME, HostileEntity.createHostileAttributes())
-        FabricDefaultAttributeRegistry.register(EntityCompendium.ICE_SLIME, HostileEntity.createHostileAttributes())
-        FabricDefaultAttributeRegistry.register(EntityCompendium.SAND_SLIME, HostileEntity.createHostileAttributes())
-        FabricDefaultAttributeRegistry.register(EntityCompendium.JUNGLE_SLIME, HostileEntity.createHostileAttributes())
-        FabricDefaultAttributeRegistry.register(EntityCompendium.SPIKED_ICE_SLIME, HostileEntity.createHostileAttributes())
-        FabricDefaultAttributeRegistry.register(EntityCompendium.SPIKED_JUNGLE_SLIME, HostileEntity.createHostileAttributes())
-        FabricDefaultAttributeRegistry.register(EntityCompendium.MOTHER_SLIME, HostileEntity.createHostileAttributes())
-        FabricDefaultAttributeRegistry.register(EntityCompendium.BABY_SLIME, HostileEntity.createHostileAttributes())
-        FabricDefaultAttributeRegistry.register(EntityCompendium.LAVA_SLIME, HostileEntity.createHostileAttributes())
-        FabricDefaultAttributeRegistry.register(EntityCompendium.PINKY, HostileEntity.createHostileAttributes())
-        FabricDefaultAttributeRegistry.register(EntityCompendium.SPIKED_SLIME, HostileEntity.createHostileAttributes())
-        FabricDefaultAttributeRegistry.register(EntityCompendium.UMBRELLA_SLIME, HostileEntity.createHostileAttributes())
-        FabricDefaultAttributeRegistry.register(EntityCompendium.CORRUPT_SLIME, HostileEntity.createHostileAttributes())
-        FabricDefaultAttributeRegistry.register(EntityCompendium.SLIMELING, HostileEntity.createHostileAttributes())
-        FabricDefaultAttributeRegistry.register(EntityCompendium.CRIMSLIME, HostileEntity.createHostileAttributes())
-        FabricDefaultAttributeRegistry.register(EntityCompendium.ILLUMINANT_SLIME, HostileEntity.createHostileAttributes())
-        FabricDefaultAttributeRegistry.register(EntityCompendium.RAINBOW_SLIME, HostileEntity.createHostileAttributes())
-
     }
 
     companion object {
         const val MOD_ID = "terrarianslimes"
-        var isCanvasLoaded = false
-            private set
+
         private val creativeTab = FabricItemGroupBuilder.create(ModIdentifier("creative_tab")).icon{ ItemStack(Blocks.SLIME_BLOCK) }.build()
+        private val parser = JsonParser()
+        private val gson = GsonBuilder().setPrettyPrinting().create()
+        private val logger: Logger = LogManager.getLogger("Terrarian Slimes")
+
+        val CONFIG: ModConfig by lazy {
+            val configFile = File("${FabricLoader.getInstance().configDir}${File.separator}terrarianslimes.json")
+            var finalConfig: ModConfig
+            logger.info("Trying to read config file...")
+            try {
+                if (configFile.createNewFile()) {
+                    logger.info("No config file found, creating a new one...")
+                    val json: String = gson.toJson(parser.parse(gson.toJson(ModConfig())))
+                    PrintWriter(configFile).use { out -> out.println(json) }
+                    finalConfig = ModConfig()
+                    logger.info("Successfully created default config file.")
+                } else {
+                    logger.info("A config file was found, loading it..")
+                    finalConfig = gson.fromJson(String(Files.readAllBytes(configFile.toPath())), ModConfig::class.java)
+                    if (finalConfig == null) {
+                        throw NullPointerException("The config file was empty.")
+                    } else {
+                        logger.info("Successfully loaded config file.")
+                    }
+                }
+            } catch (exception: Exception) {
+                logger.error("There was an error creating/loading the config file!", exception)
+                finalConfig = ModConfig()
+                logger.warn("Defaulting to original config.")
+            }
+            finalConfig
+        }
+
+        val CANVAS: Boolean by lazy {
+            FabricLoader.getInstance().isModLoaded("canvas")
+        }
+
         fun creativeGroupSettings(): Item.Settings = Item.Settings().group(creativeTab)
     }
 

@@ -1,6 +1,7 @@
 package io.github.lucaargolo.terrarianslimes.common.entity.slimes
 
 import io.github.lucaargolo.terrarianslimes.mixin.AccessorLootContextTypes
+import io.github.lucaargolo.terrarianslimes.utils.ModConfig
 import io.github.lucaargolo.terrarianslimes.utils.ModIdentifier
 import net.minecraft.entity.EntityData
 import net.minecraft.entity.EntityType
@@ -26,19 +27,21 @@ import net.minecraft.world.LocalDifficulty
 import net.minecraft.world.ServerWorldAccess
 import net.minecraft.world.World
 
-open class ModdedSlimeEntity(
-    entityType: EntityType<ModdedSlimeEntity>,
+open class ModdedSlimeEntity<C: ModConfig.ModdedSlimeConfig>(
+    entityType: EntityType<out SlimeEntity>,
     world: World,
-    private val baseHealth: Double,
-    private val baseSpeed: Double,
-    private val baseAttack: Double,
+    config: C,
     private val defaultSize: Int,
-    val hasBonusDrops: Boolean,
     private val statusEffect: StatusEffect? = null,
-    private val childrenType: EntityType<ModdedSlimeEntity>? = null,
+    private val childrenType: EntityType<out ModdedSlimeEntity<*>>? = null,
     private val childrenQnt: IntRange = 0..0
 ): SlimeEntity(entityType, world) {
 
+    private val baseHealth = config.baseHealth
+    private val baseSpeed = config.baseSpeed
+    private val baseAttack = config.baseAttack
+
+    val hasBonusDrops = config.hasBonusDrops
     fun getBonusDrops(): ItemStack = this.dataTracker.get(BONUS_DROPS)
     var itemRotation = 0f
 

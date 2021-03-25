@@ -18,7 +18,7 @@ import net.minecraft.item.ItemStack
 import net.minecraft.screen.PlayerScreenHandler
 import net.minecraft.util.math.MathHelper
 
-class UmbrellaSlimeEntityRenderer<T: ModdedSlimeEntity, M: EntityModel<T>>(entityRenderDispatcher: EntityRenderDispatcher, model: M, overlayFeature: (FeatureRendererContext<T, M>) -> FeatureRenderer<T, M>): ModdedSlimeEntityRenderer<T, M>(entityRenderDispatcher, model, overlayFeature) {
+class UmbrellaSlimeEntityRenderer<T: ModdedSlimeEntity<*>, M: EntityModel<T>>(entityRenderDispatcher: EntityRenderDispatcher, model: M, overlayFeature: (FeatureRendererContext<T, M>) -> FeatureRenderer<T, M>): ModdedSlimeEntityRenderer<T, M>(entityRenderDispatcher, model, overlayFeature) {
 
     override fun render(slimeEntity: T, yaw: Float, tickDelta: Float, matrixStack: MatrixStack, vertexConsumers: VertexConsumerProvider?, light: Int) {
         matrixStack.push()

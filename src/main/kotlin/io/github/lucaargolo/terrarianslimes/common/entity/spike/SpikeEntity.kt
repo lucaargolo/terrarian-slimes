@@ -43,7 +43,7 @@ class SpikeEntity: PersistentProjectileEntity {
     }
 
     override fun onEntityHit(entityHitResult: EntityHitResult) {
-        if(entityHitResult.entity !is ModdedSlimeEntity) {
+        if(entityHitResult.entity !is ModdedSlimeEntity<*>) {
             super.onEntityHit(entityHitResult)
         }
     }

@@ -1,17 +1,20 @@
 
 package io.github.lucaargolo.terrarianslimes.common.entity
 
+import io.github.lucaargolo.terrarianslimes.TerrarianSlimes
 import io.github.lucaargolo.terrarianslimes.common.entity.slimes.IlluminantSlimeEntity
 import io.github.lucaargolo.terrarianslimes.common.entity.slimes.LavaSlimeEntity
 import io.github.lucaargolo.terrarianslimes.common.entity.slimes.ModdedSlimeEntity
 import io.github.lucaargolo.terrarianslimes.common.entity.slimes.SpikedSlimeEntity
 import io.github.lucaargolo.terrarianslimes.common.entity.spike.SpikeEntity
 import io.github.lucaargolo.terrarianslimes.utils.RegistryCompendium
+import net.fabricmc.fabric.api.`object`.builder.v1.entity.FabricDefaultAttributeRegistry
 import net.fabricmc.fabric.api.`object`.builder.v1.entity.FabricEntityTypeBuilder
 import net.minecraft.entity.EntityDimensions
 import net.minecraft.entity.EntityType
 import net.minecraft.entity.SpawnGroup
 import net.minecraft.entity.effect.StatusEffects
+import net.minecraft.entity.mob.HostileEntity
 import net.minecraft.util.registry.Registry
 import net.minecraft.world.World
 
@@ -19,180 +22,180 @@ import net.minecraft.world.World
 object EntityCompendium: RegistryCompendium<EntityType<*>>(Registry.ENTITY_TYPE) {
 
     val GREEN_SLIME = register ("green_slime",
-        FabricEntityTypeBuilder.create(SpawnGroup.MONSTER) { type: EntityType<ModdedSlimeEntity>, world: World ->
-            ModdedSlimeEntity(type, world, 4.0, 0.4, 2.0, 2, true)
+        FabricEntityTypeBuilder.create(SpawnGroup.MONSTER) { type: EntityType<ModdedSlimeEntity<*>>, world: World ->
+            ModdedSlimeEntity(type, world, TerrarianSlimes.CONFIG.GREEN_SLIME, 2)
         }.dimensions(EntityDimensions.changing(2.04F, 2.04F)).trackRangeChunks(
             10
         ).build()
-    ) as EntityType<ModdedSlimeEntity>
+    ) as EntityType<ModdedSlimeEntity<*>>
 
     val BLUE_SLIME = register ("blue_slime",
-        FabricEntityTypeBuilder.create(SpawnGroup.MONSTER) { type: EntityType<ModdedSlimeEntity>, world: World ->
-            ModdedSlimeEntity(type, world, 6.5, 0.4,2.3, 2, true)
+        FabricEntityTypeBuilder.create(SpawnGroup.MONSTER) { type: EntityType<ModdedSlimeEntity<*>>, world: World ->
+            ModdedSlimeEntity(type, world, TerrarianSlimes.CONFIG.BLUE_SLIME, 2)
          }.dimensions(EntityDimensions.changing(2.04F, 2.04F)).trackRangeChunks(
             10
         ).build()
-    ) as EntityType<ModdedSlimeEntity>
+    ) as EntityType<ModdedSlimeEntity<*>>
 
     val RED_SLIME = register ("red_slime",
-        FabricEntityTypeBuilder.create(SpawnGroup.MONSTER) { type: EntityType<ModdedSlimeEntity>, world: World ->
-            ModdedSlimeEntity(type, world, 9.0, 0.4,4.0, 2, true)
+        FabricEntityTypeBuilder.create(SpawnGroup.MONSTER) { type: EntityType<ModdedSlimeEntity<*>>, world: World ->
+            ModdedSlimeEntity(type, world, TerrarianSlimes.CONFIG.RED_SLIME, 2)
         }.dimensions(EntityDimensions.changing(2.04F, 2.04F)).trackRangeChunks(
             10
         ).build()
-    ) as EntityType<ModdedSlimeEntity>
+    ) as EntityType<ModdedSlimeEntity<*>>
 
     val PURPLE_SLIME = register ("purple_slime",
-        FabricEntityTypeBuilder.create(SpawnGroup.MONSTER) { type: EntityType<ModdedSlimeEntity>, world: World ->
-            ModdedSlimeEntity(type, world, 9.0, 0.4,4.0, 2, true)
+        FabricEntityTypeBuilder.create(SpawnGroup.MONSTER) { type: EntityType<ModdedSlimeEntity<*>>, world: World ->
+            ModdedSlimeEntity(type, world, TerrarianSlimes.CONFIG.PURPLE_SLIME, 2)
         }.dimensions(EntityDimensions.changing(2.04F, 2.04F)).trackRangeChunks(
             10
         ).build()
-    ) as EntityType<ModdedSlimeEntity>
+    ) as EntityType<ModdedSlimeEntity<*>>
 
     val YELLOW_SLIME = register ("yellow_slime",
-        FabricEntityTypeBuilder.create(SpawnGroup.MONSTER) { type: EntityType<ModdedSlimeEntity>, world: World ->
-            ModdedSlimeEntity(type, world, 12.0, 0.4,5.0, 2, true)
+        FabricEntityTypeBuilder.create(SpawnGroup.MONSTER) { type: EntityType<ModdedSlimeEntity<*>>, world: World ->
+            ModdedSlimeEntity(type, world, TerrarianSlimes.CONFIG.YELLOW_SLIME, 2)
         }.dimensions(EntityDimensions.changing(2.04F, 2.04F)).trackRangeChunks(
             10
         ).build()
-    ) as EntityType<ModdedSlimeEntity>
+    ) as EntityType<ModdedSlimeEntity<*>>
 
     val BLACK_SLIME = register ("black_slime",
-        FabricEntityTypeBuilder.create(SpawnGroup.MONSTER) { type: EntityType<ModdedSlimeEntity>, world: World ->
-            ModdedSlimeEntity(type, world, 12.0, 0.4,5.0, 2, true, StatusEffects.BLINDNESS)
+        FabricEntityTypeBuilder.create(SpawnGroup.MONSTER) { type: EntityType<ModdedSlimeEntity<*>>, world: World ->
+            ModdedSlimeEntity(type, world, TerrarianSlimes.CONFIG.BLACK_SLIME, 2, StatusEffects.BLINDNESS)
         }.dimensions(EntityDimensions.changing(2.04F, 2.04F)).trackRangeChunks(
             10
         ).build()
-    ) as EntityType<ModdedSlimeEntity>
+    ) as EntityType<ModdedSlimeEntity<*>>
 
     val ICE_SLIME = register ("ice_slime",
-        FabricEntityTypeBuilder.create(SpawnGroup.MONSTER) { type: EntityType<ModdedSlimeEntity>, world: World ->
-            ModdedSlimeEntity(type, world, 8.0, 0.4,3.0, 2, false, StatusEffects.SLOWNESS)
+        FabricEntityTypeBuilder.create(SpawnGroup.MONSTER) { type: EntityType<ModdedSlimeEntity<*>>, world: World ->
+            ModdedSlimeEntity(type, world, TerrarianSlimes.CONFIG.ICE_SLIME,2, StatusEffects.SLOWNESS)
         }.dimensions(EntityDimensions.changing(2.04F, 2.04F)).trackRangeChunks(
             10
         ).build()
-    ) as EntityType<ModdedSlimeEntity>
+    ) as EntityType<ModdedSlimeEntity<*>>
 
     val SAND_SLIME = register ("sand_slime",
-        FabricEntityTypeBuilder.create(SpawnGroup.MONSTER) { type: EntityType<ModdedSlimeEntity>, world: World ->
-            ModdedSlimeEntity(type, world, 13.0, 0.4,6.0, 2, false)
+        FabricEntityTypeBuilder.create(SpawnGroup.MONSTER) { type: EntityType<ModdedSlimeEntity<*>>, world: World ->
+            ModdedSlimeEntity(type, world, TerrarianSlimes.CONFIG.SAND_SLIME,2)
         }.dimensions(EntityDimensions.changing(2.04F, 2.04F)).trackRangeChunks(
             10
         ).build()
-    ) as EntityType<ModdedSlimeEntity>
+    ) as EntityType<ModdedSlimeEntity<*>>
 
     val JUNGLE_SLIME = register ("jungle_slime",
-        FabricEntityTypeBuilder.create(SpawnGroup.MONSTER) { type: EntityType<ModdedSlimeEntity>, world: World ->
-            ModdedSlimeEntity(type, world, 16.0, 0.4,6.0, 2, true)
+        FabricEntityTypeBuilder.create(SpawnGroup.MONSTER) { type: EntityType<ModdedSlimeEntity<*>>, world: World ->
+            ModdedSlimeEntity(type, world, TerrarianSlimes.CONFIG.JUNGLE_SLIME,2)
         }.dimensions(EntityDimensions.changing(2.04F, 2.04F)).trackRangeChunks(
             10
         ).build()
-    ) as EntityType<ModdedSlimeEntity>
+    ) as EntityType<ModdedSlimeEntity<*>>
 
     val SPIKED_ICE_SLIME = register ("spiked_ice_slime",
-        FabricEntityTypeBuilder.create(SpawnGroup.MONSTER) { type: EntityType<ModdedSlimeEntity>, world: World ->
-            SpikedSlimeEntity(type, world, 16.0, 0.4,4.0, 2, false, 6.0, StatusEffects.SLOWNESS, StatusEffects.SLOWNESS)
+        FabricEntityTypeBuilder.create(SpawnGroup.MONSTER) { type: EntityType<ModdedSlimeEntity<*>>, world: World ->
+            SpikedSlimeEntity(type, world, TerrarianSlimes.CONFIG.SPIKED_ICE_SLIME, 2, StatusEffects.SLOWNESS, StatusEffects.SLOWNESS)
         }.dimensions(EntityDimensions.changing(2.04F, 2.04F)).trackRangeChunks(
             10
         ).build()
-    ) as EntityType<ModdedSlimeEntity>
+    ) as EntityType<ModdedSlimeEntity<*>>
 
     val SPIKED_JUNGLE_SLIME = register ("spiked_jungle_slime",
-        FabricEntityTypeBuilder.create(SpawnGroup.MONSTER) { type: EntityType<ModdedSlimeEntity>, world: World ->
-            SpikedSlimeEntity(type, world, 17.0, 0.4,8.4, 2, false, 8.5, StatusEffects.POISON)
+        FabricEntityTypeBuilder.create(SpawnGroup.MONSTER) { type: EntityType<ModdedSlimeEntity<*>>, world: World ->
+            SpikedSlimeEntity(type, world, TerrarianSlimes.CONFIG.SPIKED_JUNGLE_SLIME, 2, StatusEffects.POISON)
         }.dimensions(EntityDimensions.changing(2.04F, 2.04F)).trackRangeChunks(
             10
         ).build()
-    ) as EntityType<ModdedSlimeEntity>
+    ) as EntityType<ModdedSlimeEntity<*>>
 
     val MOTHER_SLIME = register ("mother_slime",
-        FabricEntityTypeBuilder.create(SpawnGroup.MONSTER) { type: EntityType<ModdedSlimeEntity>, world: World ->
-            ModdedSlimeEntity(type, world, 24.0, 0.5,8.0, 3, false, null, BABY_SLIME, 1..3)
+        FabricEntityTypeBuilder.create(SpawnGroup.MONSTER) { type: EntityType<ModdedSlimeEntity<*>>, world: World ->
+            ModdedSlimeEntity(type, world, TerrarianSlimes.CONFIG.MOTHER_SLIME, 3, null, BABY_SLIME, 1..3)
         }.dimensions(EntityDimensions.changing(2.04F, 2.04F)).trackRangeChunks(
             10
         ).build()
-    ) as EntityType<ModdedSlimeEntity>
+    ) as EntityType<ModdedSlimeEntity<*>>
 
     val BABY_SLIME = register ("baby_slime",
-        FabricEntityTypeBuilder.create(SpawnGroup.MONSTER) { type: EntityType<ModdedSlimeEntity>, world: World ->
-            ModdedSlimeEntity(type, world, 8.0, 0.4,4.0, 2, true, StatusEffects.BLINDNESS)
+        FabricEntityTypeBuilder.create(SpawnGroup.MONSTER) { type: EntityType<ModdedSlimeEntity<*>>, world: World ->
+            ModdedSlimeEntity(type, world, TerrarianSlimes.CONFIG.BABY_SLIME, 2, StatusEffects.BLINDNESS)
         }.dimensions(EntityDimensions.changing(2.04F, 2.04F)).trackRangeChunks(
             10
         ).build()
-    ) as EntityType<ModdedSlimeEntity>
+    ) as EntityType<ModdedSlimeEntity<*>>
 
     val LAVA_SLIME = register ("lava_slime",
-        FabricEntityTypeBuilder.create(SpawnGroup.MONSTER) { type: EntityType<ModdedSlimeEntity>, world: World ->
-            LavaSlimeEntity(type, world, 13.0, 0.8,6.0, 2, false)
+        FabricEntityTypeBuilder.create(SpawnGroup.MONSTER) { type: EntityType<ModdedSlimeEntity<*>>, world: World ->
+            LavaSlimeEntity(type, world, TerrarianSlimes.CONFIG.LAVA_SLIME, 2)
         }.dimensions(EntityDimensions.changing(2.04F, 2.04F)).trackRangeChunks(
             10
         ).build()
-    ) as EntityType<ModdedSlimeEntity>
+    ) as EntityType<ModdedSlimeEntity<*>>
 
     val PINKY = register ("pinky",
-        FabricEntityTypeBuilder.create(SpawnGroup.MONSTER) { type: EntityType<ModdedSlimeEntity>, world: World ->
-            ModdedSlimeEntity(type, world, 45.0, 0.6,2.0, 1, true)
+        FabricEntityTypeBuilder.create(SpawnGroup.MONSTER) { type: EntityType<ModdedSlimeEntity<*>>, world: World ->
+            ModdedSlimeEntity(type, world, TerrarianSlimes.CONFIG.PINKY, 1)
         }.dimensions(EntityDimensions.changing(2.04F, 2.04F)).trackRangeChunks(
             20
         ).build()
-    ) as EntityType<ModdedSlimeEntity>
+    ) as EntityType<ModdedSlimeEntity<*>>
 
     val SPIKED_SLIME = register ("spiked_slime",
-        FabricEntityTypeBuilder.create(SpawnGroup.MONSTER) { type: EntityType<ModdedSlimeEntity>, world: World ->
-            SpikedSlimeEntity(type, world, 15.0, 0.4,4.8, 2, false, 6.0)
+        FabricEntityTypeBuilder.create(SpawnGroup.MONSTER) { type: EntityType<ModdedSlimeEntity<*>>, world: World ->
+            SpikedSlimeEntity(type, world, TerrarianSlimes.CONFIG.SPIKED_SLIME, 2)
         }.dimensions(EntityDimensions.changing(2.04F, 2.04F)).trackRangeChunks(
             10
         ).build()
-    ) as EntityType<ModdedSlimeEntity>
+    ) as EntityType<ModdedSlimeEntity<*>>
 
     val UMBRELLA_SLIME = register ("umbrella_slime",
-        FabricEntityTypeBuilder.create(SpawnGroup.MONSTER) { type: EntityType<ModdedSlimeEntity>, world: World ->
-            ModdedSlimeEntity(type, world, 9.0, 0.5,3.6, 3, false)
+        FabricEntityTypeBuilder.create(SpawnGroup.MONSTER) { type: EntityType<ModdedSlimeEntity<*>>, world: World ->
+            ModdedSlimeEntity(type, world, TerrarianSlimes.CONFIG.UMBRELLA_SLIME, 3)
         }.dimensions(EntityDimensions.changing(2.04F, 2.04F)).trackRangeChunks(
             10
         ).build()
-    ) as EntityType<ModdedSlimeEntity>
+    ) as EntityType<ModdedSlimeEntity<*>>
 
     val CORRUPT_SLIME = register ("corrupt_slime",
-        FabricEntityTypeBuilder.create(SpawnGroup.MONSTER) { type: EntityType<ModdedSlimeEntity>, world: World ->
-            ModdedSlimeEntity(type, world, 50.0, 0.5,18.3, 3, false, StatusEffects.BLINDNESS, SLIMELING, 2..3)
+        FabricEntityTypeBuilder.create(SpawnGroup.MONSTER) { type: EntityType<ModdedSlimeEntity<*>>, world: World ->
+            ModdedSlimeEntity(type, world, TerrarianSlimes.CONFIG.CORRUPT_SLIME, 3, StatusEffects.BLINDNESS, SLIMELING, 2..3)
         }.dimensions(EntityDimensions.changing(2.04F, 2.04F)).trackRangeChunks(
             10
         ).build()
-    ) as EntityType<ModdedSlimeEntity>
+    ) as EntityType<ModdedSlimeEntity<*>>
 
     val SLIMELING = register ("slimeling",
-        FabricEntityTypeBuilder.create(SpawnGroup.MONSTER) { type: EntityType<ModdedSlimeEntity>, world: World ->
-            ModdedSlimeEntity(type, world, 25.0, 0.4,15.0, 2, false, StatusEffects.BLINDNESS)
+        FabricEntityTypeBuilder.create(SpawnGroup.MONSTER) { type: EntityType<ModdedSlimeEntity<*>>, world: World ->
+            ModdedSlimeEntity(type, world, TerrarianSlimes.CONFIG.SLIMELING, 2, StatusEffects.BLINDNESS)
         }.dimensions(EntityDimensions.changing(2.04F, 2.04F)).trackRangeChunks(
             10
         ).build()
-    ) as EntityType<ModdedSlimeEntity>
+    ) as EntityType<ModdedSlimeEntity<*>>
 
     val CRIMSLIME = register ("crimslime",
-        FabricEntityTypeBuilder.create(SpawnGroup.MONSTER) { type: EntityType<ModdedSlimeEntity>, world: World ->
-            ModdedSlimeEntity(type, world, 57.0, 0.5,20.0, 3, false, StatusEffects.BLINDNESS)
+        FabricEntityTypeBuilder.create(SpawnGroup.MONSTER) { type: EntityType<ModdedSlimeEntity<*>>, world: World ->
+            ModdedSlimeEntity(type, world, TerrarianSlimes.CONFIG.CRIMSLIME, 3, StatusEffects.BLINDNESS)
         }.dimensions(EntityDimensions.changing(2.04F, 2.04F)).trackRangeChunks(
             10
         ).build()
-    ) as EntityType<ModdedSlimeEntity>
+    ) as EntityType<ModdedSlimeEntity<*>>
 
     val ILLUMINANT_SLIME = register ("illuminant_slime",
-        FabricEntityTypeBuilder.create(SpawnGroup.MONSTER) { type: EntityType<ModdedSlimeEntity>, world: World ->
-            IlluminantSlimeEntity(type, world, 51.4, 0.8,23.2, 2, false)
+        FabricEntityTypeBuilder.create(SpawnGroup.MONSTER) { type: EntityType<ModdedSlimeEntity<*>>, world: World ->
+            IlluminantSlimeEntity(type, world, TerrarianSlimes.CONFIG.ILLUMINANT_SLIME, 2)
         }.dimensions(EntityDimensions.changing(2.04F, 2.04F)).trackRangeChunks(
             10
         ).build()
-    ) as EntityType<ModdedSlimeEntity>
+    ) as EntityType<ModdedSlimeEntity<*>>
 
     val RAINBOW_SLIME = register ("rainbow_slime",
-        FabricEntityTypeBuilder.create(SpawnGroup.MONSTER) { type: EntityType<ModdedSlimeEntity>, world: World ->
-            ModdedSlimeEntity(type, world, 115.0, 0.6,28.3, 4, false)
+        FabricEntityTypeBuilder.create(SpawnGroup.MONSTER) { type: EntityType<ModdedSlimeEntity<*>>, world: World ->
+            ModdedSlimeEntity(type, world, TerrarianSlimes.CONFIG.RAINBOW_SLIME, 4)
         }.dimensions(EntityDimensions.changing(2.04F, 2.04F)).trackRangeChunks(
             10
         ).build()
-    ) as EntityType<ModdedSlimeEntity>
+    ) as EntityType<ModdedSlimeEntity<*>>
 
     val SPIKE = register ("spike",
         FabricEntityTypeBuilder.create(SpawnGroup.MISC) { type: EntityType<SpikeEntity>, world: World ->
@@ -204,5 +207,32 @@ object EntityCompendium: RegistryCompendium<EntityType<*>>(Registry.ENTITY_TYPE)
         ).build()
     ) as EntityType<SpikeEntity>
 
+    override fun initialize() {
+        super.initialize()
+        FabricDefaultAttributeRegistry.register(GREEN_SLIME, HostileEntity.createHostileAttributes())
+        FabricDefaultAttributeRegistry.register(BLUE_SLIME, HostileEntity.createHostileAttributes())
+        FabricDefaultAttributeRegistry.register(RED_SLIME, HostileEntity.createHostileAttributes())
+        FabricDefaultAttributeRegistry.register(PURPLE_SLIME, HostileEntity.createHostileAttributes())
+        FabricDefaultAttributeRegistry.register(YELLOW_SLIME, HostileEntity.createHostileAttributes())
+        FabricDefaultAttributeRegistry.register(BLACK_SLIME, HostileEntity.createHostileAttributes())
+        FabricDefaultAttributeRegistry.register(ICE_SLIME, HostileEntity.createHostileAttributes())
+        FabricDefaultAttributeRegistry.register(SAND_SLIME, HostileEntity.createHostileAttributes())
+        FabricDefaultAttributeRegistry.register(JUNGLE_SLIME, HostileEntity.createHostileAttributes())
+        FabricDefaultAttributeRegistry.register(SPIKED_ICE_SLIME, HostileEntity.createHostileAttributes())
+        FabricDefaultAttributeRegistry.register(SPIKED_JUNGLE_SLIME, HostileEntity.createHostileAttributes())
+        FabricDefaultAttributeRegistry.register(MOTHER_SLIME, HostileEntity.createHostileAttributes())
+        FabricDefaultAttributeRegistry.register(BABY_SLIME, HostileEntity.createHostileAttributes())
+        FabricDefaultAttributeRegistry.register(LAVA_SLIME, HostileEntity.createHostileAttributes())
+        FabricDefaultAttributeRegistry.register(PINKY, HostileEntity.createHostileAttributes())
+        FabricDefaultAttributeRegistry.register(SPIKED_SLIME, HostileEntity.createHostileAttributes())
+        FabricDefaultAttributeRegistry.register(UMBRELLA_SLIME, HostileEntity.createHostileAttributes())
+        FabricDefaultAttributeRegistry.register(CORRUPT_SLIME, HostileEntity.createHostileAttributes())
+        FabricDefaultAttributeRegistry.register(SLIMELING, HostileEntity.createHostileAttributes())
+        FabricDefaultAttributeRegistry.register(CRIMSLIME, HostileEntity.createHostileAttributes())
+        FabricDefaultAttributeRegistry.register(ILLUMINANT_SLIME, HostileEntity.createHostileAttributes())
+        FabricDefaultAttributeRegistry.register(RAINBOW_SLIME, HostileEntity.createHostileAttributes())
+
+
+    }
 
 }
