@@ -1,10 +1,12 @@
 package io.github.lucaargolo.terrarianslimes
 
+import com.google.gson.GsonBuilder
+import com.google.gson.JsonParser
 import io.github.lucaargolo.terrarianslimes.common.entity.EntityCompendium
 import io.github.lucaargolo.terrarianslimes.common.item.ItemCompendium
 import io.github.lucaargolo.terrarianslimes.network.PacketCompendium
-import io.github.lucaargolo.terrarianslimes.utils.ModIdentifier
 import io.github.lucaargolo.terrarianslimes.utils.ModConfig
+import io.github.lucaargolo.terrarianslimes.utils.ModIdentifier
 import net.fabricmc.api.ModInitializer
 import net.fabricmc.fabric.api.client.itemgroup.FabricItemGroupBuilder
 import net.fabricmc.loader.api.FabricLoader
@@ -16,8 +18,6 @@ import org.apache.logging.log4j.Logger
 import java.io.File
 import java.io.PrintWriter
 import java.nio.file.Files
-import com.google.gson.JsonParser
-import com.google.gson.GsonBuilder
 
 class TerrarianSlimes: ModInitializer {
 
