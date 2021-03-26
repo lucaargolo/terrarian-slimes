@@ -1,3 +1,4 @@
+@file:Suppress("DEPRECATION")
 
 package io.github.lucaargolo.terrarianslimes.common.entity
 
@@ -10,13 +11,16 @@ import io.github.lucaargolo.terrarianslimes.utils.ModConfig
 import io.github.lucaargolo.terrarianslimes.utils.RegistryCompendium
 import net.fabricmc.fabric.api.`object`.builder.v1.entity.FabricDefaultAttributeRegistry
 import net.fabricmc.fabric.api.`object`.builder.v1.entity.FabricEntityTypeBuilder
-import net.minecraft.entity.EntityDimensions
-import net.minecraft.entity.EntityType
-import net.minecraft.entity.SpawnGroup
+import net.fabricmc.fabric.api.biome.v1.BiomeModifications
+import net.fabricmc.fabric.mixin.`object`.builder.SpawnRestrictionAccessor
+import net.minecraft.entity.*
 import net.minecraft.entity.effect.StatusEffects
 import net.minecraft.entity.mob.HostileEntity
 import net.minecraft.util.registry.Registry
+import net.minecraft.world.Heightmap
 import net.minecraft.world.World
+import net.minecraft.world.biome.Biome
+import net.minecraft.world.biome.BiomeKeys
 
 @Suppress("UNCHECKED_CAST")
 object EntityCompendium: RegistryCompendium<EntityType<*>>(Registry.ENTITY_TYPE) {
@@ -209,29 +213,210 @@ object EntityCompendium: RegistryCompendium<EntityType<*>>(Registry.ENTITY_TYPE)
 
     override fun initialize() {
         super.initialize()
-        FabricDefaultAttributeRegistry.register(GREEN_SLIME, HostileEntity.createHostileAttributes())
-        FabricDefaultAttributeRegistry.register(BLUE_SLIME, HostileEntity.createHostileAttributes())
-        FabricDefaultAttributeRegistry.register(RED_SLIME, HostileEntity.createHostileAttributes())
-        FabricDefaultAttributeRegistry.register(PURPLE_SLIME, HostileEntity.createHostileAttributes())
-        FabricDefaultAttributeRegistry.register(YELLOW_SLIME, HostileEntity.createHostileAttributes())
-        FabricDefaultAttributeRegistry.register(BLACK_SLIME, HostileEntity.createHostileAttributes())
-        FabricDefaultAttributeRegistry.register(ICE_SLIME, HostileEntity.createHostileAttributes())
-        FabricDefaultAttributeRegistry.register(SAND_SLIME, HostileEntity.createHostileAttributes())
-        FabricDefaultAttributeRegistry.register(JUNGLE_SLIME, HostileEntity.createHostileAttributes())
-        FabricDefaultAttributeRegistry.register(SPIKED_ICE_SLIME, HostileEntity.createHostileAttributes())
-        FabricDefaultAttributeRegistry.register(SPIKED_JUNGLE_SLIME, HostileEntity.createHostileAttributes())
-        FabricDefaultAttributeRegistry.register(MOTHER_SLIME, HostileEntity.createHostileAttributes())
-        FabricDefaultAttributeRegistry.register(BABY_SLIME, HostileEntity.createHostileAttributes())
-        FabricDefaultAttributeRegistry.register(LAVA_SLIME, HostileEntity.createHostileAttributes())
-        FabricDefaultAttributeRegistry.register(PINKY, HostileEntity.createHostileAttributes())
-        FabricDefaultAttributeRegistry.register(SPIKED_SLIME, HostileEntity.createHostileAttributes())
-        FabricDefaultAttributeRegistry.register(UMBRELLA_SLIME, HostileEntity.createHostileAttributes())
-        FabricDefaultAttributeRegistry.register(CORRUPT_SLIME, HostileEntity.createHostileAttributes())
-        FabricDefaultAttributeRegistry.register(SLIMELING, HostileEntity.createHostileAttributes())
-        FabricDefaultAttributeRegistry.register(CRIMSLIME, HostileEntity.createHostileAttributes())
-        FabricDefaultAttributeRegistry.register(ILLUMINANT_SLIME, HostileEntity.createHostileAttributes())
-        FabricDefaultAttributeRegistry.register(RAINBOW_SLIME, HostileEntity.createHostileAttributes())
 
+        //Green Slime
+        FabricDefaultAttributeRegistry.register(GREEN_SLIME, HostileEntity.createHostileAttributes())
+        if(ModConfig.GREEN_SLIME.enabled) {
+            BiomeModifications.addSpawn( { biomeSelector ->
+                biomeSelector.biome.category == Biome.Category.PLAINS ||
+                biomeSelector.biome.category == Biome.Category.FOREST ||
+                biomeSelector.biome.category == Biome.Category.TAIGA ||
+                biomeSelector.biome.category == Biome.Category.SAVANNA
+            }, SpawnGroup.MONSTER, GREEN_SLIME, ModConfig.GREEN_SLIME.spawnRate, 1, 1)
+            SpawnRestrictionAccessor.callRegister(GREEN_SLIME, SpawnRestriction.Location.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, ModdedSlimeEntity.SURFACE_SPAWN_PREDICATE)
+        }
+
+        //Blue Slime
+        FabricDefaultAttributeRegistry.register(BLUE_SLIME, HostileEntity.createHostileAttributes())
+        if(ModConfig.BLUE_SLIME.enabled) {
+            BiomeModifications.addSpawn( { biomeSelector ->
+                biomeSelector.biome.category == Biome.Category.PLAINS ||
+                biomeSelector.biome.category == Biome.Category.FOREST ||
+                biomeSelector.biome.category == Biome.Category.TAIGA ||
+                biomeSelector.biome.category == Biome.Category.SAVANNA
+            }, SpawnGroup.MONSTER, BLUE_SLIME, ModConfig.BLUE_SLIME.spawnRate, 1, 1)
+            SpawnRestrictionAccessor.callRegister(BLUE_SLIME, SpawnRestriction.Location.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, ModdedSlimeEntity.SURFACE_SPAWN_PREDICATE)
+        }
+
+        //Red Slime
+        FabricDefaultAttributeRegistry.register(RED_SLIME, HostileEntity.createHostileAttributes())
+        if(ModConfig.RED_SLIME.enabled) {
+            BiomeModifications.addSpawn( { biomeSelector ->
+                biomeSelector.biome.category != Biome.Category.NONE ||
+                biomeSelector.biome.category != Biome.Category.NETHER ||
+                biomeSelector.biome.category != Biome.Category.THEEND
+            }, SpawnGroup.MONSTER, RED_SLIME, ModConfig.RED_SLIME.spawnRate, 1, 1)
+            SpawnRestrictionAccessor.callRegister(RED_SLIME, SpawnRestriction.Location.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, ModdedSlimeEntity.UNDERGROUND_SPAWN_PREDICATE)
+        }
+
+        //Purple Slime
+        FabricDefaultAttributeRegistry.register(PURPLE_SLIME, HostileEntity.createHostileAttributes())
+        if(ModConfig.PURPLE_SLIME.enabled) {
+            BiomeModifications.addSpawn( { biomeSelector ->
+                biomeSelector.biome.category != Biome.Category.NONE ||
+                biomeSelector.biome.category != Biome.Category.NETHER ||
+                biomeSelector.biome.category != Biome.Category.THEEND
+            }, SpawnGroup.MONSTER, PURPLE_SLIME, ModConfig.PURPLE_SLIME.spawnRate, 1, 1)
+            SpawnRestrictionAccessor.callRegister(PURPLE_SLIME, SpawnRestriction.Location.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, ModdedSlimeEntity.FAR_SURFACE_SPAWN_PREDICATE)
+        }
+
+        //Yellow Slime
+        FabricDefaultAttributeRegistry.register(YELLOW_SLIME, HostileEntity.createHostileAttributes())
+        if(ModConfig.YELLOW_SLIME.enabled) {
+            BiomeModifications.addSpawn( { biomeSelector ->
+                biomeSelector.biome.category != Biome.Category.NONE ||
+                biomeSelector.biome.category != Biome.Category.NETHER ||
+                biomeSelector.biome.category != Biome.Category.THEEND
+            }, SpawnGroup.MONSTER, YELLOW_SLIME, ModConfig.YELLOW_SLIME.spawnRate, 1, 1)
+            SpawnRestrictionAccessor.callRegister(YELLOW_SLIME, SpawnRestriction.Location.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, ModdedSlimeEntity.UNDERGROUND_SPAWN_PREDICATE)
+        }
+
+        //Black Slime
+        FabricDefaultAttributeRegistry.register(BLACK_SLIME, HostileEntity.createHostileAttributes())
+        if(ModConfig.BLACK_SLIME.enabled) {
+            BiomeModifications.addSpawn( { biomeSelector ->
+                biomeSelector.biome.category != Biome.Category.NONE ||
+                biomeSelector.biome.category != Biome.Category.NETHER ||
+                biomeSelector.biome.category != Biome.Category.THEEND
+            }, SpawnGroup.MONSTER, BLACK_SLIME, ModConfig.BLACK_SLIME.spawnRate, 1, 1)
+            SpawnRestrictionAccessor.callRegister(BLACK_SLIME, SpawnRestriction.Location.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, ModdedSlimeEntity.CAVERNS_SPAWN_PREDICATE)
+        }
+
+        //Ice Slime
+        FabricDefaultAttributeRegistry.register(ICE_SLIME, HostileEntity.createHostileAttributes())
+        if(ModConfig.ICE_SLIME.enabled) {
+            BiomeModifications.addSpawn( { biomeSelector ->
+                biomeSelector.biome.temperature < 0.15F &&
+                (biomeSelector.biome.category != Biome.Category.NONE ||
+                biomeSelector.biome.category != Biome.Category.NETHER ||
+                biomeSelector.biome.category != Biome.Category.THEEND)
+            }, SpawnGroup.MONSTER, ICE_SLIME, ModConfig.ICE_SLIME.spawnRate, 1, 1)
+            SpawnRestrictionAccessor.callRegister(ICE_SLIME, SpawnRestriction.Location.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, ModdedSlimeEntity.SNOW_SPAWN_PREDICATE)
+        }
+
+        //Sand Slime
+        FabricDefaultAttributeRegistry.register(SAND_SLIME, HostileEntity.createHostileAttributes())
+        if(ModConfig.SAND_SLIME.enabled) {
+            BiomeModifications.addSpawn( { biomeSelector ->
+                biomeSelector.biome.category == Biome.Category.DESERT ||
+                biomeSelector.biome.category == Biome.Category.MESA
+            }, SpawnGroup.MONSTER, SAND_SLIME, ModConfig.SAND_SLIME.spawnRate, 1, 1)
+            SpawnRestrictionAccessor.callRegister(SAND_SLIME, SpawnRestriction.Location.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, ModdedSlimeEntity.SAND_SPAWN_PREDICATE)
+        }
+
+        //Jungle Slime
+        FabricDefaultAttributeRegistry.register(JUNGLE_SLIME, HostileEntity.createHostileAttributes())
+        if(ModConfig.JUNGLE_SLIME.enabled) {
+            BiomeModifications.addSpawn( { biomeSelector ->
+                biomeSelector.biome.category == Biome.Category.JUNGLE
+            }, SpawnGroup.MONSTER, JUNGLE_SLIME, ModConfig.JUNGLE_SLIME.spawnRate, 1, 1)
+            SpawnRestrictionAccessor.callRegister(JUNGLE_SLIME, SpawnRestriction.Location.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, ModdedSlimeEntity.SURFACE_SPAWN_PREDICATE)
+        }
+
+        //Spiked Ice Slime
+        FabricDefaultAttributeRegistry.register(SPIKED_ICE_SLIME, HostileEntity.createHostileAttributes())
+        if(ModConfig.SPIKED_ICE_SLIME.enabled) {
+            BiomeModifications.addSpawn( { biomeSelector ->
+                biomeSelector.biome.temperature < 0.15F &&
+                (biomeSelector.biome.category != Biome.Category.NONE ||
+                biomeSelector.biome.category != Biome.Category.NETHER ||
+                biomeSelector.biome.category != Biome.Category.THEEND)
+            }, SpawnGroup.MONSTER, SPIKED_ICE_SLIME, ModConfig.SPIKED_ICE_SLIME.spawnRate, 1, 1)
+            SpawnRestrictionAccessor.callRegister(SPIKED_ICE_SLIME, SpawnRestriction.Location.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, ModdedSlimeEntity.SNOW_SPAWN_PREDICATE)
+        }
+
+        //Spiked Jungle Slime
+        FabricDefaultAttributeRegistry.register(SPIKED_JUNGLE_SLIME, HostileEntity.createHostileAttributes())
+        if(ModConfig.SPIKED_JUNGLE_SLIME.enabled) {
+            BiomeModifications.addSpawn( { biomeSelector ->
+                biomeSelector.biome.category == Biome.Category.JUNGLE
+            }, SpawnGroup.MONSTER, SPIKED_JUNGLE_SLIME, ModConfig.SPIKED_JUNGLE_SLIME.spawnRate, 1, 1)
+            SpawnRestrictionAccessor.callRegister(SPIKED_JUNGLE_SLIME, SpawnRestriction.Location.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, ModdedSlimeEntity.SURFACE_SPAWN_PREDICATE)
+        }
+
+        //Mother Slime & Baby Slime
+        FabricDefaultAttributeRegistry.register(MOTHER_SLIME, HostileEntity.createHostileAttributes())
+        if(ModConfig.MOTHER_SLIME.enabled) {
+            BiomeModifications.addSpawn( { biomeSelector ->
+                biomeSelector.biome.category != Biome.Category.NONE ||
+                biomeSelector.biome.category != Biome.Category.NETHER ||
+                biomeSelector.biome.category != Biome.Category.THEEND
+            }, SpawnGroup.MONSTER, MOTHER_SLIME, ModConfig.MOTHER_SLIME.spawnRate, 1, 1)
+            SpawnRestrictionAccessor.callRegister(MOTHER_SLIME, SpawnRestriction.Location.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, ModdedSlimeEntity.CAVERNS_SPAWN_PREDICATE)
+        }
+        FabricDefaultAttributeRegistry.register(BABY_SLIME, HostileEntity.createHostileAttributes())
+
+        //Lava Slime
+        FabricDefaultAttributeRegistry.register(LAVA_SLIME, HostileEntity.createHostileAttributes())
+        if(ModConfig.LAVA_SLIME.enabled) {
+            BiomeModifications.addSpawn( {biomeSelector ->
+                biomeSelector.biome.category == Biome.Category.NETHER
+            }, SpawnGroup.MONSTER, LAVA_SLIME, ModConfig.LAVA_SLIME.spawnRate, 1, 1)
+            SpawnRestrictionAccessor.callRegister(LAVA_SLIME, SpawnRestriction.Location.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, ModdedSlimeEntity.HELL_SPAWN_PREDICATE)
+        }
+
+        //Pinky Slime
+        FabricDefaultAttributeRegistry.register(PINKY, HostileEntity.createHostileAttributes())
+        if(ModConfig.PINKY.enabled) {
+            BiomeModifications.addSpawn( { biomeSelector ->
+                biomeSelector.biome.category != Biome.Category.NONE ||
+                biomeSelector.biome.category != Biome.Category.NETHER ||
+                biomeSelector.biome.category != Biome.Category.THEEND
+            }, SpawnGroup.MONSTER, PINKY, ModConfig.PINKY.spawnRate, 1, 1)
+            SpawnRestrictionAccessor.callRegister(PINKY, SpawnRestriction.Location.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, ModdedSlimeEntity.SURFACE_SPAWN_PREDICATE)
+        }
+
+        //Spiked Slime (To be used on the King Slime boss fight)
+        FabricDefaultAttributeRegistry.register(SPIKED_SLIME, HostileEntity.createHostileAttributes())
+
+        //Umbrella Slime
+        FabricDefaultAttributeRegistry.register(UMBRELLA_SLIME, HostileEntity.createHostileAttributes())
+        if(ModConfig.UMBRELLA_SLIME.enabled) {
+            BiomeModifications.addSpawn( {biomeSelector ->
+                biomeSelector.biome.category == Biome.Category.PLAINS ||
+                biomeSelector.biome.category == Biome.Category.FOREST ||
+                biomeSelector.biome.category == Biome.Category.TAIGA ||
+                biomeSelector.biome.category == Biome.Category.SAVANNA
+            }, SpawnGroup.MONSTER, UMBRELLA_SLIME, ModConfig.UMBRELLA_SLIME.spawnRate, 1, 1)
+            SpawnRestrictionAccessor.callRegister(UMBRELLA_SLIME, SpawnRestriction.Location.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, ModdedSlimeEntity.RAINY_SURFACE_SPAWN_PREDICATE)
+        }
+
+        //Corrupt Slime & Slimeling
+        FabricDefaultAttributeRegistry.register(CORRUPT_SLIME, HostileEntity.createHostileAttributes())
+        if(ModConfig.CORRUPT_SLIME.enabled) {
+            BiomeModifications.addSpawn( {biomeSelector ->
+                biomeSelector.biomeKey == BiomeKeys.WARPED_FOREST
+            }, SpawnGroup.MONSTER, CORRUPT_SLIME, ModConfig.CORRUPT_SLIME.spawnRate, 1, 1)
+            SpawnRestrictionAccessor.callRegister(CORRUPT_SLIME, SpawnRestriction.Location.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, ModdedSlimeEntity.HELL_SPAWN_PREDICATE)
+        }
+        FabricDefaultAttributeRegistry.register(SLIMELING, HostileEntity.createHostileAttributes())
+
+        //Crimslime
+        FabricDefaultAttributeRegistry.register(CRIMSLIME, HostileEntity.createHostileAttributes())
+        if(ModConfig.CRIMSLIME.enabled) {
+            BiomeModifications.addSpawn( {biomeSelector ->
+                biomeSelector.biomeKey == BiomeKeys.CRIMSON_FOREST
+            }, SpawnGroup.MONSTER, CRIMSLIME, ModConfig.CRIMSLIME.spawnRate, 1, 1)
+            SpawnRestrictionAccessor.callRegister(CRIMSLIME, SpawnRestriction.Location.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, ModdedSlimeEntity.HELL_SPAWN_PREDICATE)
+        }
+
+        //Illuminant Slime
+        FabricDefaultAttributeRegistry.register(ILLUMINANT_SLIME, HostileEntity.createHostileAttributes())
+        if(ModConfig.ILLUMINANT_SLIME.enabled) {
+            BiomeModifications.addSpawn( {biomeSelector ->
+                biomeSelector.biome.category == Biome.Category.THEEND
+            }, SpawnGroup.MONSTER, ILLUMINANT_SLIME, ModConfig.ILLUMINANT_SLIME.spawnRate, 1, 1)
+            SpawnRestrictionAccessor.callRegister(ILLUMINANT_SLIME, SpawnRestriction.Location.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, ModdedSlimeEntity.THE_END_SPAWN_PREDICATE)
+        }
+
+        //Rainbow Slime
+        FabricDefaultAttributeRegistry.register(RAINBOW_SLIME, HostileEntity.createHostileAttributes())
+        if(ModConfig.RAINBOW_SLIME.enabled) {
+            BiomeModifications.addSpawn( {biomeSelector ->
+                biomeSelector.biome.category == Biome.Category.THEEND
+            }, SpawnGroup.MONSTER, RAINBOW_SLIME, ModConfig.RAINBOW_SLIME.spawnRate, 1, 1)
+            SpawnRestrictionAccessor.callRegister(RAINBOW_SLIME, SpawnRestriction.Location.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, ModdedSlimeEntity.THE_END_SPAWN_PREDICATE)
+        }
 
     }
 

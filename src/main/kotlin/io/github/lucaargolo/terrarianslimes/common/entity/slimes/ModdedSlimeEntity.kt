@@ -3,10 +3,8 @@ package io.github.lucaargolo.terrarianslimes.common.entity.slimes
 import io.github.lucaargolo.terrarianslimes.mixin.AccessorLootContextTypes
 import io.github.lucaargolo.terrarianslimes.utils.ModConfig
 import io.github.lucaargolo.terrarianslimes.utils.ModIdentifier
-import net.minecraft.entity.EntityData
-import net.minecraft.entity.EntityType
-import net.minecraft.entity.LivingEntity
-import net.minecraft.entity.SpawnReason
+import net.minecraft.block.Blocks
+import net.minecraft.entity.*
 import net.minecraft.entity.attribute.EntityAttributeModifier
 import net.minecraft.entity.attribute.EntityAttributes
 import net.minecraft.entity.damage.DamageSource
@@ -21,8 +19,11 @@ import net.minecraft.loot.context.LootContext
 import net.minecraft.loot.context.LootContextType
 import net.minecraft.nbt.CompoundTag
 import net.minecraft.sound.SoundEvents
+import net.minecraft.state.property.Properties
+import net.minecraft.tag.BlockTags
 import net.minecraft.util.ItemScatterer
 import net.minecraft.util.math.MathHelper
+import net.minecraft.world.Difficulty
 import net.minecraft.world.LocalDifficulty
 import net.minecraft.world.ServerWorldAccess
 import net.minecraft.world.World
@@ -30,7 +31,7 @@ import net.minecraft.world.World
 open class ModdedSlimeEntity<C: ModConfig.ModdedSlimeConfig>(
     entityType: EntityType<out SlimeEntity>,
     world: World,
-    config: C,
+    private val config: C,
     private val defaultSize: Int,
     private val statusEffect: StatusEffect? = null,
     private val childrenType: EntityType<out ModdedSlimeEntity<*>>? = null,
@@ -87,21 +88,23 @@ open class ModdedSlimeEntity<C: ModConfig.ModdedSlimeConfig>(
                 val g = ((l % 2) - 0.5f) * this.size/4
                 val h = ((l / 2) - 0.5f) * this.size/4
                 val childrenEntity = this.childrenType?.create(this.world) ?: break
-                if (this.isPersistent) {
-                    childrenEntity.setPersistent()
+                if(childrenEntity.config.enabled) {
+                    if (this.isPersistent) {
+                        childrenEntity.setPersistent()
+                    }
+                    childrenEntity.customName = this.customName
+                    childrenEntity.isAiDisabled = this.isAiDisabled
+                    childrenEntity.isInvulnerable = this.isInvulnerable
+                    childrenEntity.setSize(childrenEntity.defaultSize, true)
+                    childrenEntity.refreshPositionAndAngles(
+                        this.x + g.toDouble(),
+                        this.y + 0.5,
+                        this.z + h.toDouble(),
+                        this.random.nextFloat() * 360.0f,
+                        0.0f
+                    )
+                    this.world.spawnEntity(childrenEntity)
                 }
-                childrenEntity.customName = this.customName
-                childrenEntity.isAiDisabled = this.isAiDisabled
-                childrenEntity.isInvulnerable = this.isInvulnerable
-                childrenEntity.setSize(childrenEntity.defaultSize, true)
-                childrenEntity.refreshPositionAndAngles(
-                    this.x + g.toDouble(),
-                    this.y + 0.5,
-                    this.z + h.toDouble(),
-                    this.random.nextFloat() * 360.0f,
-                    0.0f
-                )
-                this.world.spawnEntity(childrenEntity)
             }
         }
         this.removed = true
@@ -140,9 +143,101 @@ open class ModdedSlimeEntity<C: ModConfig.ModdedSlimeConfig>(
         this.dataTracker.startTracking(BONUS_DROPS, ItemStack.EMPTY)
     }
 
+    @Suppress("DEPRECATION")
     companion object {
         private val BONUS_DROPS: TrackedData<ItemStack> = DataTracker.registerData(ModdedSlimeEntity::class.java, TrackedDataHandlerRegistry.ITEM_STACK)
         private val SLIMES_LOOT_CONTEXT: LootContextType = LootContextType.Builder().build()
+
+        val SNOW_SPAWN_PREDICATE = SpawnRestriction.SpawnPredicate<ModdedSlimeEntity<*>> { type, serverWorldAccess, spawnReason, pos, _ ->
+            val isPeaceful = serverWorldAccess.difficulty == Difficulty.PEACEFUL
+            val isSpawner = spawnReason == SpawnReason.SPAWNER
+
+            val downBlockState = serverWorldAccess.getBlockState(pos.down())
+            val isDownBlockValid = (downBlockState.isIn(BlockTags.ICE) || downBlockState.isOf(Blocks.SNOW_BLOCK) || (downBlockState.isOf(Blocks.GRASS_BLOCK) && downBlockState[Properties.SNOWY])) && downBlockState.allowsSpawning(serverWorldAccess, pos, type)
+            val isSkyVisible = serverWorldAccess.isSkyVisible(pos)
+            !isPeaceful && (isSpawner || (isDownBlockValid && isSkyVisible))
+        }
+
+        val SAND_SPAWN_PREDICATE = SpawnRestriction.SpawnPredicate<ModdedSlimeEntity<*>> { type, serverWorldAccess, spawnReason, pos, _ ->
+            val isPeaceful = serverWorldAccess.difficulty == Difficulty.PEACEFUL
+            val isSpawner = spawnReason == SpawnReason.SPAWNER
+
+            val downBlockState = serverWorldAccess.getBlockState(pos.down())
+            val isDownBlockValid = downBlockState.isIn(BlockTags.SAND) && downBlockState.allowsSpawning(serverWorldAccess, pos, type)
+            val isSkyVisible = serverWorldAccess.isSkyVisible(pos)
+            !isPeaceful && (isSpawner || (isDownBlockValid && isSkyVisible))
+        }
+
+        val HELL_SPAWN_PREDICATE = SpawnRestriction.SpawnPredicate<ModdedSlimeEntity<*>> { type, serverWorldAccess, spawnReason, pos, _ ->
+            val isPeaceful = serverWorldAccess.difficulty == Difficulty.PEACEFUL
+            val isSpawner = spawnReason == SpawnReason.SPAWNER
+
+            val downBlockState = serverWorldAccess.getBlockState(pos.down())
+            val isDownBlockValid = downBlockState.isOf(Blocks.NETHERRACK) && downBlockState.allowsSpawning(serverWorldAccess, pos, type)
+            !isPeaceful && (isSpawner || isDownBlockValid)
+        }
+
+        val THE_END_SPAWN_PREDICATE = SpawnRestriction.SpawnPredicate<ModdedSlimeEntity<*>> { type, serverWorldAccess, spawnReason, pos, _ ->
+            val isPeaceful = serverWorldAccess.difficulty == Difficulty.PEACEFUL
+            val isSpawner = spawnReason == SpawnReason.SPAWNER
+
+            val downBlockState = serverWorldAccess.getBlockState(pos.down())
+            val isDownBlockValid = downBlockState.isOf(Blocks.END_STONE) && downBlockState.allowsSpawning(serverWorldAccess, pos, type)
+            !isPeaceful && (isSpawner || isDownBlockValid)
+        }
+
+        val SURFACE_SPAWN_PREDICATE = SpawnRestriction.SpawnPredicate<ModdedSlimeEntity<*>> { type, serverWorldAccess, spawnReason, pos, _ ->
+            val isPeaceful = serverWorldAccess.difficulty == Difficulty.PEACEFUL
+            val isSpawner = spawnReason == SpawnReason.SPAWNER
+
+            val downBlockState = serverWorldAccess.getBlockState(pos.down())
+            val isDownBlockValid = downBlockState.isOf(Blocks.GRASS_BLOCK) && downBlockState.allowsSpawning(serverWorldAccess, pos, type)
+            val isSkyVisible = serverWorldAccess.isSkyVisible(pos)
+            !isPeaceful && (isSpawner || (isDownBlockValid && isSkyVisible))
+        }
+
+        val FAR_SURFACE_SPAWN_PREDICATE = SpawnRestriction.SpawnPredicate<ModdedSlimeEntity<*>> { type, serverWorldAccess, spawnReason, pos, _ ->
+            val isPeaceful = serverWorldAccess.difficulty == Difficulty.PEACEFUL
+            val isSpawner = spawnReason == SpawnReason.SPAWNER
+
+            val downBlockState = serverWorldAccess.getBlockState(pos.down())
+            val isDownBlockValid = downBlockState.isOf(Blocks.GRASS_BLOCK) && downBlockState.allowsSpawning(serverWorldAccess, pos, type)
+            val isSkyVisible = serverWorldAccess.isSkyVisible(pos)
+            val isSpawnFar = !serverWorldAccess.toServerWorld().spawnPos.isWithinDistance(pos, 400.0)
+            !isPeaceful && (isSpawner || (isDownBlockValid && isSkyVisible && isSpawnFar))
+        }
+
+        val RAINY_SURFACE_SPAWN_PREDICATE = SpawnRestriction.SpawnPredicate<ModdedSlimeEntity<*>> { type, serverWorldAccess, spawnReason, pos, _ ->
+            val isPeaceful = serverWorldAccess.difficulty == Difficulty.PEACEFUL
+            val isSpawner = spawnReason == SpawnReason.SPAWNER
+
+            val downBlockState = serverWorldAccess.getBlockState(pos.down())
+            val isDownBlockValid = downBlockState.isOf(Blocks.GRASS_BLOCK) && downBlockState.allowsSpawning(serverWorldAccess, pos, type)
+            val isSkyVisible = serverWorldAccess.isSkyVisible(pos)
+            val isRaining = serverWorldAccess.toServerWorld().isRaining
+            !isPeaceful && (isSpawner || (isDownBlockValid && isSkyVisible && isRaining))
+        }
+
+        val UNDERGROUND_SPAWN_PREDICATE = SpawnRestriction.SpawnPredicate<ModdedSlimeEntity<*>> { type, serverWorldAccess, spawnReason, pos, _ ->
+            val isPeaceful = serverWorldAccess.difficulty == Difficulty.PEACEFUL
+            val isSpawner = spawnReason == SpawnReason.SPAWNER
+
+            val downBlockState = serverWorldAccess.getBlockState(pos.down())
+            val isDownBlockValid = pos.y < serverWorldAccess.seaLevel && downBlockState.allowsSpawning(serverWorldAccess, pos, type)
+            val isSkyVisible = serverWorldAccess.isSkyVisible(pos)
+            !isPeaceful && (isSpawner || (isDownBlockValid && !isSkyVisible))
+        }
+
+        val CAVERNS_SPAWN_PREDICATE = SpawnRestriction.SpawnPredicate<ModdedSlimeEntity<*>> { type, serverWorldAccess, spawnReason, pos, _ ->
+            val isPeaceful = serverWorldAccess.difficulty == Difficulty.PEACEFUL
+            val isSpawner = spawnReason == SpawnReason.SPAWNER
+
+            val downBlockState = serverWorldAccess.getBlockState(pos.down())
+            val isDownBlockValid = pos.y < serverWorldAccess.seaLevel/2 && downBlockState.allowsSpawning(serverWorldAccess, pos, type)
+            val isSkyVisible = serverWorldAccess.isSkyVisible(pos)
+            !isPeaceful && (isSpawner || (isDownBlockValid && !isSkyVisible))
+        }
+
         init {
             AccessorLootContextTypes.getMap()[ModIdentifier("slimes")] = SLIMES_LOOT_CONTEXT
         }
