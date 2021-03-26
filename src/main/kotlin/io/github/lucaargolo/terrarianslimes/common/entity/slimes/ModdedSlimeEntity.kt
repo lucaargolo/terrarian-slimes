@@ -143,99 +143,129 @@ open class ModdedSlimeEntity<C: ModConfig.ModdedSlimeConfig>(
         this.dataTracker.startTracking(BONUS_DROPS, ItemStack.EMPTY)
     }
 
-    @Suppress("DEPRECATION")
+    @Suppress("DEPRECATION", "UNUSED_ANONYMOUS_PARAMETER")
     companion object {
         private val BONUS_DROPS: TrackedData<ItemStack> = DataTracker.registerData(ModdedSlimeEntity::class.java, TrackedDataHandlerRegistry.ITEM_STACK)
         private val SLIMES_LOOT_CONTEXT: LootContextType = LootContextType.Builder().build()
 
-        val SNOW_SPAWN_PREDICATE = SpawnRestriction.SpawnPredicate<ModdedSlimeEntity<*>> { type, serverWorldAccess, spawnReason, pos, _ ->
+        fun getJungleSpawnPredicate(spawnProbability: Float) = SpawnRestriction.SpawnPredicate<ModdedSlimeEntity<*>> { type, serverWorldAccess, spawnReason, pos, random ->
             val isPeaceful = serverWorldAccess.difficulty == Difficulty.PEACEFUL
             val isSpawner = spawnReason == SpawnReason.SPAWNER
 
             val downBlockState = serverWorldAccess.getBlockState(pos.down())
-            val isDownBlockValid = (downBlockState.isIn(BlockTags.ICE) || downBlockState.isOf(Blocks.SNOW_BLOCK) || (downBlockState.isOf(Blocks.GRASS_BLOCK) && downBlockState[Properties.SNOWY])) && downBlockState.allowsSpawning(serverWorldAccess, pos, type)
+            val isDownBlockValid = downBlockState.isOf(Blocks.GRASS_BLOCK) || downBlockState.isIn(BlockTags.LEAVES)
             val isSkyVisible = serverWorldAccess.isSkyVisible(pos)
-            !isPeaceful && (isSpawner || (isDownBlockValid && isSkyVisible))
+            
+            val meetsProbability = random.nextFloat() <= spawnProbability
+            meetsProbability && !isPeaceful && (isSpawner || (isDownBlockValid && isSkyVisible))
         }
 
-        val SAND_SPAWN_PREDICATE = SpawnRestriction.SpawnPredicate<ModdedSlimeEntity<*>> { type, serverWorldAccess, spawnReason, pos, _ ->
+        fun getSnowSpawnPredicate(spawnProbability: Float) = SpawnRestriction.SpawnPredicate<ModdedSlimeEntity<*>> { type, serverWorldAccess, spawnReason, pos, random ->
             val isPeaceful = serverWorldAccess.difficulty == Difficulty.PEACEFUL
             val isSpawner = spawnReason == SpawnReason.SPAWNER
 
             val downBlockState = serverWorldAccess.getBlockState(pos.down())
-            val isDownBlockValid = downBlockState.isIn(BlockTags.SAND) && downBlockState.allowsSpawning(serverWorldAccess, pos, type)
+            val isDownBlockValid = downBlockState.isIn(BlockTags.ICE) || downBlockState.isOf(Blocks.SNOW_BLOCK) || (downBlockState.isOf(Blocks.GRASS_BLOCK) && downBlockState[Properties.SNOWY])
             val isSkyVisible = serverWorldAccess.isSkyVisible(pos)
-            !isPeaceful && (isSpawner || (isDownBlockValid && isSkyVisible))
+
+            val meetsProbability = random.nextFloat() <= spawnProbability
+            meetsProbability && !isPeaceful && (isSpawner || (isDownBlockValid && isSkyVisible))
         }
 
-        val HELL_SPAWN_PREDICATE = SpawnRestriction.SpawnPredicate<ModdedSlimeEntity<*>> { type, serverWorldAccess, spawnReason, pos, _ ->
+        fun getSandSpawnPredicate(spawnProbability: Float) = SpawnRestriction.SpawnPredicate<ModdedSlimeEntity<*>> { type, serverWorldAccess, spawnReason, pos, random ->
             val isPeaceful = serverWorldAccess.difficulty == Difficulty.PEACEFUL
             val isSpawner = spawnReason == SpawnReason.SPAWNER
 
             val downBlockState = serverWorldAccess.getBlockState(pos.down())
-            val isDownBlockValid = downBlockState.isOf(Blocks.NETHERRACK) && downBlockState.allowsSpawning(serverWorldAccess, pos, type)
-            !isPeaceful && (isSpawner || isDownBlockValid)
-        }
-
-        val THE_END_SPAWN_PREDICATE = SpawnRestriction.SpawnPredicate<ModdedSlimeEntity<*>> { type, serverWorldAccess, spawnReason, pos, _ ->
-            val isPeaceful = serverWorldAccess.difficulty == Difficulty.PEACEFUL
-            val isSpawner = spawnReason == SpawnReason.SPAWNER
-
-            val downBlockState = serverWorldAccess.getBlockState(pos.down())
-            val isDownBlockValid = downBlockState.isOf(Blocks.END_STONE) && downBlockState.allowsSpawning(serverWorldAccess, pos, type)
-            !isPeaceful && (isSpawner || isDownBlockValid)
-        }
-
-        val SURFACE_SPAWN_PREDICATE = SpawnRestriction.SpawnPredicate<ModdedSlimeEntity<*>> { type, serverWorldAccess, spawnReason, pos, _ ->
-            val isPeaceful = serverWorldAccess.difficulty == Difficulty.PEACEFUL
-            val isSpawner = spawnReason == SpawnReason.SPAWNER
-
-            val downBlockState = serverWorldAccess.getBlockState(pos.down())
-            val isDownBlockValid = downBlockState.isOf(Blocks.GRASS_BLOCK) && downBlockState.allowsSpawning(serverWorldAccess, pos, type)
+            val isDownBlockValid = downBlockState.isIn(BlockTags.SAND)
             val isSkyVisible = serverWorldAccess.isSkyVisible(pos)
-            !isPeaceful && (isSpawner || (isDownBlockValid && isSkyVisible))
+
+            val meetsProbability = random.nextFloat() <= spawnProbability
+            meetsProbability && !isPeaceful && (isSpawner || (isDownBlockValid && isSkyVisible))
         }
 
-        val FAR_SURFACE_SPAWN_PREDICATE = SpawnRestriction.SpawnPredicate<ModdedSlimeEntity<*>> { type, serverWorldAccess, spawnReason, pos, _ ->
+        fun getHellSpawnPredicate(spawnProbability: Float) = SpawnRestriction.SpawnPredicate<ModdedSlimeEntity<*>> { type, serverWorldAccess, spawnReason, pos, random ->
             val isPeaceful = serverWorldAccess.difficulty == Difficulty.PEACEFUL
             val isSpawner = spawnReason == SpawnReason.SPAWNER
 
             val downBlockState = serverWorldAccess.getBlockState(pos.down())
-            val isDownBlockValid = downBlockState.isOf(Blocks.GRASS_BLOCK) && downBlockState.allowsSpawning(serverWorldAccess, pos, type)
+            val isDownBlockValid = downBlockState.isOf(Blocks.NETHERRACK) || downBlockState.isIn(BlockTags.NYLIUM)
+
+            val meetsProbability = random.nextFloat() <= spawnProbability
+            meetsProbability && !isPeaceful && (isSpawner || isDownBlockValid)
+        }
+
+        fun getTheEndSpawnPredicate(spawnProbability: Float) = SpawnRestriction.SpawnPredicate<ModdedSlimeEntity<*>> { type, serverWorldAccess, spawnReason, pos, random ->
+            val isPeaceful = serverWorldAccess.difficulty == Difficulty.PEACEFUL
+            val isSpawner = spawnReason == SpawnReason.SPAWNER
+
+            val downBlockState = serverWorldAccess.getBlockState(pos.down())
+            val isDownBlockValid = downBlockState.isOf(Blocks.END_STONE)
+
+            val meetsProbability = random.nextFloat() <= spawnProbability
+            meetsProbability && !isPeaceful && (isSpawner || isDownBlockValid)
+        }
+
+        fun getSurfaceSpawnPredicate(spawnProbability: Float) = SpawnRestriction.SpawnPredicate<ModdedSlimeEntity<*>> { type, serverWorldAccess, spawnReason, pos, random ->
+            val isPeaceful = serverWorldAccess.difficulty == Difficulty.PEACEFUL
+            val isSpawner = spawnReason == SpawnReason.SPAWNER
+
+            val downBlockState = serverWorldAccess.getBlockState(pos.down())
+            val isDownBlockValid = downBlockState.isOf(Blocks.GRASS_BLOCK)
+            val isSkyVisible = serverWorldAccess.isSkyVisible(pos)
+
+            val meetsProbability = random.nextFloat() <= spawnProbability
+            meetsProbability && !isPeaceful && (isSpawner || (isDownBlockValid && isSkyVisible))
+        }
+
+        fun getFarSurfaceSpawnPredicate(spawnProbability: Float) = SpawnRestriction.SpawnPredicate<ModdedSlimeEntity<*>> { type, serverWorldAccess, spawnReason, pos, random ->
+            val isPeaceful = serverWorldAccess.difficulty == Difficulty.PEACEFUL
+            val isSpawner = spawnReason == SpawnReason.SPAWNER
+
+            val downBlockState = serverWorldAccess.getBlockState(pos.down())
+            val isDownBlockValid = downBlockState.isOf(Blocks.GRASS_BLOCK)
             val isSkyVisible = serverWorldAccess.isSkyVisible(pos)
             val isSpawnFar = !serverWorldAccess.toServerWorld().spawnPos.isWithinDistance(pos, 400.0)
-            !isPeaceful && (isSpawner || (isDownBlockValid && isSkyVisible && isSpawnFar))
+
+            val meetsProbability = random.nextFloat() <= spawnProbability
+            meetsProbability && !isPeaceful && (isSpawner || (isDownBlockValid && isSkyVisible && isSpawnFar))
         }
 
-        val RAINY_SURFACE_SPAWN_PREDICATE = SpawnRestriction.SpawnPredicate<ModdedSlimeEntity<*>> { type, serverWorldAccess, spawnReason, pos, _ ->
+        fun getRainySurfaceSpawnPredicate(spawnProbability: Float) = SpawnRestriction.SpawnPredicate<ModdedSlimeEntity<*>> { type, serverWorldAccess, spawnReason, pos, random ->
             val isPeaceful = serverWorldAccess.difficulty == Difficulty.PEACEFUL
             val isSpawner = spawnReason == SpawnReason.SPAWNER
 
             val downBlockState = serverWorldAccess.getBlockState(pos.down())
-            val isDownBlockValid = downBlockState.isOf(Blocks.GRASS_BLOCK) && downBlockState.allowsSpawning(serverWorldAccess, pos, type)
+            val isDownBlockValid = downBlockState.isOf(Blocks.GRASS_BLOCK)
             val isSkyVisible = serverWorldAccess.isSkyVisible(pos)
             val isRaining = serverWorldAccess.toServerWorld().isRaining
-            !isPeaceful && (isSpawner || (isDownBlockValid && isSkyVisible && isRaining))
+
+            val meetsProbability = random.nextFloat() <= spawnProbability
+            meetsProbability && !isPeaceful && (isSpawner || (isDownBlockValid && isSkyVisible && isRaining))
         }
 
-        val UNDERGROUND_SPAWN_PREDICATE = SpawnRestriction.SpawnPredicate<ModdedSlimeEntity<*>> { type, serverWorldAccess, spawnReason, pos, _ ->
+        fun getUnderGroundSpawnPredicate(spawnProbability: Float) = SpawnRestriction.SpawnPredicate<ModdedSlimeEntity<*>> { type, serverWorldAccess, spawnReason, pos, random ->
             val isPeaceful = serverWorldAccess.difficulty == Difficulty.PEACEFUL
             val isSpawner = spawnReason == SpawnReason.SPAWNER
 
             val downBlockState = serverWorldAccess.getBlockState(pos.down())
             val isDownBlockValid = pos.y < serverWorldAccess.seaLevel && downBlockState.allowsSpawning(serverWorldAccess, pos, type)
             val isSkyVisible = serverWorldAccess.isSkyVisible(pos)
-            !isPeaceful && (isSpawner || (isDownBlockValid && !isSkyVisible))
+
+            val meetsProbability = random.nextFloat() <= spawnProbability
+            meetsProbability && !isPeaceful && (isSpawner || (isDownBlockValid && !isSkyVisible))
         }
 
-        val CAVERNS_SPAWN_PREDICATE = SpawnRestriction.SpawnPredicate<ModdedSlimeEntity<*>> { type, serverWorldAccess, spawnReason, pos, _ ->
+        fun getCavernsSpawnPredicate(spawnProbability: Float) = SpawnRestriction.SpawnPredicate<ModdedSlimeEntity<*>> { type, serverWorldAccess, spawnReason, pos, random ->
             val isPeaceful = serverWorldAccess.difficulty == Difficulty.PEACEFUL
             val isSpawner = spawnReason == SpawnReason.SPAWNER
 
             val downBlockState = serverWorldAccess.getBlockState(pos.down())
             val isDownBlockValid = pos.y < serverWorldAccess.seaLevel/2 && downBlockState.allowsSpawning(serverWorldAccess, pos, type)
             val isSkyVisible = serverWorldAccess.isSkyVisible(pos)
-            !isPeaceful && (isSpawner || (isDownBlockValid && !isSkyVisible))
+
+            val meetsProbability = random.nextFloat() <= spawnProbability
+            meetsProbability && !isPeaceful && (isSpawner || (isDownBlockValid && !isSkyVisible))
         }
 
         init {
