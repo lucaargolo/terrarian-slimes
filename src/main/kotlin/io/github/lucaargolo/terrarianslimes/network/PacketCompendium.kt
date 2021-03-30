@@ -8,7 +8,7 @@ object PacketCompendium {
 
     val SPAWN_SPIKE_ENTITY = ModIdentifier("spawn_spike_entity")
 
-    fun onInitializeClient() {
+    fun initializeClient() {
         ClientPlayNetworking.registerGlobalReceiver(SPAWN_SPIKE_ENTITY) { client, handler, buf, _ ->
             val id = buf.readVarInt()
             val uuid = buf.readUuid()
@@ -39,7 +39,7 @@ object PacketCompendium {
         }
     }
 
-    fun onInitialize() {
+    fun initialize() {
 
     }
 

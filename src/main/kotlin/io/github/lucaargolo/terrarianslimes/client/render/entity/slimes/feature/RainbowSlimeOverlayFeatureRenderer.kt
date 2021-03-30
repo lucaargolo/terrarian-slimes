@@ -20,8 +20,8 @@ class RainbowSlimeOverlayFeatureRenderer<T: ModdedSlimeEntity<*>, M: EntityModel
         if (!slimeEntity.isInvisible) {
             val overlayLayer = if(TerrarianSlimes.CANVAS) RenderLayer.getEntityTranslucent(getTexture(slimeEntity)) else RenderLayer.getItemEntityTranslucentCull(getTexture(slimeEntity))
             val vertexConsumer = vertexConsumers.getBuffer(overlayLayer)
-            val color = Color.getHSBColor((slimeEntity.itemRotation + tickDelta) / 200, 1.0f, 1.0f)
-            this.model.render(matrices, vertexConsumer, light, LivingEntityRenderer.getOverlay(slimeEntity, 0.0f), color.red/255f, color.blue/255f, color.green/255f, 1.0f)
+            val color = Color.getHSBColor((slimeEntity.world.time + tickDelta) / 200, 1.0f, 1.0f)
+            this.model.render(matrices, vertexConsumer, light, LivingEntityRenderer.getOverlay(slimeEntity, 0.0f), color.red/255f, color.green/255f, color.blue/255f, 1.0f)
         }
     }
 

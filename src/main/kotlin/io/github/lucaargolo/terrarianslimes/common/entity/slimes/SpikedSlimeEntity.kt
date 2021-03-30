@@ -8,6 +8,7 @@ import net.minecraft.entity.LivingEntity
 import net.minecraft.entity.ai.RangedAttackMob
 import net.minecraft.entity.effect.StatusEffect
 import net.minecraft.entity.mob.SlimeEntity
+import net.minecraft.item.ItemConvertible
 import net.minecraft.sound.SoundEvents
 import net.minecraft.util.math.MathHelper
 import net.minecraft.world.World
@@ -15,11 +16,12 @@ import net.minecraft.world.World
 class SpikedSlimeEntity(
     entityType: EntityType<out SlimeEntity>,
     world: World,
+    particleItem: ItemConvertible,
     config: ModConfig.SpikedSlimeConfig,
     defaultSize: Int,
     private val spikeStatusEffect: StatusEffect? = null,
     ownStatusEffect: StatusEffect? = null
-): ModdedSlimeEntity<ModConfig.SpikedSlimeConfig>(entityType, world, config, defaultSize, ownStatusEffect), RangedAttackMob {
+): ModdedSlimeEntity<ModConfig.SpikedSlimeConfig>(entityType, world, particleItem, config, defaultSize, ownStatusEffect), RangedAttackMob {
 
     private val baseSpikeAttack = config.baseSpikeAttack
 

@@ -3,6 +3,7 @@ package io.github.lucaargolo.terrarianslimes.common.entity.slimes
 import io.github.lucaargolo.terrarianslimes.utils.ModConfig
 import net.minecraft.entity.EntityType
 import net.minecraft.entity.mob.SlimeEntity
+import net.minecraft.item.ItemConvertible
 import net.minecraft.util.math.Vec3d
 import net.minecraft.world.World
 import org.apache.commons.lang3.tuple.MutablePair
@@ -10,9 +11,10 @@ import org.apache.commons.lang3.tuple.MutablePair
 class IlluminantSlimeEntity<C: ModConfig.ModdedSlimeConfig>(
     entityType: EntityType<out SlimeEntity>,
     world: World,
+    particleItem: ItemConvertible,
     config: C,
     defaultSize: Int
-): ModdedSlimeEntity<C>(entityType, world, config, defaultSize) {
+): ModdedSlimeEntity<C>(entityType, world, particleItem, config, defaultSize) {
 
     val previousPositions = mutableListOf<MutablePair<Vec3d, Float>>()
 

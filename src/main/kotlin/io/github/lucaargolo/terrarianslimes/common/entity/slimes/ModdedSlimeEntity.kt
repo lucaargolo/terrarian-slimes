@@ -14,10 +14,14 @@ import net.minecraft.entity.data.TrackedDataHandlerRegistry
 import net.minecraft.entity.effect.StatusEffect
 import net.minecraft.entity.effect.StatusEffectInstance
 import net.minecraft.entity.mob.SlimeEntity
+import net.minecraft.item.ItemConvertible
 import net.minecraft.item.ItemStack
 import net.minecraft.loot.context.LootContext
 import net.minecraft.loot.context.LootContextType
 import net.minecraft.nbt.CompoundTag
+import net.minecraft.particle.ItemStackParticleEffect
+import net.minecraft.particle.ParticleEffect
+import net.minecraft.particle.ParticleTypes
 import net.minecraft.sound.SoundEvents
 import net.minecraft.state.property.Properties
 import net.minecraft.tag.BlockTags
@@ -31,6 +35,7 @@ import net.minecraft.world.World
 open class ModdedSlimeEntity<C: ModConfig.ModdedSlimeConfig>(
     entityType: EntityType<out SlimeEntity>,
     world: World,
+    private val particleItem: ItemConvertible,
     private val config: C,
     private val defaultSize: Int,
     private val statusEffect: StatusEffect? = null,
@@ -44,12 +49,6 @@ open class ModdedSlimeEntity<C: ModConfig.ModdedSlimeConfig>(
 
     val hasBonusDrops = config.hasBonusDrops
     fun getBonusDrops(): ItemStack = this.dataTracker.get(BONUS_DROPS)
-    var itemRotation = 0f
-
-    override fun tick() {
-        super.tick()
-        itemRotation++
-    }
 
     override fun canAttack() = this.canMoveVoluntarily()
 
@@ -77,6 +76,10 @@ open class ModdedSlimeEntity<C: ModConfig.ModdedSlimeConfig>(
             this.health = this.maxHealth
         }
         this.experiencePoints = MathHelper.floor(size * baseAttack)
+    }
+
+    override fun getParticles(): ParticleEffect {
+        return ItemStackParticleEffect(ParticleTypes.ITEM, ItemStack(particleItem))
     }
 
     override fun remove() {

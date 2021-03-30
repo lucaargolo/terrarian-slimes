@@ -2,6 +2,8 @@ package io.github.lucaargolo.terrarianslimes
 
 import com.google.gson.GsonBuilder
 import com.google.gson.JsonParser
+import io.github.lucaargolo.terrarianslimes.common.block.BlockCompendium
+import io.github.lucaargolo.terrarianslimes.common.blockentity.BlockEntityCompendium
 import io.github.lucaargolo.terrarianslimes.common.entity.EntityCompendium
 import io.github.lucaargolo.terrarianslimes.common.item.ItemCompendium
 import io.github.lucaargolo.terrarianslimes.network.PacketCompendium
@@ -23,15 +25,17 @@ class TerrarianSlimes: ModInitializer {
 
     override fun onInitialize() {
         CONFIG.load()
-        PacketCompendium.onInitialize()
+        PacketCompendium.initialize()
+        BlockCompendium.initialize()
         ItemCompendium.initialize()
+        BlockEntityCompendium.initialize()
         EntityCompendium.initialize()
     }
 
     companion object {
         const val MOD_ID = "terrarianslimes"
 
-        private val creativeTab = FabricItemGroupBuilder.create(ModIdentifier("creative_tab")).icon{ ItemStack(Blocks.SLIME_BLOCK) }.build()
+        private val creativeTab = FabricItemGroupBuilder.create(ModIdentifier("creative_tab")).icon{ ItemStack(ItemCompendium.RAINBOW_SLIME_BALL) }.build()
         private val parser = JsonParser()
         private val gson = GsonBuilder().setPrettyPrinting().create()
         private val logger: Logger = LogManager.getLogger("Terrarian Slimes")

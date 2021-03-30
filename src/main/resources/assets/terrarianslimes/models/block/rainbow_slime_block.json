@@ -1,0 +1,33 @@
+{   
+	"parent": "block/block",
+    "textures": {
+        "particle": "terrarianslimes:block/rainbow_slime_block",
+        "texture": "terrarianslimes:block/rainbow_slime_block"
+    },
+    "elements": [
+        {   
+            "from": [ 3, 3, 3 ],
+            "to": [ 13, 13, 13 ],
+            "faces": {
+                "down":  { "uv": [ 3, 3, 13, 13 ], "texture": "#texture", "tintindex": 0 },
+                "up":    { "uv": [ 3, 3, 13, 13 ], "texture": "#texture", "tintindex": 0 },
+                "north": { "uv": [ 3, 3, 13, 13 ], "texture": "#texture", "tintindex": 0 },
+                "south": { "uv": [ 3, 3, 13, 13 ], "texture": "#texture", "tintindex": 0 },
+                "west":  { "uv": [ 3, 3, 13, 13 ], "texture": "#texture", "tintindex": 0 },
+                "east":  { "uv": [ 3, 3, 13, 13 ], "texture": "#texture", "tintindex": 0 }
+            }
+        },
+        {   
+            "from": [ 0, 0, 0 ],
+            "to": [ 16, 16, 16 ],
+            "faces": {
+                "down":  { "uv": [ 0, 0, 16, 16 ], "texture": "#texture", "cullface": "down", "tintindex": 1 },
+                "up":    { "uv": [ 0, 0, 16, 16 ], "texture": "#texture", "cullface": "up", "tintindex": 1 },
+                "north": { "uv": [ 0, 0, 16, 16 ], "texture": "#texture", "cullface": "north", "tintindex": 1 },
+                "south": { "uv": [ 0, 0, 16, 16 ], "texture": "#texture", "cullface": "south", "tintindex": 1 },
+                "west":  { "uv": [ 0, 0, 16, 16 ], "texture": "#texture", "cullface": "west", "tintindex": 1 },
+                "east":  { "uv": [ 0, 0, 16, 16 ], "texture": "#texture", "cullface": "east", "tintindex": 1 }
+            }
+        }
+    ]
+}

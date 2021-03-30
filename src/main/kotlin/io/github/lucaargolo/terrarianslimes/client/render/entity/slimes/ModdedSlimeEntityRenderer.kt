@@ -41,7 +41,7 @@ open class ModdedSlimeEntityRenderer<T: ModdedSlimeEntity<*>, M: EntityModel<T>>
             matrixStack.push()
             val offset = slimeEntity.boundingBox.center.subtract(slimeEntity.pos)
             matrixStack.translate(offset.x, offset.y - 0.25, offset.z)
-            val angle = (slimeEntity.itemRotation + tickDelta) / 20f
+            val angle = (slimeEntity.world.time + tickDelta) / 20f
             matrixStack.multiply(Vector3f.POSITIVE_Y.getRadialQuaternion(angle))
             ItemLayerReplacement.setupReplacementLayer(RenderLayer.getItemEntityTranslucentCull(PlayerScreenHandler.BLOCK_ATLAS_TEXTURE))
             MinecraftClient.getInstance().itemRenderer.renderItem(slimeEntity.getBonusDrops(), ModelTransformation.Mode.GROUND, light, LivingEntityRenderer.getOverlay(slimeEntity, 0f), matrixStack, vertexConsumers)
