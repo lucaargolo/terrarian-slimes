@@ -11,10 +11,16 @@ import io.github.lucaargolo.terrarianslimes.utils.ModConfig
 import io.github.lucaargolo.terrarianslimes.utils.ModIdentifier
 import net.fabricmc.api.ModInitializer
 import net.fabricmc.fabric.api.client.itemgroup.FabricItemGroupBuilder
+import net.fabricmc.fabric.api.tag.FabricTagBuilder
+import net.fabricmc.fabric.api.tag.TagRegistry
+import net.fabricmc.fabric.impl.tag.extension.FabricTagHooks
 import net.fabricmc.loader.api.FabricLoader
+import net.minecraft.block.Block
 import net.minecraft.block.Blocks
 import net.minecraft.item.Item
 import net.minecraft.item.ItemStack
+import net.minecraft.tag.Tag
+import net.minecraft.util.Identifier
 import org.apache.logging.log4j.LogManager
 import org.apache.logging.log4j.Logger
 import java.io.File
@@ -70,6 +76,10 @@ class TerrarianSlimes: ModInitializer {
 
         val CANVAS: Boolean by lazy {
             FabricLoader.getInstance().isModLoaded("canvas")
+        }
+
+        val slimeBlocksTag: Tag<Block> by lazy {
+            TagRegistry.block(Identifier("c", "slime_blocks"))
         }
 
         fun creativeGroupSettings(): Item.Settings = Item.Settings().group(creativeTab)

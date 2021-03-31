@@ -18,6 +18,28 @@ object ItemCompendium: RegistryCompendium<Item>(Registry.ITEM) {
         BlockCompendium.registerBlockItems(map)
     }
 
+    val GRENADE = register("grenade", Item(creativeGroupSettings()))
+    val STICKY_GRENADE = register("sticky_grenade", Item(creativeGroupSettings()))
+    val BOUNCY_GRENADE = register("bouncy_grenade", Item(creativeGroupSettings()))
+
+    val BOMB = register("bomb", Item(creativeGroupSettings()))
+    val STICKY_BOMB = register("sticky_bomb", Item(creativeGroupSettings()))
+    val BOUNCY_BOMB = register("bouncy_bomb", Item(creativeGroupSettings()))
+
+    val DIRT_BOMB = register("dirt_bomb", Item(creativeGroupSettings()))
+    val STICKY_DIRT_BOMB = register("sticky_dirt_bomb", Item(creativeGroupSettings()))
+    val BOUNCY_DIRT_BOMB = register("bouncy_dirt_bomb", Item(creativeGroupSettings()))
+
+    val DYNAMITE = register("dynamite", Item(creativeGroupSettings()))
+    val STICKY_DYNAMITE = register("sticky_dynamite", Item(creativeGroupSettings()))
+    val BOUNCY_DYNAMITE = register("bouncy_dynamite", Item(creativeGroupSettings()))
+
+    val GLOWSTICK = register("glowstick", Item(creativeGroupSettings()))
+    val STICKY_GLOWSTICK = register("sticky_glowstick", Item(creativeGroupSettings()))
+    val BOUNCY_GLOWSTICK = register("bouncy_glowstick", Item(creativeGroupSettings()))
+
+    val UMBRELLA = register("umbrella", Item(creativeGroupSettings().maxCount(1)))
+
     val GREEN_SLIME_GEL = register("green_gel", Item(creativeGroupSettings()))
     val BLUE_SLIME_GEL = register("blue_gel", Item(creativeGroupSettings()))
     val RED_SLIME_GEL = register("red_gel", Item(creativeGroupSettings()))
@@ -69,7 +91,6 @@ object ItemCompendium: RegistryCompendium<Item>(Registry.ITEM) {
     val CRIMSLIME_SLIME_EGG = register("crimslime_spawn_egg", SpawnEggItem(EntityCompendium.CRIMSLIME, 0xAE2334, 0xA10D35, creativeGroupSettings()))
     val ILLUMINANT_SLIME_EGG = register("illuminant_slime_spawn_egg", SpawnEggItem(EntityCompendium.ILLUMINANT_SLIME, 0xC410F0, 0xB600D1, creativeGroupSettings()))
     val RAINBOW_SLIME_EGG = register("rainbow_slime_spawn_egg", SpawnEggItem(EntityCompendium.RAINBOW_SLIME, 0xFFFFFF, 0xFFFFFF, creativeGroupSettings()))
-    val UMBRELLA = register("umbrella", Item(creativeGroupSettings().maxCount(1)))
 
     fun initializeClient() {
         ColorProviderRegistry.ITEM.register({ _, tintIndex ->

@@ -4,7 +4,10 @@
   "package": "io.github.lucaargolo.terrarianslimes.mixin",
   "compatibilityLevel": "JAVA_8",
   "mixins": [
-    "AccessorLootContextTypes"
+    "AccessorLootContextTypes",
+    "PistonBlockEntityMixin",
+    "PistonBlockMixin",
+    "PistonHandlerMixin"
   ],
   "client": [
     "LivingEntityRendererMixin",

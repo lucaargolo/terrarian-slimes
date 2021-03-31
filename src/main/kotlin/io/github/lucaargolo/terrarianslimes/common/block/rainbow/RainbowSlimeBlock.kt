@@ -11,6 +11,7 @@ class RainbowSlimeBlock(settings: Settings): SlimeBlock(settings), BlockEntityPr
 
     override fun createBlockEntity(world: BlockView?) = RainbowSlimeBlockEntity()
 
-    override fun getRenderType(state: BlockState?) = BlockRenderType.ENTITYBLOCK_ANIMATED
+    override fun getRenderType(state: BlockState?) = BlockRenderType.INVISIBLE
+
 
 }

@@ -1,0 +1,19 @@
+{
+  "replace": false,
+  "values": [
+    "minecraft:slime_block",
+    "terrarianslimes:black_slime_block",
+    "terrarianslimes:blue_slime_block",
+    "terrarianslimes:corrupt_slime_block",
+    "terrarianslimes:crimson_slime_block",
+    "terrarianslimes:ice_slime_block",
+    "terrarianslimes:illuminant_slime_block",
+    "terrarianslimes:jungle_slime_block",
+    "terrarianslimes:pinky_slime_block",
+    "terrarianslimes:purple_slime_block",
+    "terrarianslimes:rainbow_slime_block",
+    "terrarianslimes:red_slime_block",
+    "terrarianslimes:sand_slime_block",
+    "terrarianslimes:yellow_slime_block"
+  ]
+}
