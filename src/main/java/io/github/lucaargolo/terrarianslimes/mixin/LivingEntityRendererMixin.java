@@ -1,7 +1,6 @@
 package io.github.lucaargolo.terrarianslimes.mixin;
 
 import io.github.lucaargolo.terrarianslimes.common.entity.EntityCompendium;
-import io.github.lucaargolo.terrarianslimes.common.entity.slimes.ModdedSlimeEntity;
 import net.minecraft.client.render.RenderLayer;
 import net.minecraft.client.render.VertexConsumer;
 import net.minecraft.client.render.VertexConsumerProvider;

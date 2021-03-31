@@ -5,7 +5,6 @@ import io.github.lucaargolo.terrarianslimes.common.block.BlockCompendium
 import io.github.lucaargolo.terrarianslimes.common.entity.EntityCompendium
 import io.github.lucaargolo.terrarianslimes.common.entity.throwable.ThrowableEntity
 import io.github.lucaargolo.terrarianslimes.common.item.throwable.ThrowableItem
-import io.github.lucaargolo.terrarianslimes.utils.ModIdentifier
 import io.github.lucaargolo.terrarianslimes.utils.RegistryCompendium
 import net.fabricmc.fabric.api.client.rendering.v1.ColorProviderRegistry
 import net.minecraft.client.MinecraftClient

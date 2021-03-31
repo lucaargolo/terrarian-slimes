@@ -12,9 +12,7 @@ import io.github.lucaargolo.terrarianslimes.common.entity.EntityCompendium
 import io.github.lucaargolo.terrarianslimes.utils.GenericCompendium
 import net.fabricmc.fabric.api.client.rendereregistry.v1.EntityRendererRegistry
 import net.minecraft.client.render.entity.FlyingItemEntityRenderer
-import net.minecraft.client.render.entity.ItemEntityRenderer
 import net.minecraft.client.render.entity.model.SlimeEntityModel
-import net.minecraft.entity.projectile.thrown.ThrownItemEntity
 
 object EntityRendererCompendium: GenericCompendium<EntityRendererRegistry.Factory>() {
 

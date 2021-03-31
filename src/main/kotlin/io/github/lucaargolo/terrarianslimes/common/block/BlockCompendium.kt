@@ -2,8 +2,6 @@ package io.github.lucaargolo.terrarianslimes.common.block
 
 import io.github.lucaargolo.terrarianslimes.TerrarianSlimes.Companion.creativeGroupSettings
 import io.github.lucaargolo.terrarianslimes.common.block.rainbow.RainbowSlimeBlock
-import io.github.lucaargolo.terrarianslimes.common.item.ItemCompendium
-import io.github.lucaargolo.terrarianslimes.utils.ModIdentifier
 import io.github.lucaargolo.terrarianslimes.utils.RegistryCompendium
 import net.fabricmc.fabric.api.`object`.builder.v1.block.FabricBlockSettings
 import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap

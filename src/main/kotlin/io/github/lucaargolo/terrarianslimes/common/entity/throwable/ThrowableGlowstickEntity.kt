@@ -4,7 +4,6 @@ import io.github.lucaargolo.terrarianslimes.common.entity.EntityCompendium
 import io.github.lucaargolo.terrarianslimes.common.item.ItemCompendium
 import net.minecraft.entity.EntityType
 import net.minecraft.world.World
-import net.minecraft.world.explosion.Explosion
 
 class ThrowableGlowstickEntity: ThrowableEntity {
 
