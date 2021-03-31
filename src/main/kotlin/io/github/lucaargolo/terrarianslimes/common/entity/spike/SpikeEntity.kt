@@ -11,12 +11,15 @@ import net.minecraft.entity.effect.StatusEffect
 import net.minecraft.entity.effect.StatusEffectInstance
 import net.minecraft.entity.projectile.PersistentProjectileEntity
 import net.minecraft.item.ItemStack
+import net.minecraft.nbt.CompoundTag
 import net.minecraft.network.Packet
 import net.minecraft.sound.SoundEvent
 import net.minecraft.sound.SoundEvents
+import net.minecraft.util.Identifier
 import net.minecraft.util.hit.BlockHitResult
 import net.minecraft.util.hit.EntityHitResult
 import net.minecraft.util.math.MathHelper
+import net.minecraft.util.registry.Registry
 import net.minecraft.world.World
 
 class SpikeEntity: PersistentProjectileEntity {
@@ -53,6 +56,16 @@ class SpikeEntity: PersistentProjectileEntity {
     }
 
     override fun asItemStack(): ItemStack = ItemStack.EMPTY
+
+    override fun writeCustomDataToTag(tag: CompoundTag) {
+        super.writeCustomDataToTag(tag)
+        statusEffect?.let { tag.putString("statusEffect", Registry.STATUS_EFFECT.getId(it).toString()) }
+    }
+
+    override fun readCustomDataFromTag(tag: CompoundTag) {
+        super.readCustomDataFromTag(tag)
+        statusEffect = Registry.STATUS_EFFECT.get(Identifier(tag.getString("statusEffect")))
+    }
 
     override fun createSpawnPacket(): Packet<*> {
         val buf = PacketByteBufs.create()

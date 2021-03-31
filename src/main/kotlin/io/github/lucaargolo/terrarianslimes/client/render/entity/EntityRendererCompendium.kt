@@ -11,7 +11,10 @@ import io.github.lucaargolo.terrarianslimes.client.render.entity.spike.SpikeEnti
 import io.github.lucaargolo.terrarianslimes.common.entity.EntityCompendium
 import io.github.lucaargolo.terrarianslimes.utils.GenericCompendium
 import net.fabricmc.fabric.api.client.rendereregistry.v1.EntityRendererRegistry
+import net.minecraft.client.render.entity.FlyingItemEntityRenderer
+import net.minecraft.client.render.entity.ItemEntityRenderer
 import net.minecraft.client.render.entity.model.SlimeEntityModel
+import net.minecraft.entity.projectile.thrown.ThrownItemEntity
 
 object EntityRendererCompendium: GenericCompendium<EntityRendererRegistry.Factory>() {
 
@@ -39,6 +42,11 @@ object EntityRendererCompendium: GenericCompendium<EntityRendererRegistry.Factor
         register("illuminant_slime") { dispatcher, _ -> ModdedSlimeEntityRenderer(dispatcher, SlimeEntityModel(16), { IlluminantSlimeOverlayFeatureRenderer(it) }, true) }
         register("rainbow_slime") { dispatcher, _ -> ModdedSlimeEntityRenderer(dispatcher, SlimeEntityModel(16), { RainbowSlimeOverlayFeatureRenderer(it) }, true) }
         register("spike") { dispatcher, _ -> SpikeEntityRenderer(dispatcher) }
+        register("grenade") { dispatcher, context -> FlyingItemEntityRenderer(dispatcher, context.itemRenderer) }
+        register("bomb") { dispatcher, context -> FlyingItemEntityRenderer(dispatcher, context.itemRenderer) }
+        register("dirt_bomb") { dispatcher, context -> FlyingItemEntityRenderer(dispatcher, context.itemRenderer) }
+        register("dynamite") { dispatcher, context -> FlyingItemEntityRenderer(dispatcher, context.itemRenderer) }
+        register("glowstick") { dispatcher, context -> FlyingItemEntityRenderer(dispatcher, context.itemRenderer) }
     }
 
     override fun initialize() {

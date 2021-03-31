@@ -4,6 +4,7 @@ package io.github.lucaargolo.terrarianslimes.common.entity
 
 import io.github.lucaargolo.terrarianslimes.common.entity.slimes.*
 import io.github.lucaargolo.terrarianslimes.common.entity.spike.SpikeEntity
+import io.github.lucaargolo.terrarianslimes.common.entity.throwable.*
 import io.github.lucaargolo.terrarianslimes.common.item.ItemCompendium
 import io.github.lucaargolo.terrarianslimes.utils.ModConfig
 import io.github.lucaargolo.terrarianslimes.utils.RegistryCompendium
@@ -210,6 +211,56 @@ object EntityCompendium: RegistryCompendium<EntityType<*>>(Registry.ENTITY_TYPE)
             10
         ).build()
     ) as EntityType<SpikeEntity>
+
+    val GRENADE = register ("grenade",
+        FabricEntityTypeBuilder.create(SpawnGroup.MISC) { type: EntityType<ThrowableEntity>, world: World ->
+            ThrowableGrenadeEntity(type, world)
+        }.dimensions(EntityDimensions.changing(0.25F, 0.25F)).trackRangeChunks(
+            4
+        ).trackedUpdateRate(
+            10
+        ).build()
+    ) as EntityType<ThrowableEntity>
+
+    val BOMB = register ("bomb",
+        FabricEntityTypeBuilder.create(SpawnGroup.MISC) { type: EntityType<ThrowableEntity>, world: World ->
+            ThrowableBombEntity(type, world)
+        }.dimensions(EntityDimensions.changing(0.25F, 0.25F)).trackRangeChunks(
+            4
+        ).trackedUpdateRate(
+            10
+        ).build()
+    ) as EntityType<ThrowableEntity>
+
+    val DIRT_BOMB = register ("dirt_bomb",
+        FabricEntityTypeBuilder.create(SpawnGroup.MISC) { type: EntityType<ThrowableEntity>, world: World ->
+            ThrowableDirtBombEntity(type, world)
+        }.dimensions(EntityDimensions.changing(0.25F, 0.25F)).trackRangeChunks(
+            4
+        ).trackedUpdateRate(
+            10
+        ).build()
+    ) as EntityType<ThrowableEntity>
+
+    val DYNAMITE = register ("dynamite",
+        FabricEntityTypeBuilder.create(SpawnGroup.MISC) { type: EntityType<ThrowableEntity>, world: World ->
+            ThrowableDynamiteEntity(type, world)
+        }.dimensions(EntityDimensions.changing(0.25F, 0.25F)).trackRangeChunks(
+            4
+        ).trackedUpdateRate(
+            10
+        ).build()
+    ) as EntityType<ThrowableEntity>
+
+    val GLOWSTICK = register ("glowstick",
+        FabricEntityTypeBuilder.create(SpawnGroup.MISC) { type: EntityType<ThrowableEntity>, world: World ->
+            ThrowableGlowstickEntity(type, world)
+        }.dimensions(EntityDimensions.changing(0.25F, 0.25F)).trackRangeChunks(
+            4
+        ).trackedUpdateRate(
+            10
+        ).build()
+    ) as EntityType<ThrowableEntity>
 
     override fun initialize() {
         super.initialize()

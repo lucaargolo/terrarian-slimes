@@ -3,6 +3,8 @@ package io.github.lucaargolo.terrarianslimes.common.item
 import io.github.lucaargolo.terrarianslimes.TerrarianSlimes.Companion.creativeGroupSettings
 import io.github.lucaargolo.terrarianslimes.common.block.BlockCompendium
 import io.github.lucaargolo.terrarianslimes.common.entity.EntityCompendium
+import io.github.lucaargolo.terrarianslimes.common.entity.throwable.ThrowableEntity
+import io.github.lucaargolo.terrarianslimes.common.item.throwable.ThrowableItem
 import io.github.lucaargolo.terrarianslimes.utils.ModIdentifier
 import io.github.lucaargolo.terrarianslimes.utils.RegistryCompendium
 import net.fabricmc.fabric.api.client.rendering.v1.ColorProviderRegistry
@@ -18,25 +20,25 @@ object ItemCompendium: RegistryCompendium<Item>(Registry.ITEM) {
         BlockCompendium.registerBlockItems(map)
     }
 
-    val GRENADE = register("grenade", Item(creativeGroupSettings()))
-    val STICKY_GRENADE = register("sticky_grenade", Item(creativeGroupSettings()))
-    val BOUNCY_GRENADE = register("bouncy_grenade", Item(creativeGroupSettings()))
+    val GRENADE = register("grenade", ThrowableItem(EntityCompendium.GRENADE, ThrowableEntity.Type.NORMAL, creativeGroupSettings()))
+    val STICKY_GRENADE = register("sticky_grenade", ThrowableItem(EntityCompendium.GRENADE, ThrowableEntity.Type.STICKY, creativeGroupSettings()))
+    val BOUNCY_GRENADE = register("bouncy_grenade", ThrowableItem(EntityCompendium.GRENADE, ThrowableEntity.Type.BOUNCY, creativeGroupSettings()))
 
-    val BOMB = register("bomb", Item(creativeGroupSettings()))
-    val STICKY_BOMB = register("sticky_bomb", Item(creativeGroupSettings()))
-    val BOUNCY_BOMB = register("bouncy_bomb", Item(creativeGroupSettings()))
+    val BOMB = register("bomb", ThrowableItem(EntityCompendium.BOMB, ThrowableEntity.Type.NORMAL, creativeGroupSettings()))
+    val STICKY_BOMB = register("sticky_bomb", ThrowableItem(EntityCompendium.BOMB, ThrowableEntity.Type.STICKY, creativeGroupSettings()))
+    val BOUNCY_BOMB = register("bouncy_bomb", ThrowableItem(EntityCompendium.BOMB, ThrowableEntity.Type.BOUNCY, creativeGroupSettings()))
 
-    val DIRT_BOMB = register("dirt_bomb", Item(creativeGroupSettings()))
-    val STICKY_DIRT_BOMB = register("sticky_dirt_bomb", Item(creativeGroupSettings()))
-    val BOUNCY_DIRT_BOMB = register("bouncy_dirt_bomb", Item(creativeGroupSettings()))
+    val DIRT_BOMB = register("dirt_bomb", ThrowableItem(EntityCompendium.DIRT_BOMB, ThrowableEntity.Type.NORMAL, creativeGroupSettings()))
+    val STICKY_DIRT_BOMB = register("sticky_dirt_bomb", ThrowableItem(EntityCompendium.DIRT_BOMB, ThrowableEntity.Type.STICKY, creativeGroupSettings()))
+    val BOUNCY_DIRT_BOMB = register("bouncy_dirt_bomb", ThrowableItem(EntityCompendium.DIRT_BOMB, ThrowableEntity.Type.BOUNCY, creativeGroupSettings()))
 
-    val DYNAMITE = register("dynamite", Item(creativeGroupSettings()))
-    val STICKY_DYNAMITE = register("sticky_dynamite", Item(creativeGroupSettings()))
-    val BOUNCY_DYNAMITE = register("bouncy_dynamite", Item(creativeGroupSettings()))
+    val DYNAMITE = register("dynamite", ThrowableItem(EntityCompendium.DYNAMITE, ThrowableEntity.Type.NORMAL, creativeGroupSettings()))
+    val STICKY_DYNAMITE = register("sticky_dynamite", ThrowableItem(EntityCompendium.DYNAMITE, ThrowableEntity.Type.STICKY, creativeGroupSettings()))
+    val BOUNCY_DYNAMITE = register("bouncy_dynamite", ThrowableItem(EntityCompendium.DYNAMITE, ThrowableEntity.Type.BOUNCY, creativeGroupSettings()))
 
-    val GLOWSTICK = register("glowstick", Item(creativeGroupSettings()))
-    val STICKY_GLOWSTICK = register("sticky_glowstick", Item(creativeGroupSettings()))
-    val BOUNCY_GLOWSTICK = register("bouncy_glowstick", Item(creativeGroupSettings()))
+    val GLOWSTICK = register("glowstick", ThrowableItem(EntityCompendium.GLOWSTICK, ThrowableEntity.Type.NORMAL, creativeGroupSettings()))
+    val STICKY_GLOWSTICK = register("sticky_glowstick", ThrowableItem(EntityCompendium.GLOWSTICK, ThrowableEntity.Type.STICKY, creativeGroupSettings()))
+    val BOUNCY_GLOWSTICK = register("bouncy_glowstick", ThrowableItem(EntityCompendium.GLOWSTICK, ThrowableEntity.Type.BOUNCY, creativeGroupSettings()))
 
     val UMBRELLA = register("umbrella", Item(creativeGroupSettings().maxCount(1)))
 
