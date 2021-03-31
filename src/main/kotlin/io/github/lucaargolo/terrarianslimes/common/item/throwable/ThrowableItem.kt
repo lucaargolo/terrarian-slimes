@@ -12,7 +12,7 @@ import net.minecraft.util.TypedActionResult
 import net.minecraft.util.math.MathHelper
 import net.minecraft.world.World
 
-class ThrowableItem(private val throwableEntity: EntityType<ThrowableEntity>, private val throwableType: ThrowableEntity.Type, settings: Settings): Item(settings) {
+class ThrowableItem(private val throwableEntity: EntityType<ThrowableEntity>, val throwableType: ThrowableEntity.Type, settings: Settings): Item(settings) {
 
     override fun use(world: World, user: PlayerEntity, hand: Hand): TypedActionResult<ItemStack> {
         val stack = user.getStackInHand(hand)

@@ -8,6 +8,7 @@ import net.minecraft.entity.projectile.thrown.ThrownItemEntity
 import net.minecraft.item.Item
 import net.minecraft.nbt.CompoundTag
 import net.minecraft.network.Packet
+import net.minecraft.util.StringIdentifiable
 import net.minecraft.util.hit.BlockHitResult
 import net.minecraft.util.math.MathHelper
 import net.minecraft.util.math.Vec3d
@@ -20,10 +21,12 @@ abstract class ThrowableEntity: ThrownItemEntity {
 
     constructor(entityType: EntityType<ThrowableEntity>, x: Double, y: Double, z: Double, world: World): super(entityType, x, y, z, world)
 
-    enum class Type(val coefficientOfRestitution: Double) {
+    enum class Type(val coefficientOfRestitution: Double): StringIdentifiable {
         NORMAL(0.25),
         STICKY(0.00),
-        BOUNCY(0.95)
+        BOUNCY(0.95);
+
+        override fun asString() = name.toLowerCase()
     }
 
     var throwableType = Type.NORMAL

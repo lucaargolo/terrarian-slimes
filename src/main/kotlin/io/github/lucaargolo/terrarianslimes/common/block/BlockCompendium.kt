@@ -1,6 +1,7 @@
 package io.github.lucaargolo.terrarianslimes.common.block
 
 import io.github.lucaargolo.terrarianslimes.TerrarianSlimes.Companion.creativeGroupSettings
+import io.github.lucaargolo.terrarianslimes.common.block.glowstick.GlowstickLightBlock
 import io.github.lucaargolo.terrarianslimes.common.block.rainbow.RainbowSlimeBlock
 import io.github.lucaargolo.terrarianslimes.utils.RegistryCompendium
 import net.fabricmc.fabric.api.`object`.builder.v1.block.FabricBlockSettings
@@ -8,6 +9,7 @@ import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap
 import net.fabricmc.fabric.api.client.rendering.v1.ColorProviderRegistry
 import net.minecraft.block.Block
 import net.minecraft.block.Blocks
+import net.minecraft.block.Material
 import net.minecraft.block.SlimeBlock
 import net.minecraft.client.MinecraftClient
 import net.minecraft.client.render.RenderLayer
@@ -32,6 +34,7 @@ object BlockCompendium: RegistryCompendium<Block>(Registry.BLOCK) {
     val CRIMSON_SLIME_BLOCK = register("crimson_slime_block", SlimeBlock(FabricBlockSettings.copyOf(Blocks.SLIME_BLOCK)))
     val ILLUMINANT_SLIME_BLOCK = register("illuminant_slime_block", SlimeBlock(FabricBlockSettings.copyOf(Blocks.SLIME_BLOCK)))
     val RAINBOW_SLIME_BLOCK = register("rainbow_slime_block", RainbowSlimeBlock(FabricBlockSettings.copyOf(Blocks.SLIME_BLOCK)))
+    val GLOWSTICK_LIGHT = register("glowstick_light", GlowstickLightBlock(FabricBlockSettings.of(Material.AIR).luminance(15).ticksRandomly().noCollision().dropsNothing()))
 
     fun registerBlockItems(itemMap: MutableMap<Identifier, Item>) {
         map.forEach { (identifier, block) ->
