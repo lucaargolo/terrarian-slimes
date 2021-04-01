@@ -38,7 +38,8 @@ object BlockCompendium: RegistryCompendium<Block>(Registry.BLOCK) {
 
     fun registerBlockItems(itemMap: MutableMap<Identifier, Item>) {
         map.forEach { (identifier, block) ->
-            itemMap[identifier] = BlockItem(block, creativeGroupSettings())
+            if(block != GLOWSTICK_LIGHT)
+                itemMap[identifier] = BlockItem(block, creativeGroupSettings())
         }
     }
 

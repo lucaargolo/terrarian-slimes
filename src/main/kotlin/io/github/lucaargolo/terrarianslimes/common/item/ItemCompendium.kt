@@ -9,6 +9,7 @@ import io.github.lucaargolo.terrarianslimes.common.item.umbrella.UmbrellaHat
 import io.github.lucaargolo.terrarianslimes.utils.RegistryCompendium
 import net.fabricmc.fabric.api.client.rendering.v1.ColorProviderRegistry
 import net.minecraft.client.MinecraftClient
+import net.minecraft.entity.EquipmentSlot
 import net.minecraft.entity.effect.StatusEffectInstance
 import net.minecraft.entity.effect.StatusEffects
 import net.minecraft.item.*
@@ -48,7 +49,7 @@ object ItemCompendium: RegistryCompendium<Item>(Registry.ITEM) {
     val BOUNCY_GLOWSTICK = register("bouncy_glowstick", ThrowableItem(EntityCompendium.GLOWSTICK, ThrowableEntity.Type.BOUNCY, creativeGroupSettings()))
 
     val UMBRELLA = register("umbrella", Item(creativeGroupSettings().maxCount(1)))
-    val UMBRELLA_HAT = register("umbrella_hat", UmbrellaHat(creativeGroupSettings().maxCount(1)))
+    val UMBRELLA_HAT = register("umbrella_hat", UmbrellaHat(creativeGroupSettings().maxCount(1).equipmentSlot { EquipmentSlot.HEAD }))
 
     val GREEN_SLIME_GEL = register("green_gel", Item(creativeGroupSettings()))
     val BLUE_SLIME_GEL = register("blue_gel", Item(creativeGroupSettings()))
