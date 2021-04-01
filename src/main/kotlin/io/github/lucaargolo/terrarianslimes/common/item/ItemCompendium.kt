@@ -5,11 +5,13 @@ import io.github.lucaargolo.terrarianslimes.common.block.BlockCompendium
 import io.github.lucaargolo.terrarianslimes.common.entity.EntityCompendium
 import io.github.lucaargolo.terrarianslimes.common.entity.throwable.ThrowableEntity
 import io.github.lucaargolo.terrarianslimes.common.item.throwable.ThrowableItem
+import io.github.lucaargolo.terrarianslimes.common.item.umbrella.UmbrellaHat
 import io.github.lucaargolo.terrarianslimes.utils.RegistryCompendium
 import net.fabricmc.fabric.api.client.rendering.v1.ColorProviderRegistry
 import net.minecraft.client.MinecraftClient
-import net.minecraft.item.Item
-import net.minecraft.item.SpawnEggItem
+import net.minecraft.entity.effect.StatusEffectInstance
+import net.minecraft.entity.effect.StatusEffects
+import net.minecraft.item.*
 import net.minecraft.util.registry.Registry
 import java.awt.Color
 
@@ -18,6 +20,12 @@ object ItemCompendium: RegistryCompendium<Item>(Registry.ITEM) {
     init {
         BlockCompendium.registerBlockItems(map)
     }
+
+    val ROYAL_GEL = register("royal_gel", Item(creativeGroupSettings().maxCount(1)))
+
+    val APPLE_PIE = register("apple_pie", Item(creativeGroupSettings().food(FoodComponent.Builder().hunger(16).saturationModifier(0.6F).build())))
+    val ICE_CREAM = register("ice_cream", Item(creativeGroupSettings().food(FoodComponent.Builder().hunger(8).saturationModifier(1.2F).build())))
+    val BLESSED_APPLE = register("blessed_apple", EnchantedGoldenAppleItem(creativeGroupSettings().food(FoodComponent.Builder().hunger(8).saturationModifier(2.4F).statusEffect(StatusEffectInstance(StatusEffects.REGENERATION, 400, 1), 1.0F).statusEffect(StatusEffectInstance(StatusEffects.RESISTANCE, 6000, 1), 1.0F).statusEffect(StatusEffectInstance(StatusEffects.FIRE_RESISTANCE, 6000, 1), 1.0F).statusEffect(StatusEffectInstance(StatusEffects.ABSORPTION, 6000, 3), 1.0F).alwaysEdible().build())))
 
     val GRENADE = register("grenade", ThrowableItem(EntityCompendium.GRENADE, ThrowableEntity.Type.NORMAL, creativeGroupSettings()))
     val STICKY_GRENADE = register("sticky_grenade", ThrowableItem(EntityCompendium.GRENADE, ThrowableEntity.Type.STICKY, creativeGroupSettings()))
@@ -40,6 +48,7 @@ object ItemCompendium: RegistryCompendium<Item>(Registry.ITEM) {
     val BOUNCY_GLOWSTICK = register("bouncy_glowstick", ThrowableItem(EntityCompendium.GLOWSTICK, ThrowableEntity.Type.BOUNCY, creativeGroupSettings()))
 
     val UMBRELLA = register("umbrella", Item(creativeGroupSettings().maxCount(1)))
+    val UMBRELLA_HAT = register("umbrella_hat", UmbrellaHat(creativeGroupSettings().maxCount(1)))
 
     val GREEN_SLIME_GEL = register("green_gel", Item(creativeGroupSettings()))
     val BLUE_SLIME_GEL = register("blue_gel", Item(creativeGroupSettings()))

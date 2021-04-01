@@ -24,7 +24,6 @@ object PacketCompendium {
             val yaw = buf.readByte().toInt()
             val entityData = buf.readInt()
             val throwableType = buf.readEnumConstant(ThrowableEntity.Type::class.java)
-            val disableGravity = buf.readBoolean()
 
             client.execute {
                 val world = handler.world
@@ -49,7 +48,6 @@ object PacketCompendium {
                 entity.uuid = uuid
 
                 entity.throwableType = throwableType
-                entity.disableGravity = disableGravity
 
                 world.addEntity(id, entity)
             }

@@ -14,6 +14,7 @@ import net.minecraft.util.math.MathHelper
 import net.minecraft.util.math.Vec3d
 import net.minecraft.util.registry.Registry
 import net.minecraft.world.World
+import kotlin.math.abs
 
 abstract class ThrowableEntity: ThrownItemEntity {
 
@@ -24,13 +25,14 @@ abstract class ThrowableEntity: ThrownItemEntity {
     enum class Type(val coefficientOfRestitution: Double): StringIdentifiable {
         NORMAL(0.25),
         STICKY(0.00),
-        BOUNCY(0.95);
+        BOUNCY(0.80);
 
         override fun asString() = name.toLowerCase()
     }
 
     var throwableType = Type.NORMAL
-    var disableGravity = false
+    var isMoving = true
+    var isColliding = false
 
     abstract fun getNormalVariant(): Item
     abstract fun getStickyVariant(): Item
@@ -42,7 +44,21 @@ abstract class ThrowableEntity: ThrownItemEntity {
         Type.BOUNCY -> getBouncyVariant()
     }
 
+    override fun tick() {
+        isColliding = false
+        if(abs(velocity.x) < 0.05)
+            velocity = velocity.multiply(0.0, 1.0, 1.0)
+        if(abs(velocity.z) < 0.05)
+            velocity = velocity.multiply(1.0, 1.0, 0.0)
+        super.tick()
+        if(isColliding && abs(velocity.y) < 0.05) {
+            velocity = velocity.multiply(1.0, 0.0, 1.0)
+        }
+        isMoving = velocity.x != 0.0 && velocity.y != 0.0 && velocity.z != 0.0
+    }
+
     override fun onBlockHit(blockHitResult: BlockHitResult) {
+        isColliding = true
         val side = Vec3d.of(blockHitResult.side.opposite.vector)
         val cor = throwableType.coefficientOfRestitution
         var newVelocity = Vec3d(velocity.x*cor, velocity.y*cor, velocity.z*cor)
@@ -54,23 +70,19 @@ abstract class ThrowableEntity: ThrownItemEntity {
             newVelocity = newVelocity.multiply(1.0, 1.0, side.z)
         velocity = newVelocity
         if(throwableType == Type.STICKY) {
-            disableGravity = true
+            setNoGravity(true)
         }
         super.onBlockHit(blockHitResult)
     }
 
-    override fun getGravity() = if(disableGravity) 0f else super.getGravity()
-
     override fun writeCustomDataToTag(tag: CompoundTag) {
         super.writeCustomDataToTag(tag)
         tag.putString("throwableType", throwableType.name)
-        tag.putBoolean("disableGravity", disableGravity)
     }
 
     override fun readCustomDataFromTag(tag: CompoundTag) {
         super.readCustomDataFromTag(tag)
         throwableType = try{Type.valueOf(tag.getString("throwableType"))}catch(ignored: Exception){Type.NORMAL}
-        disableGravity = tag.getBoolean("disableGravity")
     }
 
     override fun createSpawnPacket(): Packet<*> {
@@ -85,7 +97,6 @@ abstract class ThrowableEntity: ThrownItemEntity {
         buf.writeByte(MathHelper.floor(yaw * 256.0f / 360.0f))
         buf.writeInt(owner?.entityId ?: 0)
         buf.writeEnumConstant(throwableType)
-        buf.writeBoolean(disableGravity)
 
         return ServerPlayNetworking.createS2CPacket(PacketCompendium.SPAWN_THROWABLE_ENTITY, buf)
     }

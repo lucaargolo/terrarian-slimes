@@ -8,10 +8,8 @@ import net.minecraft.block.Material
 import net.minecraft.entity.EntityType
 import net.minecraft.nbt.CompoundTag
 import net.minecraft.state.property.Properties
-import net.minecraft.util.math.MathHelper
-import net.minecraft.util.math.Vec3d
+import net.minecraft.util.hit.BlockHitResult
 import net.minecraft.world.World
-import kotlin.math.abs
 
 class ThrowableGlowstickEntity: ThrowableEntity {
 
@@ -28,9 +26,10 @@ class ThrowableGlowstickEntity: ThrowableEntity {
     private var delay = 20
 
     override fun tick() {
-        if(abs(velocity.x) < 0.05 && abs(velocity.y) < 0.05 && abs(velocity.z) < 0.05) {
-            velocity = Vec3d.ZERO
+        super.tick()
+        if(!isMoving && isColliding) {
             if (delay-- <= 0 && world?.isClient == false) {
+                delay = 20
                 val state = world.getBlockState(blockPos)
                 if (state.material.isReplaceable && !state.material.isLiquid) {
                     world.setBlockState(blockPos, BlockCompendium.GLOWSTICK_LIGHT.defaultState.with(GlowstickLightBlock.GLOWSTICK, throwableType))
@@ -39,10 +38,14 @@ class ThrowableGlowstickEntity: ThrowableEntity {
                 }
             }
         }
-        super.tick()
         if(age >= 12000) {
             this.remove()
         }
+    }
+
+    override fun onBlockHit(blockHitResult: BlockHitResult) {
+        super.onBlockHit(blockHitResult)
+        delay = 0
     }
 
     override fun readCustomDataFromTag(tag: CompoundTag) {
