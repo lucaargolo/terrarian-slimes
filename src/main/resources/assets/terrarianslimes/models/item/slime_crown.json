@@ -1,134 +1,41 @@
 {
-	"credit": "Made with Blockbench",
-	"textures": {
-		"0": "terrarianslimes:item/gold_crown",
-		"1": "terrarianslimes:item/slime_crown",
-		"particle": "terrarianslimes:item/gold_crown"
-	},
-	"elements": [
-		{
-			"from": [4.5, 8, 4.5],
-			"to": [11.5, 15, 11.5],
-			"faces": {
-				"north": {"uv": [0, 0, 8, 8], "texture": "#0"},
-				"east": {"uv": [8, 8, 16, 16], "texture": "#0"},
-				"south": {"uv": [0, 8, 8, 16], "texture": "#0"},
-				"west": {"uv": [8, 0, 16, 8], "texture": "#0"}
-			}
-		},
-		{
-			"name": "outerLayer",
-			"from": [4, 0, 4],
-			"to": [12, 8, 12],
-			"rotation": {"angle": 0, "axis": "y", "origin": [8, 4, 8]},
-			"faces": {
-				"north": {"uv": [0, 0, 8, 8], "texture": "#1"},
-				"east": {"uv": [0, 0, 8, 8], "texture": "#1"},
-				"south": {"uv": [0, 0, 8, 8], "texture": "#1"},
-				"west": {"uv": [0, 0, 8, 8], "texture": "#1"},
-				"up": {"uv": [0, 0, 8, 8], "texture": "#1"},
-				"down": {"uv": [0, 0, 8, 8], "texture": "#1"}
-			}
-		},
-		{
-			"name": "innerCube",
-			"from": [5, 1, 5],
-			"to": [11, 7, 11],
-			"rotation": {"angle": 0, "axis": "y", "origin": [8, 4, 8]},
-			"faces": {
-				"north": {"uv": [0, 8, 6, 14], "texture": "#1"},
-				"east": {"uv": [0, 8, 6, 14], "texture": "#1"},
-				"south": {"uv": [0, 8, 6, 14], "texture": "#1"},
-				"west": {"uv": [0, 8, 6, 14], "texture": "#1"},
-				"up": {"uv": [6, 14, 0, 8], "texture": "#1"},
-				"down": {"uv": [6, 8, 0, 14], "texture": "#1"}
-			}
-		},
-		{
-			"name": "rightEye",
-			"from": [9.25, 4, 4.5],
-			"to": [11.25, 6, 6.5],
-			"rotation": {"angle": 0, "axis": "y", "origin": [8, 4, 8]},
-			"faces": {
-				"north": {"uv": [10, 0, 12, 2], "texture": "#1"},
-				"east": {"uv": [8, 0, 10, 2], "texture": "#1"},
-				"south": {"uv": [8, 0, 10, 2], "texture": "#1"},
-				"west": {"uv": [8, 0, 10, 2], "texture": "#1"},
-				"up": {"uv": [10, 2, 8, 0], "texture": "#1"},
-				"down": {"uv": [10, 0, 8, 2], "texture": "#1"}
-			}
-		},
-		{
-			"name": "leftEye",
-			"from": [4.75, 4, 4.5],
-			"to": [6.75, 6, 6.5],
-			"rotation": {"angle": 0, "axis": "y", "origin": [8, 4, 8]},
-			"faces": {
-				"north": {"uv": [10, 0, 12, 2], "rotation": 90, "texture": "#1"},
-				"east": {"uv": [8, 0, 10, 2], "texture": "#1"},
-				"south": {"uv": [8, 0, 10, 2], "texture": "#1"},
-				"west": {"uv": [8, 0, 10, 2], "texture": "#1"},
-				"up": {"uv": [10, 2, 8, 0], "texture": "#1"},
-				"down": {"uv": [10, 0, 8, 2], "texture": "#1"}
-			}
-		},
-		{
-			"name": "mouth",
-			"from": [7, 2, 4.5],
-			"to": [8, 3, 5.5],
-			"rotation": {"angle": 0, "axis": "y", "origin": [8, 4, 8]},
-			"faces": {
-				"north": {"uv": [11, 1, 12, 2], "texture": "#1"},
-				"east": {"uv": [11, 1, 12, 2], "texture": "#1"},
-				"south": {"uv": [11, 1, 12, 2], "texture": "#1"},
-				"west": {"uv": [11, 1, 12, 2], "texture": "#1"},
-				"up": {"uv": [12, 2, 11, 1], "texture": "#1"},
-				"down": {"uv": [12, 1, 11, 2], "texture": "#1"}
-			}
-		}
-	],
+	"parent": "builtin/entity",
 	"display": {
 		"thirdperson_righthand": {
-			"rotation": [75, 45, 0],
-			"translation": [0, 2.5, 0],
-			"scale": [0.375, 0.375, 0.375]
+			"rotation": [90, 0, 0],
+			"translation": [0, -0.75, 7.25],
+			"scale": [0.85, 0.85, 0.85]
 		},
 		"thirdperson_lefthand": {
-			"rotation": [75, 45, 0],
-			"translation": [0, 2.5, 0],
-			"scale": [0.375, 0.375, 0.375]
+			"rotation": [90, 0, 0],
+			"translation": [0, -0.75, 7.25],
+			"scale": [0.85, 0.85, 0.85]
 		},
 		"firstperson_righthand": {
-			"rotation": [0, 145, 0],
-			"translation": [0, 3.5, 0],
-			"scale": [0.4, 0.4, 0.4]
+			"rotation": [0, 90, 0],
+			"translation": [1.13, 8.7, 1.13],
+			"scale": [0.68, 0.68, 0.68]
 		},
 		"firstperson_lefthand": {
-			"rotation": [0, 145, 0],
-			"translation": [0, 3.5, 0],
-			"scale": [0.4, 0.4, 0.4]
+			"rotation": [0, 90, 0],
+			"translation": [1.13, 8.7, 1.13],
+			"scale": [0.68, 0.68, 0.68]
 		},
 		"ground": {
-			"translation": [0, 4.5, 0],
+			"translation": [0, 8, 0],
 			"scale": [0.85, 0.85, 0.85]
 		},
 		"gui": {
 			"rotation": [30, 145, 0],
-			"translation": [0, 3.5, 0]
+			"translation": [0, 6.25, 0]
 		},
 		"head": {
 			"translation": [0, 18.25, -0.25],
 			"scale": [1.5, 1.5, 1.5]
 		},
 		"fixed": {
-			"translation": [0, 3, 0]
+			"translation": [0, 10, 0],
+			"scale": [1.5, 1.5, 1.5]
 		}
-	},
-	"groups": [0,
-		{
-			"name": "slime",
-			"origin": [0, 0, 0],
-			"children": [1, 2, 3, 4, 5]
-		}
-	]
+	}
 }
