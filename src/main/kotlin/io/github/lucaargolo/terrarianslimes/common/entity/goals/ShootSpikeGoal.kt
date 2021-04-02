@@ -5,10 +5,10 @@ import net.minecraft.entity.ai.RangedAttackMob
 import net.minecraft.entity.ai.goal.Goal
 import net.minecraft.entity.mob.MobEntity
 
-class ShootSpikeGoal(private val mob: MobEntity): Goal() {
+class ShootSpikeGoal(private val mob: MobEntity, private val spikeAttackCooldown: Int): Goal() {
 
     private var target: LivingEntity? = null
-    private var cooldown = 100
+    private var cooldown = spikeAttackCooldown
 
     override fun canStart(): Boolean {
         return cooldown > 10 && mob.target?.let{
@@ -22,7 +22,7 @@ class ShootSpikeGoal(private val mob: MobEntity): Goal() {
     }
 
     override fun stop() {
-        cooldown = 100
+        cooldown = spikeAttackCooldown
         target = null
     }
 
@@ -31,7 +31,7 @@ class ShootSpikeGoal(private val mob: MobEntity): Goal() {
     }
 
     override fun start() {
-        cooldown = 100
+        cooldown = spikeAttackCooldown
         (mob as? RangedAttackMob)?.attack(target, 1.25f)
     }
 

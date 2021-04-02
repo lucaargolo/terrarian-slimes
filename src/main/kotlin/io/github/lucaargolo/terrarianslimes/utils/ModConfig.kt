@@ -11,6 +11,7 @@ class ModConfig {
         val baseHealth: Double = 1.0,
         val baseSpeed: Double = 1.0,
         val baseAttack: Double = 1.0,
+        val attackCooldown: Int = 20,
         val hasBonusDrops: Boolean = false
     )
 
@@ -21,34 +22,36 @@ class ModConfig {
         baseHealth: Double = 1.0,
         baseSpeed: Double = 1.0,
         baseAttack: Double = 1.0,
+        attackCooldown: Int = 40,
         hasBonusDrops: Boolean = false,
-        val baseSpikeAttack: Double = 1.0
-    ): ModdedSlimeConfig(enabled, spawnWeight, spawnProbability, baseHealth, baseSpeed, baseAttack, hasBonusDrops)
+        val baseSpikeAttack: Double = 1.0,
+        val spikeAttackCooldown: Int = 100,
+    ): ModdedSlimeConfig(enabled, spawnWeight, spawnProbability, baseHealth, baseSpeed, baseAttack, attackCooldown, hasBonusDrops)
 
     class SlimeConfig {
-        val greenSlime = ModdedSlimeConfig(true, 40, 0.5f,  4.0, 0.4, 2.0, true)
-        val blueSlime = ModdedSlimeConfig(true, 40, 0.1f, 6.5, 0.4, 2.3, true)
-        val redSlime = ModdedSlimeConfig(true, 100, 0.3f, 9.0, 0.4, 4.0, true)
-        val purpleSlime = ModdedSlimeConfig(true, 40, 0.05f, 9.0, 0.4, 4.0, true)
-        val yellowSlime = ModdedSlimeConfig(true, 100, 0.2f, 12.0, 0.4, 5.0, true)
-        val blackSlime = ModdedSlimeConfig(true, 100, 0.5f, 12.0, 0.4, 5.0, true)
-        val iceSlime = ModdedSlimeConfig(true, 40, 0.4f, 8.0, 0.4, 3.0, false)
-        val sandSlime = ModdedSlimeConfig(true, 40, 0.4f, 13.0, 0.4, 6.0, false)
-        val jungleSlime = ModdedSlimeConfig(true, 40, 0.4f,  16.0, 0.4, 6.0, true)
-        val spikedIceSlime = SpikedSlimeConfig(true, 20, 0.1f, 16.0, 0.4, 4.0, false, 6.0)
-        val spikedJungleSlime = SpikedSlimeConfig(true, 20, 0.1f, 17.0, 0.4, 8.4, false, 8.5)
-        val motherSlime = ModdedSlimeConfig(true, 100, 0.2f, 24.0, 0.5, 8.0, false)
-        val babySlime = ModdedSlimeConfig(true, 0, 0f, 8.0, 0.4, 4.0, true)
-        val lavaSlime = ModdedSlimeConfig(true, 10, 0.5f, 13.0, 0.8, 6.0, false)
-        val pinky = ModdedSlimeConfig(true, 1, 0.25f, 45.0, 0.6, 2.0, true)
-        val kingSlime = ModdedSlimeConfig(true, 0, 0f, 1000.0, 1.2, 14.4, false)
-        val spikedSlime = SpikedSlimeConfig(true, 0, 0f, 15.0, 0.4, 4.8, false, 6.0)
-        val umbrellaSlime = ModdedSlimeConfig(true, 40, 0.1f, 9.0, 0.5, 3.6, false)
-        val corruptSlime = ModdedSlimeConfig(true, 10, 0.5f, 50.0, 0.5, 18.3, false)
-        val slimeling = ModdedSlimeConfig(true, 0, 0f, 25.0, 0.4, 15.0, false)
-        val crimslime = ModdedSlimeConfig(true, 10, 0.5f, 57.0, 0.5, 20.0, false)
-        val illuminantSlime = ModdedSlimeConfig(true, 1, 0.4f, 51.4, 0.8, 23.2, false)
-        val rainbowSlime = ModdedSlimeConfig(true, 1, 0.1f, 115.0, 0.6, 28.3, false)
+        val greenSlime = ModdedSlimeConfig(true, 40, 0.5f,  4.0, 0.4, 2.0, 20, true)
+        val blueSlime = ModdedSlimeConfig(true, 40, 0.1f, 6.5, 0.4, 2.3, 20, true)
+        val redSlime = ModdedSlimeConfig(true, 100, 0.3f, 9.0, 0.4, 4.0, 20, true)
+        val purpleSlime = ModdedSlimeConfig(true, 40, 0.05f, 9.0, 0.4, 4.0, 20, true)
+        val yellowSlime = ModdedSlimeConfig(true, 100, 0.2f, 12.0, 0.4, 5.0, 20, true)
+        val blackSlime = ModdedSlimeConfig(true, 100, 0.5f, 12.0, 0.4, 5.0, 20, true)
+        val iceSlime = ModdedSlimeConfig(true, 40, 0.4f, 8.0, 0.4, 3.0, 20, false)
+        val sandSlime = ModdedSlimeConfig(true, 40, 0.4f, 13.0, 0.4, 6.0, 20, false)
+        val jungleSlime = ModdedSlimeConfig(true, 40, 0.4f,  16.0, 0.4, 6.0, 20, true)
+        val spikedIceSlime = SpikedSlimeConfig(true, 20, 0.1f, 16.0, 0.4, 4.0, 20, false, 6.0, 100)
+        val spikedJungleSlime = SpikedSlimeConfig(true, 20, 0.1f, 17.0, 0.4, 8.4, 20, false, 8.5, 100)
+        val motherSlime = ModdedSlimeConfig(true, 100, 0.2f, 24.0, 0.5, 8.0, 20, false)
+        val babySlime = ModdedSlimeConfig(true, 0, 0f, 8.0, 0.4, 4.0, 20, true)
+        val lavaSlime = ModdedSlimeConfig(true, 10, 0.5f, 13.0, 0.8, 6.0, 20, false)
+        val pinky = ModdedSlimeConfig(true, 1, 0.25f, 45.0, 0.6, 2.0, 20, true)
+        val kingSlime = ModdedSlimeConfig(true, 0, 0f, 500.0, 0.7, 14.4, 60, false)
+        val spikedSlime = SpikedSlimeConfig(true, 0, 0f, 15.0, 0.4, 4.8, 20, false, 6.0)
+        val umbrellaSlime = ModdedSlimeConfig(true, 40, 0.1f, 9.0, 0.5, 3.6, 20, false)
+        val corruptSlime = ModdedSlimeConfig(true, 10, 0.5f, 50.0, 0.5, 18.3, 40, false)
+        val slimeling = ModdedSlimeConfig(true, 0, 0f, 25.0, 0.4, 15.0, 60, false)
+        val crimslime = ModdedSlimeConfig(true, 10, 0.5f, 57.0, 0.5, 20.0, 40, false)
+        val illuminantSlime = ModdedSlimeConfig(true, 1, 0.4f, 51.4, 0.8, 23.2, 40, false)
+        val rainbowSlime = ModdedSlimeConfig(true, 1, 0.1f, 115.0, 0.6, 28.3, 80, false)
     }
 
     private val slimeConfig = SlimeConfig()

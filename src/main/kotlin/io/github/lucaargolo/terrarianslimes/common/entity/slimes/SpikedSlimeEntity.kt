@@ -24,9 +24,10 @@ class SpikedSlimeEntity(
 ): ModdedSlimeEntity<ModConfig.SpikedSlimeConfig>(entityType, world, particleItem, config, defaultSize, ownStatusEffect), RangedAttackMob {
 
     private val baseSpikeAttack = config.baseSpikeAttack
+    private val spikeAttackCooldown = config.spikeAttackCooldown
 
     init {
-        goalSelector.add(1, ShootSpikeGoal(this))
+        goalSelector.add(1, ShootSpikeGoal(this, spikeAttackCooldown))
     }
 
     override fun attack(target: LivingEntity, pullProgress: Float) {

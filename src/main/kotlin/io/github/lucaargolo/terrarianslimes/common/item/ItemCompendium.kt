@@ -53,7 +53,7 @@ object ItemCompendium: RegistryCompendium<Item>(Registry.ITEM) {
     val UMBRELLA_HAT = register("umbrella_hat", WearableItem(creativeGroupSettings().maxCount(1).equipmentSlot { EquipmentSlot.HEAD }))
 
     val GOLD_CROWN = register("gold_crown", WearableItem(creativeGroupSettings().maxCount(1).equipmentSlot { EquipmentSlot.HEAD }))
-    val SLIME_CROWN = register("slime_crown", SummonableItem(creativeGroupSettings().maxCount(1)))
+    val SLIME_CROWN = register("slime_crown", SummonableItem(EntityCompendium.KING_SLIME, creativeGroupSettings().maxCount(1)))
 
     val GREEN_SLIME_GEL = register("green_gel", Item(creativeGroupSettings()))
     val BLUE_SLIME_GEL = register("blue_gel", Item(creativeGroupSettings()))

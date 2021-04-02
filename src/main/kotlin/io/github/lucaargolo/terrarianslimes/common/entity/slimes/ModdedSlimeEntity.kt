@@ -46,15 +46,20 @@ open class ModdedSlimeEntity<C: ModConfig.ModdedSlimeConfig>(
     private val baseHealth = config.baseHealth
     private val baseSpeed = config.baseSpeed
     private val baseAttack = config.baseAttack
+    private val attackCooldown = config.attackCooldown
 
     val hasBonusDrops = config.hasBonusDrops
     fun getBonusDrops(): ItemStack = this.dataTracker.get(BONUS_DROPS)
 
-    override fun canAttack() = this.canMoveVoluntarily()
+    var currentCooldown = 0
+
+    override fun computeFallDamage(fallDistance: Float, damageMultiplier: Float) = 0
+
+    override fun canAttack() = this.canMoveVoluntarily() && currentCooldown <= 0
 
     override fun damage(target: LivingEntity) {
         if (this.isAlive) {
-            if (this.canSee(target) && target.damage(DamageSource.mob(this), this.damageAmount)) {
+            if (currentCooldown <= 0 && this.canSee(target) && target.damage(DamageSource.mob(this), this.damageAmount)) {
                 playSound(SoundEvents.ENTITY_SLIME_ATTACK, 1.0f, (random.nextFloat() - random.nextFloat()) * 0.2f + 1.0f)
                 dealDamage(this, target)
                 statusEffect?.let {
@@ -62,10 +67,19 @@ open class ModdedSlimeEntity<C: ModConfig.ModdedSlimeConfig>(
                         target.addStatusEffect(StatusEffectInstance(statusEffect, 200, 0))
                     }
                 }
+                currentCooldown = attackCooldown
             }
         }
     }
 
+    override fun tick() {
+        super.tick()
+        if(currentCooldown > 0) {
+            currentCooldown--
+        }
+    }
+
+    fun setDefaultSize(heal: Boolean) = setSize(defaultSize, heal)
 
     override fun setSize(size: Int, heal: Boolean) {
         super.setSize(size, heal)
@@ -98,7 +112,7 @@ open class ModdedSlimeEntity<C: ModConfig.ModdedSlimeConfig>(
                     childrenEntity.customName = this.customName
                     childrenEntity.isAiDisabled = this.isAiDisabled
                     childrenEntity.isInvulnerable = this.isInvulnerable
-                    childrenEntity.setSize(childrenEntity.defaultSize, true)
+                    childrenEntity.setDefaultSize(true)
                     childrenEntity.refreshPositionAndAngles(
                         this.x + g.toDouble(),
                         this.y + 0.5,
@@ -128,17 +142,19 @@ open class ModdedSlimeEntity<C: ModConfig.ModdedSlimeConfig>(
     }
 
     override fun readCustomDataFromTag(tag: CompoundTag) {
+        super.readCustomDataFromTag(tag)
         if(this.hasBonusDrops && tag.contains("bonusDrops")) {
            this.dataTracker.set(BONUS_DROPS, ItemStack.fromTag(tag.getCompound("bonusDrops")))
         }
-        super.readCustomDataFromTag(tag)
+        currentCooldown = tag.getInt("currentCooldown")
     }
 
     override fun writeCustomDataToTag(tag: CompoundTag) {
+        super.writeCustomDataToTag(tag)
         if(this.hasBonusDrops && !this.getBonusDrops().isEmpty) {
             tag.put("bonusDrops", this.getBonusDrops().toTag(CompoundTag()))
         }
-        super.writeCustomDataToTag(tag)
+        tag.putInt("currentCooldown", currentCooldown)
     }
 
     override fun initDataTracker() {

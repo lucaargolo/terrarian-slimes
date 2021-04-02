@@ -151,7 +151,7 @@ object EntityCompendium: RegistryCompendium<EntityType<*>>(Registry.ENTITY_TYPE)
 
     val KING_SLIME = register ("king_slime",
         FabricEntityTypeBuilder.create(SpawnGroup.MONSTER) { type: EntityType<ModdedSlimeEntity<*>>, world: World ->
-            KingSlimeEntity(type, world, ItemCompendium.BLUE_SLIME_BALL, ModConfig.KING_SLIME, 10)
+            KingSlimeEntity(type, world, ItemCompendium.BLUE_SLIME_BALL, ModConfig.KING_SLIME, 6)
         }.dimensions(EntityDimensions.changing(2.04F, 2.04F)).trackRangeChunks(
             10
         ).build()
