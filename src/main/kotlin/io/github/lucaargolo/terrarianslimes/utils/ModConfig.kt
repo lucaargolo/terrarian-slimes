@@ -41,6 +41,7 @@ class ModConfig {
         val babySlime = ModdedSlimeConfig(true, 0, 0f, 8.0, 0.4, 4.0, true)
         val lavaSlime = ModdedSlimeConfig(true, 10, 0.5f, 13.0, 0.8, 6.0, false)
         val pinky = ModdedSlimeConfig(true, 1, 0.25f, 45.0, 0.6, 2.0, true)
+        val kingSlime = ModdedSlimeConfig(true, 0, 0f, 1000.0, 1.2, 14.4, false)
         val spikedSlime = SpikedSlimeConfig(true, 0, 0f, 15.0, 0.4, 4.8, false, 6.0)
         val umbrellaSlime = ModdedSlimeConfig(true, 40, 0.1f, 9.0, 0.5, 3.6, false)
         val corruptSlime = ModdedSlimeConfig(true, 10, 0.5f, 50.0, 0.5, 18.3, false)
@@ -83,6 +84,8 @@ class ModConfig {
             get() = TerrarianSlimes.CONFIG.slimeConfig.lavaSlime
         val PINKY
             get() = TerrarianSlimes.CONFIG.slimeConfig.pinky
+        val KING_SLIME
+            get() = TerrarianSlimes.CONFIG.slimeConfig.kingSlime
         val SPIKED_SLIME
             get() = TerrarianSlimes.CONFIG.slimeConfig.spikedSlime
         val UMBRELLA_SLIME

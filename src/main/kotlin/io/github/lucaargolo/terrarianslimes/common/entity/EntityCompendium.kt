@@ -149,6 +149,14 @@ object EntityCompendium: RegistryCompendium<EntityType<*>>(Registry.ENTITY_TYPE)
         ).build()
     ) as EntityType<ModdedSlimeEntity<*>>
 
+    val KING_SLIME = register ("king_slime",
+        FabricEntityTypeBuilder.create(SpawnGroup.MONSTER) { type: EntityType<ModdedSlimeEntity<*>>, world: World ->
+            KingSlimeEntity(type, world, ItemCompendium.BLUE_SLIME_BALL, ModConfig.KING_SLIME, 10)
+        }.dimensions(EntityDimensions.changing(2.04F, 2.04F)).trackRangeChunks(
+            10
+        ).build()
+    ) as EntityType<ModdedSlimeEntity<*>>
+
     val SPIKED_SLIME = register ("spiked_slime",
         FabricEntityTypeBuilder.create(SpawnGroup.MONSTER) { type: EntityType<ModdedSlimeEntity<*>>, world: World ->
             SpikedSlimeEntity(type, world, ItemCompendium.BLUE_SLIME_BALL, ModConfig.SPIKED_SLIME, 2)
@@ -370,6 +378,9 @@ object EntityCompendium: RegistryCompendium<EntityType<*>>(Registry.ENTITY_TYPE)
             BiomeModifications.addSpawn(BiomeSelectors.foundInOverworld(), SpawnGroup.MONSTER, PINKY, ModConfig.PINKY.spawnWeight, 1, 1)
             SpawnRestrictionAccessor.callRegister(PINKY, SpawnRestriction.Location.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, ModdedSlimeEntity.getSurfaceSpawnPredicate(ModConfig.PINKY.spawnProbability))
         }
+
+        //King Slime
+        FabricDefaultAttributeRegistry.register(KING_SLIME, HostileEntity.createHostileAttributes())
 
         //Spiked Slime (To be used on the King Slime boss fight)
         FabricDefaultAttributeRegistry.register(SPIKED_SLIME, HostileEntity.createHostileAttributes())

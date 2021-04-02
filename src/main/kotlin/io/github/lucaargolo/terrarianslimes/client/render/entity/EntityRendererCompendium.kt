@@ -1,5 +1,6 @@
 package io.github.lucaargolo.terrarianslimes.client.render.entity
 
+import io.github.lucaargolo.terrarianslimes.client.render.entity.slimes.KingSlimeEntityRenderer
 import io.github.lucaargolo.terrarianslimes.client.render.entity.slimes.ModdedSlimeEntityRenderer
 import io.github.lucaargolo.terrarianslimes.client.render.entity.slimes.UmbrellaSlimeEntityRenderer
 import io.github.lucaargolo.terrarianslimes.client.render.entity.slimes.feature.IlluminantSlimeOverlayFeatureRenderer
@@ -32,6 +33,7 @@ object EntityRendererCompendium: GenericCompendium<EntityRendererRegistry.Factor
         register("baby_slime") { dispatcher, _ -> ModdedSlimeEntityRenderer(dispatcher, SlimeEntityModel(16), { ModdedSlimeOverlayFeatureRenderer(it) }) }
         register("lava_slime") { dispatcher, _ -> ModdedSlimeEntityRenderer(dispatcher, SlimeEntityModel(16), { ModdedSlimeOverlayFeatureRenderer(it) }, true) }
         register("pinky") { dispatcher, _ -> ModdedSlimeEntityRenderer(dispatcher, SlimeEntityModel(16), { ModdedSlimeOverlayFeatureRenderer(it) }) }
+        register("king_slime") { dispatcher, _ -> KingSlimeEntityRenderer(dispatcher, SlimeEntityModel(16), { ModdedSlimeOverlayFeatureRenderer(it) }) }
         register("spiked_slime") { dispatcher, _ -> ModdedSlimeEntityRenderer(dispatcher, SpikedSlimeEntityModel(), { ModdedSlimeOverlayFeatureRenderer(it) })}
         register("umbrella_slime") { dispatcher, _ -> UmbrellaSlimeEntityRenderer(dispatcher, SlimeEntityModel(16), { ModdedSlimeOverlayFeatureRenderer(it) }) }
         register("corrupt_slime") { dispatcher, _ -> ModdedSlimeEntityRenderer(dispatcher, SlimeEntityModel(16), { ModdedSlimeOverlayFeatureRenderer(it) }) }
