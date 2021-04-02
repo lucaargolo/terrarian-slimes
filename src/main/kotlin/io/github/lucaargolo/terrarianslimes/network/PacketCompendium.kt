@@ -3,14 +3,18 @@ package io.github.lucaargolo.terrarianslimes.network
 import io.github.lucaargolo.terrarianslimes.common.entity.EntityCompendium
 import io.github.lucaargolo.terrarianslimes.common.entity.spike.SpikeEntity
 import io.github.lucaargolo.terrarianslimes.common.entity.throwable.*
+import io.github.lucaargolo.terrarianslimes.utils.ExplosionBlockStateReplacement
 import io.github.lucaargolo.terrarianslimes.utils.ModIdentifier
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking
+import net.minecraft.block.Block
 import net.minecraft.util.registry.Registry
 
 object PacketCompendium {
 
     val SPAWN_SPIKE_ENTITY = ModIdentifier("spawn_spike_entity")
     val SPAWN_THROWABLE_ENTITY = ModIdentifier("spawn_throwable_entity")
+
+    val REPLACE_EXPLOSION_BLOCK_STATE = ModIdentifier("replace_explosion_block_state")
 
     fun initializeClient() {
         ClientPlayNetworking.registerGlobalReceiver(SPAWN_THROWABLE_ENTITY) { client, handler, buf, _ ->
@@ -78,6 +82,12 @@ object PacketCompendium {
                 entity.uuid = uuid
                 world.addEntity(id, entity)
 
+            }
+        }
+        ClientPlayNetworking.registerGlobalReceiver(REPLACE_EXPLOSION_BLOCK_STATE) { client, _, buf, _ ->
+            val state = Block.getStateFromRawId(buf.readVarInt())
+            client.execute {
+                ExplosionBlockStateReplacement.Client.setupReplacementBlockState(state)
             }
         }
     }

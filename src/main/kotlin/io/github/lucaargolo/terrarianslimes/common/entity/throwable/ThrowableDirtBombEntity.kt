@@ -2,7 +2,10 @@ package io.github.lucaargolo.terrarianslimes.common.entity.throwable
 
 import io.github.lucaargolo.terrarianslimes.common.entity.EntityCompendium
 import io.github.lucaargolo.terrarianslimes.common.item.ItemCompendium
+import io.github.lucaargolo.terrarianslimes.utils.ExplosionBlockStateReplacement
+import net.minecraft.block.Blocks
 import net.minecraft.entity.EntityType
+import net.minecraft.server.world.ServerWorld
 import net.minecraft.world.World
 import net.minecraft.world.explosion.Explosion
 
@@ -21,8 +24,9 @@ class ThrowableDirtBombEntity: ThrowableEntity {
     override fun tick() {
         super.tick()
         if(age >= 60) {
-            if(!world.isClient) {
-                world.createExplosion(this, x, y, z, 2f, Explosion.DestructionType.BREAK)
+            (world as? ServerWorld)?.let { serverWorld ->
+                ExplosionBlockStateReplacement.Server.setupReplacementBlockState(serverWorld, x, y, z, Blocks.DIRT.defaultState)
+                serverWorld.createExplosion(this, null, null, x, y, z, 2f, false, Explosion.DestructionType.DESTROY)
             }
             remove()
         }
