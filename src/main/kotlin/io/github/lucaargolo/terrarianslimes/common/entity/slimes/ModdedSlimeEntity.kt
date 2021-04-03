@@ -142,7 +142,7 @@ open class ModdedSlimeEntity<C: ModConfig.ModdedSlimeConfig>(
         this.setSize(this.defaultSize, true)
         if(this.hasBonusDrops) {
             val serverWorld = world.toServerWorld()
-            val table = serverWorld.server.lootManager.getTable(ModIdentifier("slimes/default_drops"))
+            val table = serverWorld.server.lootManager.getTable(ModIdentifier("gameplay/extra_slime_drops"))
             val ctx = LootContext.Builder(serverWorld).random(this.random).build(SLIMES_LOOT_CONTEXT)
             val stackList = table.generateLoot(ctx)
             this.dataTracker.set(BONUS_DROPS, stackList.firstOrNull() ?: ItemStack.EMPTY)

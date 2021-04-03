@@ -29,11 +29,4 @@ class LavaSlimeEntity<C: ModConfig.ModdedSlimeConfig>(
     override fun hurtByWater() = true
     override fun isFireImmune() = true
 
-    override fun onDeath(source: DamageSource) {
-        if(source == DamageSource.DROWN && !this.world.isClient) {
-            ItemScatterer.spawn(this.world, this.pos.x, this.pos.y, this.pos.z, ItemStack(Items.OBSIDIAN))
-        }
-        super.onDeath(source)
-    }
-
 }

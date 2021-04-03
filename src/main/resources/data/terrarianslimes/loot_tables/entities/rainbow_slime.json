@@ -1,0 +1,46 @@
+{
+  "type": "minecraft:entity",
+  "pools": [
+    {
+      "rolls": 1,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "terrarianslimes:blessed_apple",
+          "functions": [
+            {
+              "function": "minecraft:set_count",
+              "count": 1
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "rolls": 1,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "terrarianslimes:rainbow_gel",
+          "functions": [
+            {
+              "function": "minecraft:set_count",
+              "count": {
+                "type": "minecraft:uniform",
+                "min": 1,
+                "max": 20
+              }
+            },
+            {
+              "function": "minecraft:looting_enchant",
+              "count": {
+                "min": 0,
+                "max": 1
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
