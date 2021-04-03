@@ -16,9 +16,7 @@ import net.minecraft.item.ItemConvertible
 import net.minecraft.nbt.CompoundTag
 import net.minecraft.server.network.ServerPlayerEntity
 import net.minecraft.text.Text
-import net.minecraft.util.math.BlockPos
 import net.minecraft.util.math.MathHelper
-import net.minecraft.util.math.Vec3d
 import net.minecraft.world.World
 
 class KingSlimeEntity<C: ModConfig.ModdedSlimeConfig>(
@@ -43,6 +41,10 @@ class KingSlimeEntity<C: ModConfig.ModdedSlimeConfig>(
         get() = dataTracker.get(TELEPORTING_PROGRESS)
         set(value) = dataTracker.set(TELEPORTING_PROGRESS, value)
 
+    var spawnProgress: Int
+        get() = dataTracker.get(SPAWN_PROGRESS)
+        set(value) = dataTracker.set(SPAWN_PROGRESS, value)
+
     override fun onStartedTrackingBy(player: ServerPlayerEntity) {
         super.onStartedTrackingBy(player)
         bossBar.addPlayer(player)
@@ -53,12 +55,24 @@ class KingSlimeEntity<C: ModConfig.ModdedSlimeConfig>(
         bossBar.removePlayer(player)
     }
 
+    override fun writeCustomDataToTag(tag: CompoundTag) {
+        super.writeCustomDataToTag(tag)
+        tag.putInt("spawnProgress", spawnProgress)
+    }
+
     override fun readCustomDataFromTag(tag: CompoundTag) {
         super.readCustomDataFromTag(tag)
         if (hasCustomName()) {
             bossBar.name = this.displayName
         }
+        spawnProgress = tag.getInt("spawnProgress")
     }
+
+    override fun isAiDisabled() = spawnProgress > 0 || super.isAiDisabled()
+
+    override fun isInvulnerable() = spawnProgress > 0 || super.isInvulnerable()
+
+    override fun canAttack() = spawnProgress <= 0 && super.canAttack()
 
     override fun setTarget(target: LivingEntity?) {
         if(target == null && this.target != null) {
@@ -74,17 +88,24 @@ class KingSlimeEntity<C: ModConfig.ModdedSlimeConfig>(
         bossBar.name = this.displayName
     }
 
+
+
     override fun tick() {
         super.tick()
-        bossBar.percent = this.health / this.maxHealth
-        if(isTeleporting) {
+        if(isTeleporting || spawnProgress > 0) {
             if(!world.isClient) {
-                when (teleportingProgress--) {
-                    50 -> {
-                        val tpPos = teleportingTarget?.pos ?: pos
-                        teleport(tpPos.x, tpPos.y, tpPos.z, true)
+                if(isTeleporting) {
+                    when (teleportingProgress--) {
+                        50 -> {
+                            val tpPos = teleportingTarget?.pos ?: pos
+                            teleport(tpPos.x, tpPos.y, tpPos.z, true)
+                        }
+                        0 -> isTeleporting = false
                     }
-                    0 -> isTeleporting = false
+                }
+                if(spawnProgress > 0) {
+                    spawnProgress--
+                    bossBar.percent = (200f-spawnProgress) / 200f
                 }
             }
             for (j in 0 until size * 8) {
@@ -100,6 +121,7 @@ class KingSlimeEntity<C: ModConfig.ModdedSlimeConfig>(
     override fun damage(source: DamageSource, amount: Float): Boolean {
         val oldHealth = this.health
         val damage = super.damage(source, amount)
+        bossBar.percent = this.health / this.maxHealth
         if(!world.isClient && ModConfig.SPIKED_SLIME.enabled && (this.health % 100 == 0f || this.health % 100 > oldHealth % 100)) {
             repeat((1..3).random()) { l ->
                 val g = ((l % 2) - 0.5f) * this.size/4
@@ -128,12 +150,14 @@ class KingSlimeEntity<C: ModConfig.ModdedSlimeConfig>(
         this.dataTracker.startTracking(TELEPORTING_PROGRESS, 100)
         this.dataTracker.startTracking(TELEPORTING_TARGET, -1)
         this.dataTracker.startTracking(TELEPORTING, false)
+        this.dataTracker.startTracking(SPAWN_PROGRESS, 200)
     }
 
     companion object {
         val TELEPORTING_PROGRESS: TrackedData<Int> = DataTracker.registerData(KingSlimeEntity::class.java, TrackedDataHandlerRegistry.INTEGER)
         val TELEPORTING_TARGET: TrackedData<Int> = DataTracker.registerData(KingSlimeEntity::class.java, TrackedDataHandlerRegistry.INTEGER)
         val TELEPORTING: TrackedData<Boolean> = DataTracker.registerData(KingSlimeEntity::class.java, TrackedDataHandlerRegistry.BOOLEAN)
+        val SPAWN_PROGRESS: TrackedData<Int> = DataTracker.registerData(KingSlimeEntity::class.java, TrackedDataHandlerRegistry.INTEGER)
     }
 
 }
