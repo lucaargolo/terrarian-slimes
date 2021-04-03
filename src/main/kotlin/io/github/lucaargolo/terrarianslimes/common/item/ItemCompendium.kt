@@ -23,9 +23,9 @@ object ItemCompendium: RegistryCompendium<Item>(Registry.ITEM) {
     val KING_SLIME_BALL = register("king_slime_ball", NetherStarItem(creativeGroupSettings()))
     val ROYAL_GEL = register("royal_gel", RoyalGelItem(creativeGroupSettings().maxCount(1)))
 
+    val BLESSED_APPLE = register("blessed_apple", EnchantedGoldenAppleItem(creativeGroupSettings().food(FoodComponent.Builder().hunger(8).saturationModifier(2.4F).statusEffect(StatusEffectInstance(StatusEffects.REGENERATION, 400, 1), 1.0F).statusEffect(StatusEffectInstance(StatusEffects.RESISTANCE, 6000, 1), 1.0F).statusEffect(StatusEffectInstance(StatusEffects.FIRE_RESISTANCE, 6000, 1), 1.0F).statusEffect(StatusEffectInstance(StatusEffects.ABSORPTION, 6000, 3), 1.0F).alwaysEdible().build())))
     val APPLE_PIE = register("apple_pie", Item(creativeGroupSettings().food(FoodComponent.Builder().hunger(16).saturationModifier(0.6F).build())))
     val ICE_CREAM = register("ice_cream", Item(creativeGroupSettings().food(FoodComponent.Builder().hunger(8).saturationModifier(1.2F).build())))
-    val BLESSED_APPLE = register("blessed_apple", EnchantedGoldenAppleItem(creativeGroupSettings().food(FoodComponent.Builder().hunger(8).saturationModifier(2.4F).statusEffect(StatusEffectInstance(StatusEffects.REGENERATION, 400, 1), 1.0F).statusEffect(StatusEffectInstance(StatusEffects.RESISTANCE, 6000, 1), 1.0F).statusEffect(StatusEffectInstance(StatusEffects.FIRE_RESISTANCE, 6000, 1), 1.0F).statusEffect(StatusEffectInstance(StatusEffects.ABSORPTION, 6000, 3), 1.0F).alwaysEdible().build())))
 
     val GRENADE = register("grenade", ThrowableItem(EntityCompendium.GRENADE, ThrowableEntity.Type.NORMAL, creativeGroupSettings()))
     val STICKY_GRENADE = register("sticky_grenade", ThrowableItem(EntityCompendium.GRENADE, ThrowableEntity.Type.STICKY, creativeGroupSettings()))
