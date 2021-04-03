@@ -26,6 +26,7 @@ import net.minecraft.particle.ParticleTypes
 import net.minecraft.sound.SoundEvents
 import net.minecraft.state.property.Properties
 import net.minecraft.tag.BlockTags
+import net.minecraft.util.Identifier
 import net.minecraft.util.ItemScatterer
 import net.minecraft.util.math.MathHelper
 import net.minecraft.world.Difficulty
@@ -134,6 +135,10 @@ open class ModdedSlimeEntity<C: ModConfig.ModdedSlimeConfig>(
             }
         }
         this.removed = true
+    }
+
+    override fun getLootTableId(): Identifier {
+        return this.type.lootTableId
     }
 
     override fun initialize(world: ServerWorldAccess, difficulty: LocalDifficulty, spawnReason: SpawnReason, entityData: EntityData?, entityTag: CompoundTag?): EntityData? {
