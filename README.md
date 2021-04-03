@@ -8,9 +8,11 @@
   <a title="Fabric Language Kotlin" href="https://github.com/FabricMC/fabric-language-kotlin" target="_blank" rel="noopener noreferrer">
     <img src="https://i.imgur.com/c1DH9VL.png" width="171" height="50" />
   </a>
+</p>
+<p align="center">
   <a href="https://github.com/lucaargolo/terrarian-slimes/actions"><img src="https://github.com/lucaargolo/terrarian-slimes/workflows/Build/badge.svg"/></a>
   <a href="https://opensource.org/licenses/MPL-2.0"><img src="https://img.shields.io/badge/License-MPL%202.0-brightgreen.svg"></a>
-    <a href="https://www.curseforge.com/minecraft/mc-mods/terrarian-slimes"><img src="http://cf.way2muchnoise.eu/versions/terrarian-slimes_latest.svg"></a>
+  <a href="https://www.curseforge.com/minecraft/mc-mods/terrarian-slimes"><img src="http://cf.way2muchnoise.eu/versions/terrarian-slimes_latest.svg"></a>
   <a href="https://www.curseforge.com/minecraft/mc-mods/terrarian-slimes"><img src="http://cf.way2muchnoise.eu/terrarian-slimes.svg"></a>
 </p>
 
