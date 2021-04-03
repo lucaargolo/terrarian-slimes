@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "#i",
+    "i#"
+  ],
+  "key": {
+    "#": {
+      "tag": "terrarianslimes:gel"
+    },
+    "i": {
+      "item": "terrarianslimes:dynamite"
+    }
+  },
+  "result": {
+    "item": "terrarianslimes:sticky_dynamite",
+    "count": 2
+  }
+}

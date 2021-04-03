@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "iii",
+    "iBi",
+    "iii"
+  ],
+  "key": {
+    "i": {
+      "item": "terrarianslimes:sticky_grenade"
+    },
+    "B": {
+      "item": "terrarianslimes:pinky_gel"
+    }
+  },
+  "result": {
+    "item": "terrarianslimes:bouncy_grenade",
+    "count": 8
+  }
+}

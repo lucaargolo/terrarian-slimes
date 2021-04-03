@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " # ",
+    "TGT",
+    " T "
+  ],
+  "key": {
+    "#": {
+      "item": "minecraft:string"
+    },
+    "T": {
+      "item": "minecraft:tnt"
+    },
+    "G": {
+      "item": "minecraft:gunpowder"
+    }
+  },
+  "result": {
+    "item": "terrarianslimes:dynamite",
+    "count": 8
+  }
+}

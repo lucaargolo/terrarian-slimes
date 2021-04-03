@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "#i",
+    "i#"
+  ],
+  "key": {
+    "#": {
+      "tag": "terrarianslimes:gel"
+    },
+    "i": {
+      "item": "terrarianslimes:dirt_bomb"
+    }
+  },
+  "result": {
+    "item": "terrarianslimes:sticky_dirt_bomb",
+    "count": 2
+  }
+}

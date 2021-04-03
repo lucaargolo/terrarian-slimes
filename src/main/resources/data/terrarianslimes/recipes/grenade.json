@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "iG",
+    "Gi"
+  ],
+  "key": {
+    "i": {
+      "item": "minecraft:iron_ingot"
+    },
+    "G": {
+      "item": "terrarianslimes:bomb"
+    }
+  },
+  "result": {
+    "item": "terrarianslimes:grenade",
+    "count": 8
+  }
+}

@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " # ",
+    "SSS",
+    "SSS"
+  ],
+  "key": {
+    "#": {
+      "item": "terrarianslimes:gold_crown"
+    },
+    "S": {
+      "tag": "c:slime_blocks"
+    }
+  },
+  "result": {
+    "item": "terrarianslimes:slime_crown",
+    "count": 1
+  }
+}

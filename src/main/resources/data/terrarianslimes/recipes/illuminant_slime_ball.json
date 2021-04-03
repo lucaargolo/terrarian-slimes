@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "##",
+    "##"
+  ],
+  "key": {
+    "#": {
+      "item": "terrarianslimes:illuminant_gel"
+    }
+  },
+  "result": {
+    "item": "terrarianslimes:illuminant_slime_ball",
+    "count": 1
+  }
+}

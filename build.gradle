@@ -20,10 +20,6 @@ repositories {
         name = "TerraformersMC"
         url = "https://maven.terraformersmc.com/releases"
     }
-    maven {
-        name = "Shedaniel"
-        url = "https://maven.shedaniel.me/"
-    }
     mavenLocal()
 }
 
@@ -36,7 +32,6 @@ dependencies {
     modImplementation "net.fabricmc:fabric-language-kotlin:${project.fabric_kotlin_version}"
 
     modRuntime "com.terraformersmc:modmenu:${project.modmenu_version}"
-    //modRuntime "me.shedaniel:RoughlyEnoughItems:${project.rei_version}"
 }
 
 processResources {

@@ -1,0 +1,36 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "terrarianslimes:black_slime_ball"
+    },
+    {
+      "item": "terrarianslimes:jungle_slime_ball"
+    },
+    {
+      "item": "terrarianslimes:ice_slime_ball"
+    },
+    {
+      "item": "terrarianslimes:crimson_slime_ball"
+    },
+    {
+      "item": "terrarianslimes:king_slime_ball"
+    },
+    {
+      "item": "terrarianslimes:sand_slime_ball"
+    },
+    {
+      "item": "terrarianslimes:corrupt_slime_ball"
+    },
+    {
+      "item": "terrarianslimes:illuminant_slime_ball"
+    },
+    {
+      "item": "terrarianslimes:rainbow_slime_ball"
+    }
+  ],
+  "result": {
+    "item": "terrarianslimes:royal_gel",
+    "count": 1
+  }
+}

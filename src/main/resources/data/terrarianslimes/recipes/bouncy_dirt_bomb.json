@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "#i",
+    "i#"
+  ],
+  "key": {
+    "#": {
+      "item": "terrarianslimes:pinky_gel"
+    },
+    "i": {
+      "item": "terrarianslimes:sticky_dirt_bomb"
+    }
+  },
+  "result": {
+    "item": "terrarianslimes:bouncy_dirt_bomb",
+    "count": 2
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "###",
+    "###",
+    "###"
+  ],
+  "key": {
+    "#": {
+      "item": "terrarianslimes:rainbow_slime_ball"
+    }
+  },
+  "result": {
+    "item": "terrarianslimes:rainbow_slime_block",
+    "count": 1
+  }
+}

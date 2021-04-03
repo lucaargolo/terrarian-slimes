@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "iii",
+    "iBi",
+    "iii"
+  ],
+  "key": {
+    "i": {
+      "item": "terrarianslimes:glowstick"
+    },
+    "B": {
+      "tag": "terrarianslimes:gel"
+    }
+  },
+  "result": {
+    "item": "terrarianslimes:sticky_glowstick",
+    "count": 8
+  }
+}
