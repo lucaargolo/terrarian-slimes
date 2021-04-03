@@ -74,6 +74,8 @@ class KingSlimeEntity<C: ModConfig.ModdedSlimeConfig>(
 
     override fun canAttack() = spawnProgress <= 0 && super.canAttack()
 
+    override fun ignoreRoyalGel() = false
+
     override fun setTarget(target: LivingEntity?) {
         if(target == null && this.target != null) {
             isTeleporting = true
@@ -87,8 +89,6 @@ class KingSlimeEntity<C: ModConfig.ModdedSlimeConfig>(
         super.setCustomName(name)
         bossBar.name = this.displayName
     }
-
-
 
     override fun tick() {
         super.tick()

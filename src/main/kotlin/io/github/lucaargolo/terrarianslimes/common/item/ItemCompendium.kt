@@ -20,7 +20,8 @@ object ItemCompendium: RegistryCompendium<Item>(Registry.ITEM) {
         BlockCompendium.registerBlockItems(map)
     }
 
-    val ROYAL_GEL = register("royal_gel", Item(creativeGroupSettings().maxCount(1)))
+    val KING_SLIME_BALL = register("king_slime_ball", NetherStarItem(creativeGroupSettings()))
+    val ROYAL_GEL = register("royal_gel", RoyalGelItem(creativeGroupSettings().maxCount(1)))
 
     val APPLE_PIE = register("apple_pie", Item(creativeGroupSettings().food(FoodComponent.Builder().hunger(16).saturationModifier(0.6F).build())))
     val ICE_CREAM = register("ice_cream", Item(creativeGroupSettings().food(FoodComponent.Builder().hunger(8).saturationModifier(1.2F).build())))
@@ -51,7 +52,6 @@ object ItemCompendium: RegistryCompendium<Item>(Registry.ITEM) {
 
     val GOLD_CROWN = register("gold_crown", WearableItem(creativeGroupSettings().maxCount(1).equipmentSlot { EquipmentSlot.HEAD }))
     val SLIME_CROWN = register("slime_crown", SummonableItem(EntityCompendium.KING_SLIME, creativeGroupSettings().maxCount(1)))
-    val KING_SLIME_BALL = register("king_slime_ball", NetherStarItem(creativeGroupSettings()))
 
     val GREEN_SLIME_GEL = register("green_gel", Item(creativeGroupSettings()))
     val BLUE_SLIME_GEL = register("blue_gel", Item(creativeGroupSettings()))
@@ -81,7 +81,7 @@ object ItemCompendium: RegistryCompendium<Item>(Registry.ITEM) {
     val CRIMSON_SLIME_BALL = register("crimson_slime_ball", Item(creativeGroupSettings()))
     val ILLUMINANT_SLIME_BALL = register("illuminant_slime_ball", Item(creativeGroupSettings()))
     val RAINBOW_SLIME_BALL = register("rainbow_slime_ball", Item(creativeGroupSettings()))
-    
+
     val GREEN_SLIME_EGG = register("green_slime_spawn_egg", SpawnEggItem(EntityCompendium.GREEN_SLIME, 0x6BC659, 0x3C9830, creativeGroupSettings()))
     val BLUE_SLIME_EGG = register("blue_slime_spawn_egg", SpawnEggItem(EntityCompendium.BLUE_SLIME, 0x5974C6, 0x304598, creativeGroupSettings()))
     val RED_SLIME_EGG = register("red_slime_spawn_egg", SpawnEggItem(EntityCompendium.RED_SLIME, 0xC65960, 0xA73E40, creativeGroupSettings()))

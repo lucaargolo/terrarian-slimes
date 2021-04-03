@@ -3,6 +3,7 @@ package io.github.lucaargolo.terrarianslimes.common.entity.slimes
 import io.github.lucaargolo.terrarianslimes.mixin.AccessorLootContextTypes
 import io.github.lucaargolo.terrarianslimes.utils.ModConfig
 import io.github.lucaargolo.terrarianslimes.utils.ModIdentifier
+import io.github.lucaargolo.terrarianslimes.utils.RoyalGelHolders
 import net.minecraft.block.Blocks
 import net.minecraft.entity.*
 import net.minecraft.entity.attribute.EntityAttributeModifier
@@ -56,6 +57,14 @@ open class ModdedSlimeEntity<C: ModConfig.ModdedSlimeConfig>(
     override fun computeFallDamage(fallDistance: Float, damageMultiplier: Float) = 0
 
     override fun canAttack() = this.canMoveVoluntarily() && currentCooldown <= 0
+
+    open fun ignoreRoyalGel() = true
+
+    override fun setTarget(target: LivingEntity?) {
+        if(target == null || !ignoreRoyalGel() || !RoyalGelHolders.isHolding(target)) {
+            super.setTarget(target)
+        }
+    }
 
     override fun damage(target: LivingEntity) {
         if (this.isAlive) {

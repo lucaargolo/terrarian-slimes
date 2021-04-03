@@ -9,6 +9,7 @@ import io.github.lucaargolo.terrarianslimes.common.item.ItemCompendium
 import io.github.lucaargolo.terrarianslimes.network.PacketCompendium
 import io.github.lucaargolo.terrarianslimes.utils.ModConfig
 import io.github.lucaargolo.terrarianslimes.utils.ModIdentifier
+import io.github.lucaargolo.terrarianslimes.utils.RoyalGelHolders
 import net.fabricmc.api.ModInitializer
 import net.fabricmc.fabric.api.client.itemgroup.FabricItemGroupBuilder
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings
@@ -33,6 +34,7 @@ class TerrarianSlimes: ModInitializer {
         ItemCompendium.initialize()
         BlockEntityCompendium.initialize()
         EntityCompendium.initialize()
+        RoyalGelHolders.initialize()
     }
 
     companion object {
