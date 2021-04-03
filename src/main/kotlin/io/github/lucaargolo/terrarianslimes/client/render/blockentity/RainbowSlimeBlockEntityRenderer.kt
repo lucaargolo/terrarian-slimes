@@ -1,7 +1,7 @@
-package io.github.lucaargolo.terrarianslimes.client.render.blockentity.rainbow
+package io.github.lucaargolo.terrarianslimes.client.render.blockentity
 
 import io.github.lucaargolo.terrarianslimes.common.block.BlockCompendium
-import io.github.lucaargolo.terrarianslimes.common.blockentity.rainbow.RainbowSlimeBlockEntity
+import io.github.lucaargolo.terrarianslimes.common.blockentity.RainbowSlimeBlockEntity
 import net.minecraft.client.MinecraftClient
 import net.minecraft.client.render.OverlayTexture
 import net.minecraft.client.render.RenderLayers

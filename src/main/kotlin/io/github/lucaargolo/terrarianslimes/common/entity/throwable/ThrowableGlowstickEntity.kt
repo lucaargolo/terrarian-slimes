@@ -1,7 +1,7 @@
 package io.github.lucaargolo.terrarianslimes.common.entity.throwable
 
 import io.github.lucaargolo.terrarianslimes.common.block.BlockCompendium
-import io.github.lucaargolo.terrarianslimes.common.block.glowstick.GlowstickLightBlock
+import io.github.lucaargolo.terrarianslimes.common.block.GlowstickLightBlock
 import io.github.lucaargolo.terrarianslimes.common.entity.EntityCompendium
 import io.github.lucaargolo.terrarianslimes.common.item.ItemCompendium
 import net.minecraft.block.Material

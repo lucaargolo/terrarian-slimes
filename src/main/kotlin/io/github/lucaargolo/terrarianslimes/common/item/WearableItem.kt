@@ -1,4 +1,4 @@
-package io.github.lucaargolo.terrarianslimes.common.item.wearable
+package io.github.lucaargolo.terrarianslimes.common.item
 
 import net.minecraft.item.Item
 import net.minecraft.item.Wearable

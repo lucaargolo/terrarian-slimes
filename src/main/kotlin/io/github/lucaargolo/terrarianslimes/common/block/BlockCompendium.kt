@@ -1,8 +1,6 @@
 package io.github.lucaargolo.terrarianslimes.common.block
 
 import io.github.lucaargolo.terrarianslimes.TerrarianSlimes.Companion.creativeGroupSettings
-import io.github.lucaargolo.terrarianslimes.common.block.glowstick.GlowstickLightBlock
-import io.github.lucaargolo.terrarianslimes.common.block.rainbow.RainbowSlimeBlock
 import io.github.lucaargolo.terrarianslimes.utils.RegistryCompendium
 import net.fabricmc.fabric.api.`object`.builder.v1.block.FabricBlockSettings
 import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap

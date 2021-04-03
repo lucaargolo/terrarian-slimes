@@ -1,4 +1,4 @@
-package io.github.lucaargolo.terrarianslimes.common.item.summonable
+package io.github.lucaargolo.terrarianslimes.common.item
 
 import net.minecraft.entity.EntityType
 import net.minecraft.entity.SpawnReason

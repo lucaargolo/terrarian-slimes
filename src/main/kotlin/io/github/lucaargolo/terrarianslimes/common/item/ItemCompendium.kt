@@ -4,9 +4,6 @@ import io.github.lucaargolo.terrarianslimes.TerrarianSlimes.Companion.creativeGr
 import io.github.lucaargolo.terrarianslimes.common.block.BlockCompendium
 import io.github.lucaargolo.terrarianslimes.common.entity.EntityCompendium
 import io.github.lucaargolo.terrarianslimes.common.entity.throwable.ThrowableEntity
-import io.github.lucaargolo.terrarianslimes.common.item.summonable.SummonableItem
-import io.github.lucaargolo.terrarianslimes.common.item.throwable.ThrowableItem
-import io.github.lucaargolo.terrarianslimes.common.item.wearable.WearableItem
 import io.github.lucaargolo.terrarianslimes.utils.RegistryCompendium
 import net.fabricmc.fabric.api.client.rendering.v1.ColorProviderRegistry
 import net.minecraft.client.MinecraftClient
@@ -54,6 +51,7 @@ object ItemCompendium: RegistryCompendium<Item>(Registry.ITEM) {
 
     val GOLD_CROWN = register("gold_crown", WearableItem(creativeGroupSettings().maxCount(1).equipmentSlot { EquipmentSlot.HEAD }))
     val SLIME_CROWN = register("slime_crown", SummonableItem(EntityCompendium.KING_SLIME, creativeGroupSettings().maxCount(1)))
+    val KING_SLIME_BALL = register("king_slime_ball", NetherStarItem(creativeGroupSettings()))
 
     val GREEN_SLIME_GEL = register("green_gel", Item(creativeGroupSettings()))
     val BLUE_SLIME_GEL = register("blue_gel", Item(creativeGroupSettings()))

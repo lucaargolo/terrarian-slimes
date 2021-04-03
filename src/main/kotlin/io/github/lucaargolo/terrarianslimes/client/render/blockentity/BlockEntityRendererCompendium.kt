@@ -1,6 +1,5 @@
 package io.github.lucaargolo.terrarianslimes.client.render.blockentity
 
-import io.github.lucaargolo.terrarianslimes.client.render.blockentity.rainbow.RainbowSlimeBlockEntityRenderer
 import io.github.lucaargolo.terrarianslimes.common.blockentity.BlockEntityCompendium
 import io.github.lucaargolo.terrarianslimes.utils.GenericCompendium
 import net.fabricmc.fabric.api.client.rendereregistry.v1.BlockEntityRendererRegistry

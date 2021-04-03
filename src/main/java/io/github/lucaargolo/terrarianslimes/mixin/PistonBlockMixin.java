@@ -1,6 +1,6 @@
 package io.github.lucaargolo.terrarianslimes.mixin;
 
-import io.github.lucaargolo.terrarianslimes.common.block.rainbow.RainbowSlimeBlock;
+import io.github.lucaargolo.terrarianslimes.common.block.RainbowSlimeBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.PistonBlock;
 import org.spongepowered.asm.mixin.Mixin;

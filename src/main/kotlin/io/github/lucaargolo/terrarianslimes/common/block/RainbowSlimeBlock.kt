@@ -1,6 +1,6 @@
-package io.github.lucaargolo.terrarianslimes.common.block.rainbow
+package io.github.lucaargolo.terrarianslimes.common.block
 
-import io.github.lucaargolo.terrarianslimes.common.blockentity.rainbow.RainbowSlimeBlockEntity
+import io.github.lucaargolo.terrarianslimes.common.blockentity.RainbowSlimeBlockEntity
 import net.minecraft.block.BlockEntityProvider
 import net.minecraft.block.BlockRenderType
 import net.minecraft.block.BlockState

@@ -1,4 +1,4 @@
-package io.github.lucaargolo.terrarianslimes.common.item.throwable
+package io.github.lucaargolo.terrarianslimes.common.item
 
 import io.github.lucaargolo.terrarianslimes.common.entity.throwable.ThrowableEntity
 import net.minecraft.entity.EntityType
