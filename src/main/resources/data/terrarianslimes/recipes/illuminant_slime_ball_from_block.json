@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "terrarianslimes:illuminant_slime_block"
+    }
+  ],
+  "result": {
+    "item": "terrarianslimes:illuminant_slime_ball",
+    "count": 9
+  }
+}

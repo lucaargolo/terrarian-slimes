@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "terrarianslimes:pinky_slime_block"
+    }
+  ],
+  "result": {
+    "item": "terrarianslimes:pinky_slime_ball",
+    "count": 9
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "terrarianslimes:corrupt_slime_block"
+    }
+  ],
+  "result": {
+    "item": "terrarianslimes:corrupt_slime_ball",
+    "count": 9
+  }
+}
