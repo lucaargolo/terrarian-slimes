@@ -66,11 +66,14 @@ class KingSlimeEntity<C: ModConfig.ModdedSlimeConfig>(
             bossBar.name = this.displayName
         }
         spawnProgress = tag.getInt("spawnProgress")
+        bossBar.percent = this.health / this.maxHealth
     }
 
     override fun isAiDisabled() = spawnProgress > 0 || super.isAiDisabled()
 
-    override fun isInvulnerable() = spawnProgress > 0 || super.isInvulnerable()
+    override fun isAffectedBySplashPotions() = spawnProgress <= 0 && super.isAttackable()
+
+    override fun isAttackable() = spawnProgress <= 0 && super.isAttackable()
 
     override fun canAttack() = spawnProgress <= 0 && super.canAttack()
 
