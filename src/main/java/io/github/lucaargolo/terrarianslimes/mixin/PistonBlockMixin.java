@@ -10,7 +10,7 @@ import org.spongepowered.asm.mixin.injection.Redirect;
 @Mixin(value = PistonBlock.class, priority = 200)
 public class PistonBlockMixin {
 
-    @Redirect(at = @At(value = "INVOKE", target = "Lnet/minecraft/block/Block;hasBlockEntity()Z"), method = "isMovable")
+    @Redirect(at = @At(value = "INVOKE", target = "Lnet/minecraft/block/Block;hasBlockEntity()Z"), method = "isMovable", require = 0, expect = 0)
     private static boolean redirectIsMovableBlockEntityCheck(Block block) {
         if(block instanceof RainbowSlimeBlock) {
             return false;
@@ -18,7 +18,7 @@ public class PistonBlockMixin {
         return block.hasBlockEntity();
     }
 
-    @Redirect(at = @At(value = "INVOKE", target = "Lnet/minecraft/block/Block;hasBlockEntity()Z"), method = "move")
+    @Redirect(at = @At(value = "INVOKE", target = "Lnet/minecraft/block/Block;hasBlockEntity()Z"), method = "move", require = 0, expect = 0)
     private boolean redirectOnMoveBlockEntityCheck(Block block) {
         if(block instanceof RainbowSlimeBlock) {
             return false;

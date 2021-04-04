@@ -18,7 +18,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import java.awt.*;
 
-@Mixin(LivingEntityRenderer.class)
+@Mixin(value = LivingEntityRenderer.class, priority = 200)
 public abstract class LivingEntityRendererMixin<T extends LivingEntity, M extends EntityModel<T>> {
 
     @Shadow protected M model;
@@ -40,7 +40,7 @@ public abstract class LivingEntityRendererMixin<T extends LivingEntity, M extend
         terrarianslimes_TempTickDelta = tickDelta;
     }
 
-    @Redirect(at = @At(value = "INVOKE", target = "Lnet/minecraft/client/render/entity/LivingEntityRenderer;getRenderLayer(Lnet/minecraft/entity/LivingEntity;ZZZ)Lnet/minecraft/client/render/RenderLayer;"), method = "render")
+    @Redirect(at = @At(value = "INVOKE", target = "Lnet/minecraft/client/render/entity/LivingEntityRenderer;getRenderLayer(Lnet/minecraft/entity/LivingEntity;ZZZ)Lnet/minecraft/client/render/RenderLayer;"), method = "render", require = 0, expect = 0)
     public RenderLayer interceptAtRenderLayer(LivingEntityRenderer<T, M> livingEntityRenderer, T livingEntity, boolean showBody, boolean translucent, boolean showOutline) {
         VertexConsumerProvider vertexConsumerProvider = terrarianslimes_TempVertexConsumerProvider;
         MatrixStack matrixStack = terrarianslimes_TempMatrixStack;

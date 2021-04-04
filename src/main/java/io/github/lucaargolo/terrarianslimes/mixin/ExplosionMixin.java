@@ -18,7 +18,7 @@ public class ExplosionMixin {
 
     @Shadow @Final private World world;
 
-    @Redirect(at = @At(value = "INVOKE", target = "Lnet/minecraft/block/Block;getDefaultState()Lnet/minecraft/block/BlockState;"), method = "affectWorld")
+    @Redirect(at = @At(value = "INVOKE", target = "Lnet/minecraft/block/Block;getDefaultState()Lnet/minecraft/block/BlockState;"), method = "affectWorld", require = 0, expect = 0)
     public BlockState getExplosionBlockState(Block block) {
         if(world.isClient) {
             if (ExplosionBlockStateReplacement.Client.INSTANCE.isReplacingBlockState()) {
