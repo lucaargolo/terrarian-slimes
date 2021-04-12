@@ -1,6 +1,7 @@
 package io.github.lucaargolo.terrarianslimes.common.entity.slimes
 
 import io.github.lucaargolo.terrarianslimes.mixin.AccessorLootContextTypes
+import io.github.lucaargolo.terrarianslimes.mixin.AccessorSlimeEntity
 import io.github.lucaargolo.terrarianslimes.utils.ModConfig
 import io.github.lucaargolo.terrarianslimes.utils.ModIdentifier
 import io.github.lucaargolo.terrarianslimes.utils.RoyalGelHolders
@@ -54,6 +55,10 @@ open class ModdedSlimeEntity<C: ModConfig.ModdedSlimeConfig>(
     fun getBonusDrops(): ItemStack = this.dataTracker.get(BONUS_DROPS)
 
     var currentCooldown = 0
+
+    init {
+        this.dataTracker.set(AccessorSlimeEntity.getSlimeSize(), defaultSize)
+    }
 
     override fun computeFallDamage(fallDistance: Float, damageMultiplier: Float) = 0
 

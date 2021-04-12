@@ -2,9 +2,7 @@ package io.github.lucaargolo.terrarianslimes.common.entity.slimes
 
 import io.github.lucaargolo.terrarianslimes.common.entity.EntityCompendium
 import io.github.lucaargolo.terrarianslimes.utils.ModConfig
-import net.minecraft.entity.Entity
-import net.minecraft.entity.EntityType
-import net.minecraft.entity.LivingEntity
+import net.minecraft.entity.*
 import net.minecraft.entity.boss.BossBar
 import net.minecraft.entity.boss.ServerBossBar
 import net.minecraft.entity.damage.DamageSource
@@ -17,6 +15,8 @@ import net.minecraft.nbt.CompoundTag
 import net.minecraft.server.network.ServerPlayerEntity
 import net.minecraft.text.Text
 import net.minecraft.util.math.MathHelper
+import net.minecraft.world.LocalDifficulty
+import net.minecraft.world.ServerWorldAccess
 import net.minecraft.world.World
 
 class KingSlimeEntity<C: ModConfig.ModdedSlimeConfig>(
@@ -148,12 +148,16 @@ class KingSlimeEntity<C: ModConfig.ModdedSlimeConfig>(
         return damage
     }
 
+    override fun initialize(world: ServerWorldAccess, difficulty: LocalDifficulty, spawnReason: SpawnReason, entityData: EntityData?, entityTag: CompoundTag?): EntityData? {
+        return super.initialize(world, difficulty, spawnReason, entityData, entityTag).also { this.dataTracker.set(SPAWN_PROGRESS, 200) }
+    }
+
     override fun initDataTracker() {
         super.initDataTracker()
         this.dataTracker.startTracking(TELEPORTING_PROGRESS, 100)
         this.dataTracker.startTracking(TELEPORTING_TARGET, -1)
         this.dataTracker.startTracking(TELEPORTING, false)
-        this.dataTracker.startTracking(SPAWN_PROGRESS, 200)
+        this.dataTracker.startTracking(SPAWN_PROGRESS, 0)
     }
 
     companion object {
