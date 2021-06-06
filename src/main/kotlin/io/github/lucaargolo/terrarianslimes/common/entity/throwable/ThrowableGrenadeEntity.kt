@@ -24,7 +24,7 @@ class ThrowableGrenadeEntity: ThrowableEntity {
             if(!world.isClient) {
                 world.createExplosion(this, x, y, z, 1f, Explosion.DestructionType.NONE)
             }
-            remove()
+            remove(RemovalReason.DISCARDED)
         }
     }
 

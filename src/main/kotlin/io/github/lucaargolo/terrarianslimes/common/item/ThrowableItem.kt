@@ -25,7 +25,7 @@ class ThrowableItem(private val throwableEntity: EntityType<ThrowableEntity>, va
             val velocityX = target.x - user.x
             val velocityY = target.y - throwable.y
             val velocityZ = target.z - user.z
-            val h = MathHelper.sqrt(velocityX * velocityX + velocityZ * velocityZ).toDouble()
+            val h = MathHelper.sqrt((velocityX * velocityX + velocityZ * velocityZ).toFloat()).toDouble()
             throwable.setVelocity(velocityX, velocityY + h * 0.2, velocityZ, 1.0f, 0f)
             world.spawnEntity(throwable)
             world.playSound(user, user.blockPos, SoundEvents.ENTITY_HOSTILE_SPLASH, SoundCategory.PLAYERS, 1.0f, 0.4f / (world.random.nextFloat() * 0.4f + 0.8f))

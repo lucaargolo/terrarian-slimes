@@ -7,25 +7,26 @@ import io.github.lucaargolo.terrarianslimes.utils.ModIdentifier
 import net.minecraft.client.MinecraftClient
 import net.minecraft.client.render.RenderLayer
 import net.minecraft.client.render.VertexConsumerProvider
-import net.minecraft.client.render.entity.EntityRenderDispatcher
+import net.minecraft.client.render.entity.EntityRendererFactory
 import net.minecraft.client.render.entity.LivingEntityRenderer
 import net.minecraft.client.render.entity.MobEntityRenderer
 import net.minecraft.client.render.entity.feature.FeatureRenderer
 import net.minecraft.client.render.entity.feature.FeatureRendererContext
 import net.minecraft.client.render.entity.model.EntityModel
+import net.minecraft.client.render.entity.model.EntityModelLoader
 import net.minecraft.client.render.model.json.ModelTransformation
 import net.minecraft.client.util.math.MatrixStack
-import net.minecraft.client.util.math.Vector3f
 import net.minecraft.screen.PlayerScreenHandler
 import net.minecraft.util.Identifier
 import net.minecraft.util.math.MathHelper
+import net.minecraft.util.math.Vec3f
 import net.minecraft.util.registry.Registry
 
-open class ModdedSlimeEntityRenderer<T: ModdedSlimeEntity<*>, M: EntityModel<T>>(entityRenderDispatcher: EntityRenderDispatcher, model: M, overlayFeature: (FeatureRendererContext<T, M>) -> FeatureRenderer<T, M>, private val isEmissive: Boolean = false): MobEntityRenderer<T, M>(entityRenderDispatcher, model, 0.25f) {
+open class ModdedSlimeEntityRenderer<T: ModdedSlimeEntity<*>, M: EntityModel<T>>(context: EntityRendererFactory.Context, model: M, overlayFeature: (FeatureRendererContext<T, M>, EntityModelLoader) -> FeatureRenderer<T, M>, private val isEmissive: Boolean = false): MobEntityRenderer<T, M>(context, model, 0.25f) {
 
     init {
         @Suppress("LeakingThis")
-        this.addFeature(overlayFeature.invoke(this))
+        this.addFeature(overlayFeature.invoke(this, context.modelLoader))
     }
 
     override fun getTexture(slimeEntity: T): Identifier {
@@ -42,9 +43,9 @@ open class ModdedSlimeEntityRenderer<T: ModdedSlimeEntity<*>, M: EntityModel<T>>
             val offset = slimeEntity.boundingBox.center.subtract(slimeEntity.pos)
             matrixStack.translate(offset.x, offset.y - 0.25, offset.z)
             val angle = (slimeEntity.world.time + tickDelta) / 20f
-            matrixStack.multiply(Vector3f.POSITIVE_Y.getRadialQuaternion(angle))
+            matrixStack.multiply(Vec3f.POSITIVE_Y.getRadialQuaternion(angle))
             ItemLayerReplacement.setupReplacementLayer(RenderLayer.getItemEntityTranslucentCull(PlayerScreenHandler.BLOCK_ATLAS_TEXTURE))
-            MinecraftClient.getInstance().itemRenderer.renderItem(slimeEntity.getBonusDrops(), ModelTransformation.Mode.GROUND, light, LivingEntityRenderer.getOverlay(slimeEntity, 0f), matrixStack, vertexConsumers)
+            MinecraftClient.getInstance().itemRenderer.renderItem(slimeEntity.getBonusDrops(), ModelTransformation.Mode.GROUND, light, LivingEntityRenderer.getOverlay(slimeEntity, 0f), matrixStack, vertexConsumers, 0)
             matrixStack.pop()
         }
         super.render(slimeEntity, yaw, tickDelta, matrixStack, vertexConsumers, if(isEmissive) 15728880 else light)

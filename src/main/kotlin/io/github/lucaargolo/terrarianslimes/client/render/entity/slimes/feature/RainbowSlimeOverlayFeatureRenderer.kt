@@ -8,13 +8,15 @@ import net.minecraft.client.render.entity.LivingEntityRenderer
 import net.minecraft.client.render.entity.feature.FeatureRenderer
 import net.minecraft.client.render.entity.feature.FeatureRendererContext
 import net.minecraft.client.render.entity.model.EntityModel
+import net.minecraft.client.render.entity.model.EntityModelLayers
+import net.minecraft.client.render.entity.model.EntityModelLoader
 import net.minecraft.client.render.entity.model.SlimeEntityModel
 import net.minecraft.client.util.math.MatrixStack
 import java.awt.Color
 
-class RainbowSlimeOverlayFeatureRenderer<T: ModdedSlimeEntity<*>, M: EntityModel<T>>(context: FeatureRendererContext<T, M>): FeatureRenderer<T, M>(context) {
+class RainbowSlimeOverlayFeatureRenderer<T: ModdedSlimeEntity<*>, M: EntityModel<T>>(context: FeatureRendererContext<T, M>, loader: EntityModelLoader): FeatureRenderer<T, M>(context) {
 
-    private val model: SlimeEntityModel<ModdedSlimeEntity<*>> = SlimeEntityModel(0)
+    private val model: SlimeEntityModel<ModdedSlimeEntity<*>> = SlimeEntityModel(loader.getModelPart(EntityModelLayers.SLIME_OUTER))
 
     override fun render(matrices: MatrixStack, vertexConsumers: VertexConsumerProvider, light: Int, slimeEntity: T, limbAngle: Float, limbDistance: Float, tickDelta: Float, animationProgress: Float, headYaw: Float, headPitch: Float) {
         if (!slimeEntity.isInvisible) {

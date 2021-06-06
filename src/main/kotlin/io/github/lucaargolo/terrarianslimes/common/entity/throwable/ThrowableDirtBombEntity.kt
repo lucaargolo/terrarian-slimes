@@ -28,7 +28,7 @@ class ThrowableDirtBombEntity: ThrowableEntity {
                 ExplosionBlockStateReplacement.Server.setupReplacementBlockState(serverWorld, x, y, z, Blocks.DIRT.defaultState)
                 serverWorld.createExplosion(this, null, null, x, y, z, 2f, false, Explosion.DestructionType.DESTROY)
             }
-            remove()
+            remove(RemovalReason.DISCARDED)
         }
     }
 

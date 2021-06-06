@@ -12,7 +12,7 @@ import org.spongepowered.asm.mixin.injection.Redirect;
 public class PistonBlockEntityMixin {
 
     @Redirect(at = @At(value = "INVOKE", target = "Lnet/minecraft/block/BlockState;isOf(Lnet/minecraft/block/Block;)Z"), method = "pushEntities", require = 0, expect = 0)
-    private boolean redirectOnSlimeBlockCheck(BlockState blockState, Block block) {
+    private static boolean redirectOnSlimeBlockCheck(BlockState blockState, Block block) {
         return blockState.isIn(TerrarianSlimes.Companion.getSlimeBlocksTag());
     }
 

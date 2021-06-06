@@ -48,7 +48,7 @@ object PacketCompendium {
                 entity.refreshPositionAfterTeleport(x, y, z)
                 entity.pitch = (pitch * 360f) / 256.0f
                 entity.yaw = (yaw * 360f) / 256.0f
-                entity.entityId = id
+                entity.setEntityId(id)
                 entity.uuid = uuid
 
                 entity.throwableType = throwableType
@@ -78,7 +78,7 @@ object PacketCompendium {
                 entity.refreshPositionAfterTeleport(x, y, z)
                 entity.pitch = (pitch * 360f) / 256.0f
                 entity.yaw = (yaw * 360f) / 256.0f
-                entity.entityId = id
+                entity.setEntityId(id)
                 entity.uuid = uuid
                 world.addEntity(id, entity)
 

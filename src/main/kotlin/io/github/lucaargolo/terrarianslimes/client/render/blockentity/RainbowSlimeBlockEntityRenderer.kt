@@ -11,7 +11,7 @@ import net.minecraft.client.render.block.entity.BlockEntityRenderer
 import net.minecraft.client.util.math.MatrixStack
 import java.util.*
 
-class RainbowSlimeBlockEntityRenderer(dispatcher: BlockEntityRenderDispatcher): BlockEntityRenderer<RainbowSlimeBlockEntity>(dispatcher) {
+class RainbowSlimeBlockEntityRenderer: BlockEntityRenderer<RainbowSlimeBlockEntity> {
 
     override fun render(entity: RainbowSlimeBlockEntity, tickDelta: Float, matrices: MatrixStack, vertexConsumers: VertexConsumerProvider, light: Int, overlay: Int) {
         val client = MinecraftClient.getInstance()

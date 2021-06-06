@@ -35,7 +35,7 @@ class SpikedSlimeEntity(
         val velocityX = target.x - this.x
         val velocityY = target.getBodyY(1.0/3.0) - persistentProjectileEntity.y
         val velocityZ = target.z - this.z
-        val h = MathHelper.sqrt(velocityX * velocityX + velocityZ * velocityZ).toDouble()
+        val h = MathHelper.sqrt((velocityX * velocityX + velocityZ * velocityZ).toFloat()).toDouble()
         persistentProjectileEntity.setVelocity(velocityX, velocityY + h * 0.2, velocityZ, 1.0f, 10f)
         playSound(SoundEvents.ENTITY_HOSTILE_SPLASH, 1.0f, 0.4f / (this.random.nextFloat() * 0.4f + 0.8f))
         world.spawnEntity(persistentProjectileEntity)

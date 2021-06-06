@@ -6,7 +6,7 @@ import io.github.lucaargolo.terrarianslimes.common.entity.EntityCompendium
 import io.github.lucaargolo.terrarianslimes.common.item.ItemCompendium
 import net.minecraft.block.Material
 import net.minecraft.entity.EntityType
-import net.minecraft.nbt.CompoundTag
+import net.minecraft.nbt.NbtCompound
 import net.minecraft.state.property.Properties
 import net.minecraft.util.hit.BlockHitResult
 import net.minecraft.world.World
@@ -39,7 +39,7 @@ class ThrowableGlowstickEntity: ThrowableEntity {
             }
         }
         if(age >= 12000) {
-            this.remove()
+            this.remove(RemovalReason.DISCARDED)
         }
     }
 
@@ -48,13 +48,13 @@ class ThrowableGlowstickEntity: ThrowableEntity {
         delay = 0
     }
 
-    override fun readCustomDataFromTag(tag: CompoundTag) {
-        super.readCustomDataFromTag(tag)
+    override fun readCustomDataFromNbt(tag: NbtCompound) {
+        super.readCustomDataFromNbt(tag)
         age = tag.getInt("age")
     }
 
-    override fun writeCustomDataToTag(tag: CompoundTag) {
-        super.writeCustomDataToTag(tag)
+    override fun writeCustomDataToNbt(tag: NbtCompound) {
+        super.writeCustomDataToNbt(tag)
         tag.putInt("age", age)
     }
 

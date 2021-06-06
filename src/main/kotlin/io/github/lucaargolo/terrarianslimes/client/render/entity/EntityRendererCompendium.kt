@@ -6,52 +6,55 @@ import io.github.lucaargolo.terrarianslimes.client.render.entity.slimes.Umbrella
 import io.github.lucaargolo.terrarianslimes.client.render.entity.slimes.feature.IlluminantSlimeOverlayFeatureRenderer
 import io.github.lucaargolo.terrarianslimes.client.render.entity.slimes.feature.ModdedSlimeOverlayFeatureRenderer
 import io.github.lucaargolo.terrarianslimes.client.render.entity.slimes.feature.RainbowSlimeOverlayFeatureRenderer
-import io.github.lucaargolo.terrarianslimes.client.render.entity.slimes.model.SpikedJungleSlimeEntityModel
 import io.github.lucaargolo.terrarianslimes.client.render.entity.slimes.model.SpikedSlimeEntityModel
 import io.github.lucaargolo.terrarianslimes.client.render.entity.spike.SpikeEntityRenderer
 import io.github.lucaargolo.terrarianslimes.common.entity.EntityCompendium
-import io.github.lucaargolo.terrarianslimes.utils.GenericCompendium
+import io.github.lucaargolo.terrarianslimes.utils.ModIdentifier
+import net.fabricmc.fabric.api.client.rendereregistry.v1.EntityModelLayerRegistry
 import net.fabricmc.fabric.api.client.rendereregistry.v1.EntityRendererRegistry
 import net.minecraft.client.render.entity.FlyingItemEntityRenderer
+import net.minecraft.client.render.entity.model.EntityModelLayer
+import net.minecraft.client.render.entity.model.EntityModelLayers
 import net.minecraft.client.render.entity.model.SlimeEntityModel
 
-object EntityRendererCompendium: GenericCompendium<EntityRendererRegistry.Factory>() {
+object EntityRendererCompendium {
 
-    init {
-        register("green_slime") { dispatcher, _ -> ModdedSlimeEntityRenderer(dispatcher, SlimeEntityModel(16), { ModdedSlimeOverlayFeatureRenderer(it) })  }
-        register("blue_slime") { dispatcher, _ -> ModdedSlimeEntityRenderer(dispatcher, SlimeEntityModel(16), { ModdedSlimeOverlayFeatureRenderer(it) }) }
-        register("red_slime") { dispatcher, _ -> ModdedSlimeEntityRenderer(dispatcher, SlimeEntityModel(16), { ModdedSlimeOverlayFeatureRenderer(it) }) }
-        register("purple_slime") { dispatcher, _ -> ModdedSlimeEntityRenderer(dispatcher, SlimeEntityModel(16), { ModdedSlimeOverlayFeatureRenderer(it) }) }
-        register("yellow_slime") { dispatcher, _ -> ModdedSlimeEntityRenderer(dispatcher, SlimeEntityModel(16), { ModdedSlimeOverlayFeatureRenderer(it) }) }
-        register("black_slime") { dispatcher, _ -> ModdedSlimeEntityRenderer(dispatcher, SlimeEntityModel(16), { ModdedSlimeOverlayFeatureRenderer(it) }) }
-        register("ice_slime") { dispatcher, _ -> ModdedSlimeEntityRenderer(dispatcher, SlimeEntityModel(16), { ModdedSlimeOverlayFeatureRenderer(it) }) }
-        register("sand_slime") { dispatcher, _ -> ModdedSlimeEntityRenderer(dispatcher, SlimeEntityModel(16), { ModdedSlimeOverlayFeatureRenderer(it) }) }
-        register("jungle_slime") { dispatcher, _ -> ModdedSlimeEntityRenderer(dispatcher, SlimeEntityModel(16), { ModdedSlimeOverlayFeatureRenderer(it) }) }
-        register("spiked_ice_slime") { dispatcher, _ -> ModdedSlimeEntityRenderer(dispatcher, SpikedSlimeEntityModel(), { ModdedSlimeOverlayFeatureRenderer(it) })}
-        register("spiked_jungle_slime") { dispatcher, _ -> ModdedSlimeEntityRenderer(dispatcher, SpikedJungleSlimeEntityModel(), { ModdedSlimeOverlayFeatureRenderer(it) })}
-        register("mother_slime") { dispatcher, _ -> ModdedSlimeEntityRenderer(dispatcher, SlimeEntityModel(16), { ModdedSlimeOverlayFeatureRenderer(it) }) }
-        register("baby_slime") { dispatcher, _ -> ModdedSlimeEntityRenderer(dispatcher, SlimeEntityModel(16), { ModdedSlimeOverlayFeatureRenderer(it) }) }
-        register("lava_slime") { dispatcher, _ -> ModdedSlimeEntityRenderer(dispatcher, SlimeEntityModel(16), { ModdedSlimeOverlayFeatureRenderer(it) }, true) }
-        register("pinky") { dispatcher, _ -> ModdedSlimeEntityRenderer(dispatcher, SlimeEntityModel(16), { ModdedSlimeOverlayFeatureRenderer(it) }) }
-        register("king_slime") { dispatcher, _ -> KingSlimeEntityRenderer(dispatcher, SlimeEntityModel(16), { ModdedSlimeOverlayFeatureRenderer(it) }) }
-        register("spiked_slime") { dispatcher, _ -> ModdedSlimeEntityRenderer(dispatcher, SpikedSlimeEntityModel(), { ModdedSlimeOverlayFeatureRenderer(it) })}
-        register("umbrella_slime") { dispatcher, _ -> UmbrellaSlimeEntityRenderer(dispatcher, SlimeEntityModel(16), { ModdedSlimeOverlayFeatureRenderer(it) }) }
-        register("corrupt_slime") { dispatcher, _ -> ModdedSlimeEntityRenderer(dispatcher, SlimeEntityModel(16), { ModdedSlimeOverlayFeatureRenderer(it) }) }
-        register("slimeling") { dispatcher, _ -> ModdedSlimeEntityRenderer(dispatcher, SlimeEntityModel(16), { ModdedSlimeOverlayFeatureRenderer(it) }) }
-        register("crimslime") { dispatcher, _ -> ModdedSlimeEntityRenderer(dispatcher, SlimeEntityModel(16), { ModdedSlimeOverlayFeatureRenderer(it) }) }
-        register("illuminant_slime") { dispatcher, _ -> ModdedSlimeEntityRenderer(dispatcher, SlimeEntityModel(16), { IlluminantSlimeOverlayFeatureRenderer(it) }, true) }
-        register("rainbow_slime") { dispatcher, _ -> ModdedSlimeEntityRenderer(dispatcher, SlimeEntityModel(16), { RainbowSlimeOverlayFeatureRenderer(it) }, true) }
-        register("spike") { dispatcher, _ -> SpikeEntityRenderer(dispatcher) }
-        register("grenade") { dispatcher, context -> FlyingItemEntityRenderer(dispatcher, context.itemRenderer) }
-        register("bomb") { dispatcher, context -> FlyingItemEntityRenderer(dispatcher, context.itemRenderer) }
-        register("dirt_bomb") { dispatcher, context -> FlyingItemEntityRenderer(dispatcher, context.itemRenderer) }
-        register("dynamite") { dispatcher, context -> FlyingItemEntityRenderer(dispatcher, context.itemRenderer) }
-        register("glowstick") { dispatcher, context -> FlyingItemEntityRenderer(dispatcher, context.itemRenderer) }
+    @Suppress("UnstableApiUsage", "Deprecation")
+    fun initialize() {
+        val spikedSlimeModelLayer = EntityModelLayer(ModIdentifier("spiked_slime"), "slime")
+        EntityModelLayerRegistry.registerModelLayer(spikedSlimeModelLayer) { SpikedSlimeEntityModel.getTexturedModelData(false) }
+        val spikedJungleSlimeModelLayer = EntityModelLayer(ModIdentifier("spiked_jungle_slime"), "slime")
+        EntityModelLayerRegistry.registerModelLayer(spikedJungleSlimeModelLayer) { SpikedSlimeEntityModel.getTexturedModelData(true) }
+
+        EntityRendererRegistry.INSTANCE.register(EntityCompendium.GREEN_SLIME) { ModdedSlimeEntityRenderer(it, SlimeEntityModel(it.getPart(EntityModelLayers.SLIME)), ::ModdedSlimeOverlayFeatureRenderer)  }
+        EntityRendererRegistry.INSTANCE.register(EntityCompendium.BLUE_SLIME) { ModdedSlimeEntityRenderer(it, SlimeEntityModel(it.getPart(EntityModelLayers.SLIME)), ::ModdedSlimeOverlayFeatureRenderer) }
+        EntityRendererRegistry.INSTANCE.register(EntityCompendium.RED_SLIME) { ModdedSlimeEntityRenderer(it, SlimeEntityModel(it.getPart(EntityModelLayers.SLIME)), ::ModdedSlimeOverlayFeatureRenderer) }
+        EntityRendererRegistry.INSTANCE.register(EntityCompendium.PURPLE_SLIME) { ModdedSlimeEntityRenderer(it, SlimeEntityModel(it.getPart(EntityModelLayers.SLIME)), ::ModdedSlimeOverlayFeatureRenderer) }
+        EntityRendererRegistry.INSTANCE.register(EntityCompendium.YELLOW_SLIME) { ModdedSlimeEntityRenderer(it, SlimeEntityModel(it.getPart(EntityModelLayers.SLIME)), ::ModdedSlimeOverlayFeatureRenderer) }
+        EntityRendererRegistry.INSTANCE.register(EntityCompendium.BLACK_SLIME) { ModdedSlimeEntityRenderer(it, SlimeEntityModel(it.getPart(EntityModelLayers.SLIME)), ::ModdedSlimeOverlayFeatureRenderer) }
+        EntityRendererRegistry.INSTANCE.register(EntityCompendium.ICE_SLIME) { ModdedSlimeEntityRenderer(it, SlimeEntityModel(it.getPart(EntityModelLayers.SLIME)), ::ModdedSlimeOverlayFeatureRenderer) }
+        EntityRendererRegistry.INSTANCE.register(EntityCompendium.SAND_SLIME) { ModdedSlimeEntityRenderer(it, SlimeEntityModel(it.getPart(EntityModelLayers.SLIME)), ::ModdedSlimeOverlayFeatureRenderer) }
+        EntityRendererRegistry.INSTANCE.register(EntityCompendium.JUNGLE_SLIME) { ModdedSlimeEntityRenderer(it, SlimeEntityModel(it.getPart(EntityModelLayers.SLIME)), ::ModdedSlimeOverlayFeatureRenderer) }
+        EntityRendererRegistry.INSTANCE.register(EntityCompendium.SPIKED_ICE_SLIME) { ModdedSlimeEntityRenderer(it, SpikedSlimeEntityModel(it.getPart(spikedSlimeModelLayer)), ::ModdedSlimeOverlayFeatureRenderer) }
+        EntityRendererRegistry.INSTANCE.register(EntityCompendium.SPIKED_JUNGLE_SLIME) { ModdedSlimeEntityRenderer(it, SpikedSlimeEntityModel(it.getPart(spikedJungleSlimeModelLayer)), ::ModdedSlimeOverlayFeatureRenderer) }
+        EntityRendererRegistry.INSTANCE.register(EntityCompendium.MOTHER_SLIME) { ModdedSlimeEntityRenderer(it, SlimeEntityModel(it.getPart(EntityModelLayers.SLIME)), ::ModdedSlimeOverlayFeatureRenderer) }
+        EntityRendererRegistry.INSTANCE.register(EntityCompendium.BABY_SLIME) { ModdedSlimeEntityRenderer(it, SlimeEntityModel(it.getPart(EntityModelLayers.SLIME)), ::ModdedSlimeOverlayFeatureRenderer) }
+        EntityRendererRegistry.INSTANCE.register(EntityCompendium.LAVA_SLIME) { ModdedSlimeEntityRenderer(it, SlimeEntityModel(it.getPart(EntityModelLayers.SLIME)), ::ModdedSlimeOverlayFeatureRenderer, true) }
+        EntityRendererRegistry.INSTANCE.register(EntityCompendium.PINKY) { ModdedSlimeEntityRenderer(it, SlimeEntityModel(it.getPart(EntityModelLayers.SLIME)), ::ModdedSlimeOverlayFeatureRenderer) }
+        EntityRendererRegistry.INSTANCE.register(EntityCompendium.KING_SLIME) { KingSlimeEntityRenderer(it, SlimeEntityModel(it.getPart(EntityModelLayers.SLIME)), ::ModdedSlimeOverlayFeatureRenderer) }
+        EntityRendererRegistry.INSTANCE.register(EntityCompendium.SPIKED_SLIME) { ModdedSlimeEntityRenderer(it, SpikedSlimeEntityModel(it.getPart(spikedSlimeModelLayer)), ::ModdedSlimeOverlayFeatureRenderer) }
+        EntityRendererRegistry.INSTANCE.register(EntityCompendium.UMBRELLA_SLIME) { UmbrellaSlimeEntityRenderer(it, SlimeEntityModel(it.getPart(EntityModelLayers.SLIME)), ::ModdedSlimeOverlayFeatureRenderer) }
+        EntityRendererRegistry.INSTANCE.register(EntityCompendium.CORRUPT_SLIME) { ModdedSlimeEntityRenderer(it, SlimeEntityModel(it.getPart(EntityModelLayers.SLIME)), ::ModdedSlimeOverlayFeatureRenderer ) }
+        EntityRendererRegistry.INSTANCE.register(EntityCompendium.SLIMELING) { ModdedSlimeEntityRenderer(it, SlimeEntityModel(it.getPart(EntityModelLayers.SLIME)), ::ModdedSlimeOverlayFeatureRenderer) }
+        EntityRendererRegistry.INSTANCE.register(EntityCompendium.CRIMSLIME) { ModdedSlimeEntityRenderer(it, SlimeEntityModel(it.getPart(EntityModelLayers.SLIME)), ::ModdedSlimeOverlayFeatureRenderer) }
+        EntityRendererRegistry.INSTANCE.register(EntityCompendium.ILLUMINANT_SLIME) { ModdedSlimeEntityRenderer(it, SlimeEntityModel(it.getPart(EntityModelLayers.SLIME)), ::IlluminantSlimeOverlayFeatureRenderer, true) }
+        EntityRendererRegistry.INSTANCE.register(EntityCompendium.RAINBOW_SLIME) { ModdedSlimeEntityRenderer(it, SlimeEntityModel(it.getPart(EntityModelLayers.SLIME)), ::RainbowSlimeOverlayFeatureRenderer, true) }
+        EntityRendererRegistry.INSTANCE.register(EntityCompendium.SPIKE, ::SpikeEntityRenderer)
+        EntityRendererRegistry.INSTANCE.register(EntityCompendium.GRENADE, ::FlyingItemEntityRenderer)
+        EntityRendererRegistry.INSTANCE.register(EntityCompendium.BOMB, ::FlyingItemEntityRenderer)
+        EntityRendererRegistry.INSTANCE.register(EntityCompendium.DIRT_BOMB, ::FlyingItemEntityRenderer)
+        EntityRendererRegistry.INSTANCE.register(EntityCompendium.DYNAMITE, ::FlyingItemEntityRenderer)
+        EntityRendererRegistry.INSTANCE.register(EntityCompendium.GLOWSTICK, ::FlyingItemEntityRenderer)
     }
 
-    override fun initialize() {
-        map.forEach { (entityIdentifier, entityRendererRegistryFactory) ->
-            EntityRendererRegistry.INSTANCE.register(EntityCompendium.get(entityIdentifier), entityRendererRegistryFactory)
-        }
-    }
 }

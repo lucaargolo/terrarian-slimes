@@ -6,7 +6,7 @@ import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking
 import net.minecraft.entity.EntityType
 import net.minecraft.entity.projectile.thrown.ThrownItemEntity
 import net.minecraft.item.Item
-import net.minecraft.nbt.CompoundTag
+import net.minecraft.nbt.NbtCompound
 import net.minecraft.network.Packet
 import net.minecraft.util.StringIdentifiable
 import net.minecraft.util.hit.BlockHitResult
@@ -27,7 +27,7 @@ abstract class ThrowableEntity: ThrownItemEntity {
         STICKY(0.00),
         BOUNCY(0.80);
 
-        override fun asString() = name.toLowerCase()
+        override fun asString() = name.lowercase()
     }
 
     var throwableType = Type.NORMAL
@@ -75,19 +75,19 @@ abstract class ThrowableEntity: ThrownItemEntity {
         super.onBlockHit(blockHitResult)
     }
 
-    override fun writeCustomDataToTag(tag: CompoundTag) {
-        super.writeCustomDataToTag(tag)
+    override fun writeCustomDataToNbt(tag: NbtCompound) {
+        super.writeCustomDataToNbt(tag)
         tag.putString("throwableType", throwableType.name)
     }
 
-    override fun readCustomDataFromTag(tag: CompoundTag) {
-        super.readCustomDataFromTag(tag)
+    override fun readCustomDataFromNbt(tag: NbtCompound) {
+        super.readCustomDataFromNbt(tag)
         throwableType = try{Type.valueOf(tag.getString("throwableType"))}catch(ignored: Exception){Type.NORMAL}
     }
 
     override fun createSpawnPacket(): Packet<*> {
         val buf = PacketByteBufs.create()
-        buf.writeVarInt(entityId)
+        buf.writeVarInt(id)
         buf.writeUuid(getUuid())
         buf.writeVarInt(Registry.ENTITY_TYPE.getRawId(type))
         buf.writeDouble(x)
@@ -95,7 +95,7 @@ abstract class ThrowableEntity: ThrownItemEntity {
         buf.writeDouble(z)
         buf.writeByte(MathHelper.floor(pitch * 256.0f / 360.0f))
         buf.writeByte(MathHelper.floor(yaw * 256.0f / 360.0f))
-        buf.writeInt(owner?.entityId ?: 0)
+        buf.writeInt(owner?.id ?: 0)
         buf.writeEnumConstant(throwableType)
 
         return ServerPlayNetworking.createS2CPacket(PacketCompendium.SPAWN_THROWABLE_ENTITY, buf)

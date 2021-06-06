@@ -11,7 +11,7 @@ import net.minecraft.entity.data.TrackedData
 import net.minecraft.entity.data.TrackedDataHandlerRegistry
 import net.minecraft.entity.mob.SlimeEntity
 import net.minecraft.item.ItemConvertible
-import net.minecraft.nbt.CompoundTag
+import net.minecraft.nbt.NbtCompound
 import net.minecraft.server.network.ServerPlayerEntity
 import net.minecraft.text.Text
 import net.minecraft.util.math.MathHelper
@@ -35,7 +35,7 @@ class KingSlimeEntity<C: ModConfig.ModdedSlimeConfig>(
 
     private var teleportingTarget: Entity?
         get() = world.getEntityById(dataTracker.get(TELEPORTING_TARGET))
-        set(value) = dataTracker.set(TELEPORTING_TARGET, value?.entityId ?: -1)
+        set(value) = dataTracker.set(TELEPORTING_TARGET, value?.id ?: -1)
 
     var teleportingProgress: Int
         get() = dataTracker.get(TELEPORTING_PROGRESS)
@@ -55,13 +55,13 @@ class KingSlimeEntity<C: ModConfig.ModdedSlimeConfig>(
         bossBar.removePlayer(player)
     }
 
-    override fun writeCustomDataToTag(tag: CompoundTag) {
-        super.writeCustomDataToTag(tag)
+    override fun writeCustomDataToNbt(tag: NbtCompound) {
+        super.writeCustomDataToNbt(tag)
         tag.putInt("spawnProgress", spawnProgress)
     }
 
-    override fun readCustomDataFromTag(tag: CompoundTag) {
-        super.readCustomDataFromTag(tag)
+    override fun readCustomDataFromNbt(tag: NbtCompound) {
+        super.readCustomDataFromNbt(tag)
         if (hasCustomName()) {
             bossBar.name = this.displayName
         }
@@ -148,7 +148,7 @@ class KingSlimeEntity<C: ModConfig.ModdedSlimeConfig>(
         return damage
     }
 
-    override fun initialize(world: ServerWorldAccess, difficulty: LocalDifficulty, spawnReason: SpawnReason, entityData: EntityData?, entityTag: CompoundTag?): EntityData? {
+    override fun initialize(world: ServerWorldAccess, difficulty: LocalDifficulty, spawnReason: SpawnReason, entityData: EntityData?, entityTag: NbtCompound?): EntityData? {
         return super.initialize(world, difficulty, spawnReason, entityData, entityTag).also { this.dataTracker.set(SPAWN_PROGRESS, 200) }
     }
 

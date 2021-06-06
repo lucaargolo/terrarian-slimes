@@ -11,7 +11,7 @@ import net.minecraft.entity.effect.StatusEffect
 import net.minecraft.entity.effect.StatusEffectInstance
 import net.minecraft.entity.projectile.PersistentProjectileEntity
 import net.minecraft.item.ItemStack
-import net.minecraft.nbt.CompoundTag
+import net.minecraft.nbt.NbtCompound
 import net.minecraft.network.Packet
 import net.minecraft.sound.SoundEvent
 import net.minecraft.sound.SoundEvents
@@ -42,7 +42,7 @@ class SpikeEntity: PersistentProjectileEntity {
 
     override fun onBlockHit(blockHitResult: BlockHitResult?) {
         super.onBlockHit(blockHitResult)
-        this.remove()
+        this.remove(RemovalReason.DISCARDED)
     }
 
     override fun onEntityHit(entityHitResult: EntityHitResult) {
@@ -57,26 +57,26 @@ class SpikeEntity: PersistentProjectileEntity {
 
     override fun asItemStack(): ItemStack = ItemStack.EMPTY
 
-    override fun writeCustomDataToTag(tag: CompoundTag) {
-        super.writeCustomDataToTag(tag)
+    override fun writeCustomDataToNbt(tag: NbtCompound) {
+        super.writeCustomDataToNbt(tag)
         statusEffect?.let { tag.putString("statusEffect", Registry.STATUS_EFFECT.getId(it).toString()) }
     }
 
-    override fun readCustomDataFromTag(tag: CompoundTag) {
-        super.readCustomDataFromTag(tag)
+    override fun readCustomDataFromNbt(tag: NbtCompound) {
+        super.readCustomDataFromNbt(tag)
         statusEffect = Registry.STATUS_EFFECT.get(Identifier(tag.getString("statusEffect")))
     }
 
     override fun createSpawnPacket(): Packet<*> {
         val buf = PacketByteBufs.create()
-        buf.writeVarInt(entityId)
+        buf.writeVarInt(id)
         buf.writeUuid(getUuid())
         buf.writeDouble(x)
         buf.writeDouble(y)
         buf.writeDouble(z)
         buf.writeByte(MathHelper.floor(pitch * 256.0f / 360.0f))
         buf.writeByte(MathHelper.floor(yaw * 256.0f / 360.0f))
-        buf.writeInt(owner?.entityId ?: 0)
+        buf.writeInt(owner?.id ?: 0)
 
         return ServerPlayNetworking.createS2CPacket(PacketCompendium.SPAWN_SPIKE_ENTITY, buf)
     }

@@ -155,7 +155,7 @@ object EntityCompendium: RegistryCompendium<EntityType<*>>(Registry.ENTITY_TYPE)
         }.dimensions(EntityDimensions.changing(2.04F, 2.04F)).trackRangeChunks(
             10
         ).build()
-    ) as EntityType<ModdedSlimeEntity<*>>
+    ) as EntityType<KingSlimeEntity<*>>
 
     val SPIKED_SLIME = register ("spiked_slime",
         FabricEntityTypeBuilder.create(SpawnGroup.MONSTER) { type: EntityType<ModdedSlimeEntity<*>>, world: World ->

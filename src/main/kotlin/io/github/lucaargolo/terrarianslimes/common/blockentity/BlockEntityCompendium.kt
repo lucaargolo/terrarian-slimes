@@ -9,12 +9,13 @@ object BlockEntityCompendium: RegistryCompendium<BlockEntityType<*>>(Registry.BL
 
     val RAINBOW_SLIME_BLOCK_TYPE = register(
         "rainbow_slime_block",
-        BlockEntityType.Builder.create({ RainbowSlimeBlockEntity() }, BlockCompendium.RAINBOW_SLIME_BLOCK).build(null)
+        BlockEntityType.Builder.create({ pos, state -> RainbowSlimeBlockEntity(pos, state) }, BlockCompendium.RAINBOW_SLIME_BLOCK).build(null)
     )
 
+    @Suppress("UNCHECKED_CAST")
     val GLOWSTICK_LIGHT_BLOCK_TYPE = register(
         "glowstick_light",
-        BlockEntityType.Builder.create({ GlowstickLightBlockEntity() }, BlockCompendium.GLOWSTICK_LIGHT).build(null)
-    )
+        BlockEntityType.Builder.create({ pos, state ->GlowstickLightBlockEntity(pos, state) }, BlockCompendium.GLOWSTICK_LIGHT).build(null)
+    ) as BlockEntityType<GlowstickLightBlockEntity>
 
 }

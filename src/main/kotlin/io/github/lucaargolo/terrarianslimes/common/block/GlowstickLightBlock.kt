@@ -1,9 +1,13 @@
 package io.github.lucaargolo.terrarianslimes.common.block
 
+import io.github.lucaargolo.terrarianslimes.common.blockentity.BlockEntityCompendium
 import io.github.lucaargolo.terrarianslimes.common.blockentity.GlowstickLightBlockEntity
 import io.github.lucaargolo.terrarianslimes.common.entity.throwable.ThrowableEntity
 import io.github.lucaargolo.terrarianslimes.common.item.ItemCompendium
 import net.minecraft.block.*
+import net.minecraft.block.entity.BlockEntity
+import net.minecraft.block.entity.BlockEntityTicker
+import net.minecraft.block.entity.BlockEntityType
 import net.minecraft.fluid.FluidState
 import net.minecraft.fluid.Fluids
 import net.minecraft.item.ItemStack
@@ -21,7 +25,7 @@ import net.minecraft.world.World
 import net.minecraft.world.WorldAccess
 import java.util.*
 
-class GlowstickLightBlock(settings: Settings): Block(settings), Waterloggable, BlockEntityProvider {
+class GlowstickLightBlock(settings: Settings): BlockWithEntity(settings), Waterloggable {
 
     init {
         defaultState = stateManager.defaultState.with(Properties.WATERLOGGED, false).with(GLOWSTICK, ThrowableEntity.Type.NORMAL)
@@ -64,7 +68,11 @@ class GlowstickLightBlock(settings: Settings): Block(settings), Waterloggable, B
 
     override fun getOutlineShape(state: BlockState, world: BlockView, pos: BlockPos, context: ShapeContext): VoxelShape = VoxelShapes.empty()
 
-    override fun createBlockEntity(world: BlockView?) = GlowstickLightBlockEntity()
+    override fun createBlockEntity(pos: BlockPos, state: BlockState) = GlowstickLightBlockEntity(pos, state)
+
+    override fun <T : BlockEntity?> getTicker(world: World, state: BlockState?, type: BlockEntityType<T>?): BlockEntityTicker<T>? {
+        return if(world.isClient) null else checkType(type, BlockEntityCompendium.GLOWSTICK_LIGHT_BLOCK_TYPE, GlowstickLightBlockEntity::serverTick)
+    }
 
     override fun getRenderType(state: BlockState?) = BlockRenderType.INVISIBLE
 

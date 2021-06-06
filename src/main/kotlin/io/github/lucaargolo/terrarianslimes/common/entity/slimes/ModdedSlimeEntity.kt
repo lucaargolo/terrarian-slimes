@@ -20,7 +20,7 @@ import net.minecraft.item.ItemConvertible
 import net.minecraft.item.ItemStack
 import net.minecraft.loot.context.LootContext
 import net.minecraft.loot.context.LootContextType
-import net.minecraft.nbt.CompoundTag
+import net.minecraft.nbt.NbtCompound
 import net.minecraft.particle.ItemStackParticleEffect
 import net.minecraft.particle.ParticleEffect
 import net.minecraft.particle.ParticleTypes
@@ -76,7 +76,7 @@ open class ModdedSlimeEntity<C: ModConfig.ModdedSlimeConfig>(
         if (this.isAlive) {
             if (currentCooldown <= 0 && this.canSee(target) && target.damage(DamageSource.mob(this), this.damageAmount)) {
                 playSound(SoundEvents.ENTITY_SLIME_ATTACK, 1.0f, (random.nextFloat() - random.nextFloat()) * 0.2f + 1.0f)
-                dealDamage(this, target)
+                applyDamageEffects(this, target)
                 statusEffect?.let {
                     if(random.nextFloat() < 0.25f) {
                         target.addStatusEffect(StatusEffectInstance(statusEffect, 200, 0))
@@ -111,7 +111,7 @@ open class ModdedSlimeEntity<C: ModConfig.ModdedSlimeConfig>(
         return ItemStackParticleEffect(ParticleTypes.ITEM, ItemStack(particleItem))
     }
 
-    override fun remove() {
+    override fun remove(removalReason: RemovalReason) {
         if (!world.isClient && this.isDead) {
             if(this.hasBonusDrops && !this.getBonusDrops().isEmpty) {
                 ItemScatterer.spawn(world, pos.x, pos.y, pos.z, this.getBonusDrops())
@@ -139,14 +139,14 @@ open class ModdedSlimeEntity<C: ModConfig.ModdedSlimeConfig>(
                 }
             }
         }
-        this.removed = true
+        super.remove(removalReason)
     }
 
     override fun getLootTableId(): Identifier {
         return this.type.lootTableId
     }
 
-    override fun initialize(world: ServerWorldAccess, difficulty: LocalDifficulty, spawnReason: SpawnReason, entityData: EntityData?, entityTag: CompoundTag?): EntityData? {
+    override fun initialize(world: ServerWorldAccess, difficulty: LocalDifficulty, spawnReason: SpawnReason, entityData: EntityData?, entityTag: NbtCompound?): EntityData? {
         this.getAttributeInstance(EntityAttributes.GENERIC_FOLLOW_RANGE)?.addPersistentModifier(EntityAttributeModifier("Random spawn bonus", random.nextGaussian() * 0.05, EntityAttributeModifier.Operation.MULTIPLY_BASE))
         this.isLeftHanded = this.random.nextFloat() < 0.05f
         this.setSize(this.defaultSize, true)
@@ -160,18 +160,18 @@ open class ModdedSlimeEntity<C: ModConfig.ModdedSlimeConfig>(
         return entityData
     }
 
-    override fun readCustomDataFromTag(tag: CompoundTag) {
-        super.readCustomDataFromTag(tag)
+    override fun readCustomDataFromNbt(tag: NbtCompound) {
+        super.readCustomDataFromNbt(tag)
         if(this.hasBonusDrops && tag.contains("bonusDrops")) {
-           this.dataTracker.set(BONUS_DROPS, ItemStack.fromTag(tag.getCompound("bonusDrops")))
+           this.dataTracker.set(BONUS_DROPS, ItemStack.fromNbt(tag.getCompound("bonusDrops")))
         }
         currentCooldown = tag.getInt("currentCooldown")
     }
 
-    override fun writeCustomDataToTag(tag: CompoundTag) {
-        super.writeCustomDataToTag(tag)
+    override fun writeCustomDataToNbt(tag: NbtCompound) {
+        super.writeCustomDataToNbt(tag)
         if(this.hasBonusDrops && !this.getBonusDrops().isEmpty) {
-            tag.put("bonusDrops", this.getBonusDrops().toTag(CompoundTag()))
+            tag.put("bonusDrops", this.getBonusDrops().writeNbt(NbtCompound()))
         }
         tag.putInt("currentCooldown", currentCooldown)
     }

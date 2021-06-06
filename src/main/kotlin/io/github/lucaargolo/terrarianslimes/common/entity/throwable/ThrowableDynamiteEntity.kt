@@ -24,7 +24,7 @@ class ThrowableDynamiteEntity: ThrowableEntity {
             if(!world.isClient) {
                 world.createExplosion(this, x, y, z, 4f, Explosion.DestructionType.BREAK)
             }
-            remove()
+            remove(RemovalReason.DISCARDED)
         }
     }
 

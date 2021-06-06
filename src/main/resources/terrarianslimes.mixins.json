@@ -5,8 +5,11 @@
   "compatibilityLevel": "JAVA_8",
   "mixins": [
     "AccessorLootContextTypes",
+    "AccessorModelData",
+    "AccessorModelPartData",
     "AccessorSlimeEntity",
     "ExplosionMixin",
+    "InvokerModelPartData",
     "PistonBlockEntityMixin",
     "PistonBlockMixin",
     "PistonHandlerMixin"

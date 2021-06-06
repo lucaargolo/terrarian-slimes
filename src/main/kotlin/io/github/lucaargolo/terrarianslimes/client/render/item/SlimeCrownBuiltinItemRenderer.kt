@@ -7,15 +7,16 @@ import net.fabricmc.fabric.api.client.rendering.v1.BuiltinItemRendererRegistry
 import net.minecraft.client.MinecraftClient
 import net.minecraft.client.render.RenderLayer
 import net.minecraft.client.render.VertexConsumerProvider
+import net.minecraft.client.render.entity.model.EntityModelLayers
 import net.minecraft.client.render.entity.model.SlimeEntityModel
 import net.minecraft.client.render.item.ItemRenderer
 import net.minecraft.client.render.model.BakedModel
 import net.minecraft.client.render.model.json.ModelTransformation
 import net.minecraft.client.util.math.MatrixStack
-import net.minecraft.client.util.math.Vector3f
 import net.minecraft.entity.mob.SlimeEntity
 import net.minecraft.item.ItemStack
 import net.minecraft.screen.PlayerScreenHandler
+import net.minecraft.util.math.Vec3f
 
 class SlimeCrownBuiltinItemRenderer: BuiltinItemRendererRegistry.DynamicItemRenderer {
 
@@ -25,10 +26,14 @@ class SlimeCrownBuiltinItemRenderer: BuiltinItemRendererRegistry.DynamicItemRend
 
     private val texture = ModIdentifier("textures/entity/king_slime.png")
 
-    private val overlayModel = SlimeEntityModel<SlimeEntity>(0)
-    private val slimeModel = SlimeEntityModel<SlimeEntity>(1)
+    private val overlayModel: SlimeEntityModel<SlimeEntity> by lazy {
+        SlimeEntityModel(MinecraftClient.getInstance().entityModelLoader.getModelPart(EntityModelLayers.SLIME_OUTER))
+    }
+    private val slimeModel: SlimeEntityModel<SlimeEntity> by lazy {
+        SlimeEntityModel(MinecraftClient.getInstance().entityModelLoader.getModelPart(EntityModelLayers.SLIME))
+    }
     private val crownModel: BakedModel by lazy {
-        itemRenderer.getHeldItemModel(ItemStack(ItemCompendium.GOLD_CROWN), null, null)
+        itemRenderer.getHeldItemModel(ItemStack(ItemCompendium.GOLD_CROWN), null, null, 0)
     }
 
     override fun render(stack: ItemStack, mode: ModelTransformation.Mode, matrices: MatrixStack, vertexConsumers: VertexConsumerProvider, light: Int, overlay: Int) {
@@ -39,8 +44,8 @@ class SlimeCrownBuiltinItemRenderer: BuiltinItemRendererRegistry.DynamicItemRend
         }
         matrices.push()
         matrices.translate(0.5, 1.25, 0.5)
-        matrices.multiply(Vector3f.POSITIVE_Y.getDegreesQuaternion(180f))
-        matrices.multiply(Vector3f.POSITIVE_X.getDegreesQuaternion(180f))
+        matrices.multiply(Vec3f.POSITIVE_Y.getDegreesQuaternion(180f))
+        matrices.multiply(Vec3f.POSITIVE_X.getDegreesQuaternion(180f))
         slimeModel.render(matrices, vertexConsumers.getBuffer(slimeLayer), light, overlay, 1.0f, 1.0f, 1.0f, 1.0f)
         val overlayLayer = when(mode) {
             ModelTransformation.Mode.GUI -> RenderLayer.getEntityTranslucentCull(texture)
