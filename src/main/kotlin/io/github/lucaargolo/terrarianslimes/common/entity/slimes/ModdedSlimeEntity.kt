@@ -34,6 +34,7 @@ import net.minecraft.world.Difficulty
 import net.minecraft.world.LocalDifficulty
 import net.minecraft.world.ServerWorldAccess
 import net.minecraft.world.World
+import net.minecraft.world.event.GameEvent
 
 open class ModdedSlimeEntity<C: ModConfig.ModdedSlimeConfig>(
     entityType: EntityType<out SlimeEntity>,
@@ -139,7 +140,10 @@ open class ModdedSlimeEntity<C: ModConfig.ModdedSlimeConfig>(
                 }
             }
         }
-        super.remove(removalReason)
+        setRemoved(removalReason)
+        if (removalReason == RemovalReason.KILLED) {
+            this.emitGameEvent(GameEvent.ENTITY_KILLED)
+        }
     }
 
     override fun getLootTableId(): Identifier {
