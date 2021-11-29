@@ -33,7 +33,7 @@ class SlimeCrownBuiltinItemRenderer: BuiltinItemRendererRegistry.DynamicItemRend
         SlimeEntityModel(MinecraftClient.getInstance().entityModelLoader.getModelPart(EntityModelLayers.SLIME))
     }
     private val crownModel: BakedModel by lazy {
-        itemRenderer.getHeldItemModel(ItemStack(ItemCompendium.GOLD_CROWN), null, null, 0)
+        itemRenderer.getModel(ItemStack(ItemCompendium.GOLD_CROWN), null, null, 0)
     }
 
     override fun render(stack: ItemStack, mode: ModelTransformation.Mode, matrices: MatrixStack, vertexConsumers: VertexConsumerProvider, light: Int, overlay: Int) {

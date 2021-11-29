@@ -12,7 +12,9 @@ class ModConfig {
         val baseSpeed: Double = 1.0,
         val baseAttack: Double = 1.0,
         val attackCooldown: Int = 20,
-        val hasBonusDrops: Boolean = false
+        val hasBonusDrops: Boolean = false,
+        val biomeWhitelist: List<String> = listOf(),
+        val biomeBlacklist: List<String> = listOf()
     )
 
     class SpikedSlimeConfig(
@@ -55,6 +57,10 @@ class ModConfig {
     }
 
     private val slimeConfig = SlimeConfig()
+
+    fun load() {
+        //Dummy method just to force the config load.
+    }
 
     companion object {
         val GREEN_SLIME
@@ -103,10 +109,6 @@ class ModConfig {
             get() = TerrarianSlimes.CONFIG.slimeConfig.illuminantSlime
         val RAINBOW_SLIME
             get() = TerrarianSlimes.CONFIG.slimeConfig.rainbowSlime
-    }
-
-    fun load() {
-        //Dummy method just to force the config load.
     }
 
 }
