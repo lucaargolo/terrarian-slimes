@@ -1,0 +1,27 @@
+{
+  "replace": false,
+  "values": [
+    "terrarianslimes:green_slime",
+    "terrarianslimes:blue_slime",
+    "terrarianslimes:red_slime",
+    "terrarianslimes:purple_slime",
+    "terrarianslimes:yellow_slime",
+    "terrarianslimes:black_slime",
+    "terrarianslimes:ice_slime",
+    "terrarianslimes:sand_slime",
+    "terrarianslimes:jungle_slime",
+    "terrarianslimes:spiked_ice_slime",
+    "terrarianslimes:spiked_jungle_slime",
+    "terrarianslimes:mother_slime",
+    "terrarianslimes:baby_slime",
+    "terrarianslimes:lava_slime",
+    "terrarianslimes:pinky",
+    "terrarianslimes:spiked_slime",
+    "terrarianslimes:umbrella_slime",
+    "terrarianslimes:corrupt_slime",
+    "terrarianslimes:slimeling",
+    "terrarianslimes:crimslime",
+    "terrarianslimes:illuminant_slime",
+    "terrarianslimes:rainbow_slime"
+  ]
+}
