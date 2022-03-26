@@ -13,12 +13,11 @@ import io.github.lucaargolo.terrarianslimes.utils.RoyalGelHolders
 import net.fabricmc.api.ModInitializer
 import net.fabricmc.fabric.api.client.itemgroup.FabricItemGroupBuilder
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings
-import net.fabricmc.fabric.api.tag.TagRegistry
 import net.fabricmc.loader.api.FabricLoader
-import net.minecraft.block.Block
 import net.minecraft.item.ItemStack
-import net.minecraft.tag.Tag
+import net.minecraft.tag.TagKey
 import net.minecraft.util.Identifier
+import net.minecraft.util.registry.Registry
 import org.apache.logging.log4j.LogManager
 import org.apache.logging.log4j.Logger
 import java.io.File
@@ -77,9 +76,7 @@ class TerrarianSlimes: ModInitializer {
             FabricLoader.getInstance().isModLoaded("canvas")
         }
 
-        val slimeBlocksTag: Tag<Block> by lazy {
-            TagRegistry.block(Identifier("c", "slime_blocks"))
-        }
+        val slimeBlocksTag = TagKey.of(Registry.BLOCK_KEY, Identifier("c", "slime_blocks"));
 
         fun creativeGroupSettings(): FabricItemSettings = FabricItemSettings().group(creativeTab)
     }
