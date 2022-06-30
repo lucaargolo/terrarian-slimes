@@ -1,3 +1,5 @@
+@file:Suppress("GradlePackageVersionRange")
+
 import org.ajoberstar.grgit.Grgit
 import org.kohsuke.github.GitHub
 import org.kohsuke.github.GHReleaseBuilder
@@ -27,9 +29,9 @@ operator fun Project.get(property: String): String {
     return property(property) as String
 }
 
-configure<JavaPluginConvention> {
-    sourceCompatibility = JavaVersion.VERSION_16
-    targetCompatibility = JavaVersion.VERSION_16
+java {
+    sourceCompatibility = JavaVersion.VERSION_17
+    targetCompatibility = JavaVersion.VERSION_17
 }
 
 version = project["mod_version"]
@@ -38,7 +40,7 @@ group = project["maven_group"]
 val environment: Map<String, String> = System.getenv()
 val releaseName = "${name.split("-").joinToString(" ") { it.capitalize() }} ${(version as String).split("+")[0]}"
 val releaseType = (version as String).split("+")[0].split("-").let { if(it.isNotEmpty()) if(it[1] == "BETA" || it[1] == "ALPHA") it[1] else "ALPHA" else "RELEASE" }
-val releaseFile = "${buildDir}/libs/${base.archivesBaseName}-${version}.jar"
+val releaseFile = "${buildDir}/libs/${base.archivesName.get()}-${version}.jar"
 val cfGameVersion = (version as String).split("+")[1].let{ if(!project["minecraft_version"].contains("-") && project["minecraft_version"].startsWith(it)) project["minecraft_version"] else "$it-Snapshot"}
 
 fun getChangeLog(): String {
@@ -82,8 +84,8 @@ dependencies {
     modImplementation("net.fabricmc.fabric-api:fabric-api:${project["fabric_version"]}")
     modImplementation("net.fabricmc:fabric-language-kotlin:${project["fabric_kotlin_version"]}")
 
-    modRuntime("com.terraformersmc:modmenu:${project["modmenu_version"]}")
-    modRuntime("me.shedaniel:RoughlyEnoughItems-fabric:${project["rei_version"]}")
+    modRuntimeOnly("com.terraformersmc:modmenu:${project["modmenu_version"]}")
+    modRuntimeOnly("me.shedaniel:RoughlyEnoughItems-fabric:${project["rei_version"]}")
 }
 
 tasks.processResources {
@@ -103,7 +105,7 @@ tasks.processResources {
 
 tasks.withType<JavaCompile> {
     options.encoding = "UTF-8"
-    options.release.set(16)
+    options.release.set(17)
 }
 
 java {
@@ -166,24 +168,27 @@ curseforge {
 }
 
 //Modrinth publishing
-task<TaskModrinthUpload>("modrinth") {
+modrinth {
+    environment["MODRINTH_TOKEN"]?.let { token.set(it) }
+
+    projectId.set(project["modrinth_id"])
+    changelog.set(getChangeLog())
+
+    versionNumber.set(version as String)
+    versionName.set(releaseName)
+    versionType.set(releaseType.toLowerCase())
+
+    uploadFile.set(file(releaseFile))
+
+    gameVersions.add(project["minecraft_version"])
+    loaders.add("fabric")
+
+    dependencies {
+        required.project("fabric-api")
+        required.project("fabric-language-kotlin")
+    }
+}
+tasks.modrinth.configure {
     dependsOn(tasks.remapJar)
     group = "upload"
-
-    onlyIf {
-        environment.containsKey("MODRINTH_TOKEN")
-    }
-    token = environment["MODRINTH_TOKEN"]
-
-    projectId = project["modrinth_id"]
-    changelog = getChangeLog()
-
-    versionNumber = version as String
-    versionName = releaseName
-    versionType = VersionType.valueOf(releaseType)
-
-    uploadFile = file(releaseFile)
-
-    addGameVersion(project["minecraft_version"])
-    addLoader("fabric")
 }

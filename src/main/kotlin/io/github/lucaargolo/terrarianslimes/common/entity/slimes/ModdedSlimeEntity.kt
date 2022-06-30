@@ -142,9 +142,6 @@ open class ModdedSlimeEntity<C: ModConfig.ModdedSlimeConfig>(
             }
         }
         setRemoved(removalReason)
-        if (removalReason == RemovalReason.KILLED) {
-            this.emitGameEvent(GameEvent.ENTITY_KILLED)
-        }
     }
 
     override fun getLootTableId(): Identifier {

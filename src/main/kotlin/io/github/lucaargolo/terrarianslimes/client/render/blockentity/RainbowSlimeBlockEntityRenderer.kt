@@ -6,10 +6,9 @@ import net.minecraft.client.MinecraftClient
 import net.minecraft.client.render.OverlayTexture
 import net.minecraft.client.render.RenderLayers
 import net.minecraft.client.render.VertexConsumerProvider
-import net.minecraft.client.render.block.entity.BlockEntityRenderDispatcher
 import net.minecraft.client.render.block.entity.BlockEntityRenderer
 import net.minecraft.client.util.math.MatrixStack
-import java.util.*
+import net.minecraft.util.math.random.Random
 
 class RainbowSlimeBlockEntityRenderer: BlockEntityRenderer<RainbowSlimeBlockEntity> {
 
@@ -24,7 +23,7 @@ class RainbowSlimeBlockEntityRenderer: BlockEntityRenderer<RainbowSlimeBlockEnti
             matrices,
             vertexConsumers.getBuffer(RenderLayers.getMovingBlockLayer(state)),
             true,
-            entity.world?.random ?: Random(),
+            entity.world?.random ?: Random.create(),
             state.getRenderingSeed(entity.pos),
             OverlayTexture.DEFAULT_UV)
 

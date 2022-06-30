@@ -9,7 +9,6 @@ import net.minecraft.item.Item
 import net.minecraft.item.ItemStack
 import net.minecraft.server.world.ServerWorld
 import net.minecraft.text.Text
-import net.minecraft.text.TranslatableText
 import net.minecraft.util.Formatting
 import net.minecraft.util.Hand
 import net.minecraft.util.TypedActionResult
@@ -19,7 +18,7 @@ class SummonableItem(private val entityType: EntityType<*>, settings: Settings):
 
     override fun appendTooltip(stack: ItemStack?, world: World?, tooltip: MutableList<Text>, context: TooltipContext?) {
         super.appendTooltip(stack, world, tooltip, context)
-        tooltip.add(TranslatableText("tooltip.terrarianslimes.summonable", entityType.name).formatted(Formatting.DARK_PURPLE, Formatting.ITALIC))
+        tooltip.add(Text.translatable("tooltip.terrarianslimes.summonable", entityType.name).formatted(Formatting.DARK_PURPLE, Formatting.ITALIC))
     }
 
     override fun use(world: World, user: PlayerEntity, hand: Hand): TypedActionResult<ItemStack> {
@@ -34,7 +33,7 @@ class SummonableItem(private val entityType: EntityType<*>, settings: Settings):
             }
             entity.refreshPositionAndAngles(user.x, user.y, user.z, 0.0f, 0.0f)
             world.spawnEntity(entity)
-            user.sendMessage(TranslatableText("chat.terrarianslimes.summonable_awoken", entity.displayName).formatted(Formatting.DARK_PURPLE), false)
+            user.sendMessage(Text.translatable("chat.terrarianslimes.summonable_awoken", entity.displayName).formatted(Formatting.DARK_PURPLE), false)
         }
         return TypedActionResult.consume(stack)
     }
