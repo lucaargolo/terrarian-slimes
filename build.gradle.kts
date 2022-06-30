@@ -7,8 +7,6 @@ import com.matthewprenger.cursegradle.CurseProject
 import com.matthewprenger.cursegradle.CurseArtifact
 import com.matthewprenger.cursegradle.CurseRelation
 import com.matthewprenger.cursegradle.Options
-import com.modrinth.minotaur.TaskModrinthUpload
-import com.modrinth.minotaur.request.VersionType
 
 buildscript {
     dependencies {
@@ -178,7 +176,7 @@ modrinth {
     versionName.set(releaseName)
     versionType.set(releaseType.toLowerCase())
 
-    uploadFile.set(file(releaseFile))
+    uploadFile.set(tasks.remapJar.get())
 
     gameVersions.add(project["minecraft_version"])
     loaders.add("fabric")
@@ -189,6 +187,5 @@ modrinth {
     }
 }
 tasks.modrinth.configure {
-    dependsOn(tasks.remapJar)
     group = "upload"
 }
