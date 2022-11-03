@@ -12,7 +12,6 @@ import net.fabricmc.fabric.api.`object`.builder.v1.entity.FabricDefaultAttribute
 import net.fabricmc.fabric.api.`object`.builder.v1.entity.FabricEntityTypeBuilder
 import net.fabricmc.fabric.api.biome.v1.BiomeModifications
 import net.fabricmc.fabric.api.biome.v1.BiomeSelectors
-import net.fabricmc.fabric.mixin.`object`.builder.SpawnRestrictionAccessor
 import net.minecraft.entity.EntityDimensions
 import net.minecraft.entity.EntityType
 import net.minecraft.entity.SpawnGroup
@@ -289,7 +288,7 @@ object EntityCompendium: RegistryCompendium<EntityType<*>>(Registry.ENTITY_TYPE)
                 .and(BiomeSelectors.excludeByKey(ModConfig.GREEN_SLIME.biomeBlacklist.map { RegistryKey.of(Registry.BIOME_KEY, Identifier(it)) }))
                 .or(BiomeSelectors.includeByKey(ModConfig.GREEN_SLIME.biomeWhitelist.map { RegistryKey.of(Registry.BIOME_KEY, Identifier(it)) }))
             BiomeModifications.addSpawn(predicate, SpawnGroup.MONSTER, GREEN_SLIME, ModConfig.GREEN_SLIME.spawnWeight, 1, 1)
-            SpawnRestrictionAccessor.callRegister(GREEN_SLIME, SpawnRestriction.Location.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, ModdedSlimeEntity.getSurfaceSpawnPredicate(ModConfig.GREEN_SLIME.spawnProbability))
+            SpawnRestriction.register(GREEN_SLIME, SpawnRestriction.Location.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, ModdedSlimeEntity.getSurfaceSpawnPredicate(ModConfig.GREEN_SLIME.spawnProbability))
         }
 
         //Blue Slime
@@ -302,7 +301,7 @@ object EntityCompendium: RegistryCompendium<EntityType<*>>(Registry.ENTITY_TYPE)
                 .and(BiomeSelectors.excludeByKey(ModConfig.BLUE_SLIME.biomeBlacklist.map { RegistryKey.of(Registry.BIOME_KEY, Identifier(it)) }))
                 .or(BiomeSelectors.includeByKey(ModConfig.BLUE_SLIME.biomeWhitelist.map { RegistryKey.of(Registry.BIOME_KEY, Identifier(it)) }))
             BiomeModifications.addSpawn(predicate, SpawnGroup.MONSTER, BLUE_SLIME, ModConfig.BLUE_SLIME.spawnWeight, 1, 1)
-            SpawnRestrictionAccessor.callRegister(BLUE_SLIME, SpawnRestriction.Location.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, ModdedSlimeEntity.getSurfaceSpawnPredicate(ModConfig.BLUE_SLIME.spawnProbability))
+            SpawnRestriction.register(BLUE_SLIME, SpawnRestriction.Location.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, ModdedSlimeEntity.getSurfaceSpawnPredicate(ModConfig.BLUE_SLIME.spawnProbability))
         }
 
         //Red Slime
@@ -313,7 +312,7 @@ object EntityCompendium: RegistryCompendium<EntityType<*>>(Registry.ENTITY_TYPE)
                 .and(BiomeSelectors.excludeByKey(ModConfig.RED_SLIME.biomeBlacklist.map { RegistryKey.of(Registry.BIOME_KEY, Identifier(it)) }))
                 .or(BiomeSelectors.includeByKey(ModConfig.RED_SLIME.biomeWhitelist.map { RegistryKey.of(Registry.BIOME_KEY, Identifier(it)) }))
             BiomeModifications.addSpawn(predicate, SpawnGroup.MONSTER, RED_SLIME, ModConfig.RED_SLIME.spawnWeight, 1, 1)
-            SpawnRestrictionAccessor.callRegister(RED_SLIME, SpawnRestriction.Location.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, ModdedSlimeEntity.getUnderGroundSpawnPredicate(ModConfig.RED_SLIME.spawnProbability))
+            SpawnRestriction.register(RED_SLIME, SpawnRestriction.Location.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, ModdedSlimeEntity.getUnderGroundSpawnPredicate(ModConfig.RED_SLIME.spawnProbability))
         }
 
         //Purple Slime
@@ -324,7 +323,7 @@ object EntityCompendium: RegistryCompendium<EntityType<*>>(Registry.ENTITY_TYPE)
                 .and(BiomeSelectors.excludeByKey(ModConfig.PURPLE_SLIME.biomeBlacklist.map { RegistryKey.of(Registry.BIOME_KEY, Identifier(it)) }))
                 .or(BiomeSelectors.includeByKey(ModConfig.PURPLE_SLIME.biomeWhitelist.map { RegistryKey.of(Registry.BIOME_KEY, Identifier(it)) }))
             BiomeModifications.addSpawn(predicate, SpawnGroup.MONSTER, PURPLE_SLIME, ModConfig.PURPLE_SLIME.spawnWeight, 1, 1)
-            SpawnRestrictionAccessor.callRegister(PURPLE_SLIME, SpawnRestriction.Location.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, ModdedSlimeEntity.getFarSurfaceSpawnPredicate(ModConfig.PURPLE_SLIME.spawnProbability))
+            SpawnRestriction.register(PURPLE_SLIME, SpawnRestriction.Location.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, ModdedSlimeEntity.getFarSurfaceSpawnPredicate(ModConfig.PURPLE_SLIME.spawnProbability))
         }
 
         //Yellow Slime
@@ -335,7 +334,7 @@ object EntityCompendium: RegistryCompendium<EntityType<*>>(Registry.ENTITY_TYPE)
                 .and(BiomeSelectors.excludeByKey(ModConfig.YELLOW_SLIME.biomeBlacklist.map { RegistryKey.of(Registry.BIOME_KEY, Identifier(it)) }))
                 .or(BiomeSelectors.includeByKey(ModConfig.YELLOW_SLIME.biomeWhitelist.map { RegistryKey.of(Registry.BIOME_KEY, Identifier(it)) }))
             BiomeModifications.addSpawn(predicate, SpawnGroup.MONSTER, YELLOW_SLIME, ModConfig.YELLOW_SLIME.spawnWeight, 1, 1)
-            SpawnRestrictionAccessor.callRegister(YELLOW_SLIME, SpawnRestriction.Location.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, ModdedSlimeEntity.getUnderGroundSpawnPredicate(ModConfig.YELLOW_SLIME.spawnProbability))
+            SpawnRestriction.register(YELLOW_SLIME, SpawnRestriction.Location.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, ModdedSlimeEntity.getUnderGroundSpawnPredicate(ModConfig.YELLOW_SLIME.spawnProbability))
         }
 
         //Black Slime
@@ -346,7 +345,7 @@ object EntityCompendium: RegistryCompendium<EntityType<*>>(Registry.ENTITY_TYPE)
                 .and(BiomeSelectors.excludeByKey(ModConfig.BLACK_SLIME.biomeBlacklist.map { RegistryKey.of(Registry.BIOME_KEY, Identifier(it)) }))
                 .or(BiomeSelectors.includeByKey(ModConfig.BLACK_SLIME.biomeWhitelist.map { RegistryKey.of(Registry.BIOME_KEY, Identifier(it)) }))
             BiomeModifications.addSpawn(predicate, SpawnGroup.MONSTER, BLACK_SLIME, ModConfig.BLACK_SLIME.spawnWeight, 1, 1)
-            SpawnRestrictionAccessor.callRegister(BLACK_SLIME, SpawnRestriction.Location.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, ModdedSlimeEntity.getCavernsSpawnPredicate(ModConfig.BLACK_SLIME.spawnProbability))
+            SpawnRestriction.register(BLACK_SLIME, SpawnRestriction.Location.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, ModdedSlimeEntity.getCavernsSpawnPredicate(ModConfig.BLACK_SLIME.spawnProbability))
         }
 
         //Ice Slime
@@ -357,7 +356,7 @@ object EntityCompendium: RegistryCompendium<EntityType<*>>(Registry.ENTITY_TYPE)
                 .and(BiomeSelectors.excludeByKey(ModConfig.ICE_SLIME.biomeBlacklist.map { RegistryKey.of(Registry.BIOME_KEY, Identifier(it)) }))
                 .or(BiomeSelectors.includeByKey(ModConfig.ICE_SLIME.biomeWhitelist.map { RegistryKey.of(Registry.BIOME_KEY, Identifier(it)) }))
             BiomeModifications.addSpawn( predicate, SpawnGroup.MONSTER, ICE_SLIME, ModConfig.ICE_SLIME.spawnWeight, 1, 1)
-            SpawnRestrictionAccessor.callRegister(ICE_SLIME, SpawnRestriction.Location.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, ModdedSlimeEntity.getSnowSpawnPredicate(ModConfig.ICE_SLIME.spawnProbability))
+            SpawnRestriction.register(ICE_SLIME, SpawnRestriction.Location.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, ModdedSlimeEntity.getSnowSpawnPredicate(ModConfig.ICE_SLIME.spawnProbability))
         }
 
         //Sand Slime
@@ -368,7 +367,7 @@ object EntityCompendium: RegistryCompendium<EntityType<*>>(Registry.ENTITY_TYPE)
                 .and(BiomeSelectors.excludeByKey(ModConfig.SAND_SLIME.biomeBlacklist.map { RegistryKey.of(Registry.BIOME_KEY, Identifier(it)) }))
                 .or(BiomeSelectors.includeByKey(ModConfig.SAND_SLIME.biomeWhitelist.map { RegistryKey.of(Registry.BIOME_KEY, Identifier(it)) }))
             BiomeModifications.addSpawn(predicate, SpawnGroup.MONSTER, SAND_SLIME, ModConfig.SAND_SLIME.spawnWeight, 1, 1)
-            SpawnRestrictionAccessor.callRegister(SAND_SLIME, SpawnRestriction.Location.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, ModdedSlimeEntity.getSandSpawnPredicate(ModConfig.SAND_SLIME.spawnProbability))
+            SpawnRestriction.register(SAND_SLIME, SpawnRestriction.Location.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, ModdedSlimeEntity.getSandSpawnPredicate(ModConfig.SAND_SLIME.spawnProbability))
         }
 
         //Jungle Slime
@@ -380,7 +379,7 @@ object EntityCompendium: RegistryCompendium<EntityType<*>>(Registry.ENTITY_TYPE)
                 .and(BiomeSelectors.excludeByKey(ModConfig.JUNGLE_SLIME.biomeBlacklist.map { RegistryKey.of(Registry.BIOME_KEY, Identifier(it)) }))
                 .or(BiomeSelectors.includeByKey(ModConfig.JUNGLE_SLIME.biomeWhitelist.map { RegistryKey.of(Registry.BIOME_KEY, Identifier(it)) }))
             BiomeModifications.addSpawn(predicate, SpawnGroup.MONSTER, JUNGLE_SLIME, ModConfig.JUNGLE_SLIME.spawnWeight, 1, 1)
-            SpawnRestrictionAccessor.callRegister(JUNGLE_SLIME, SpawnRestriction.Location.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, ModdedSlimeEntity.getJungleSpawnPredicate(ModConfig.JUNGLE_SLIME.spawnProbability))
+            SpawnRestriction.register(JUNGLE_SLIME, SpawnRestriction.Location.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, ModdedSlimeEntity.getJungleSpawnPredicate(ModConfig.JUNGLE_SLIME.spawnProbability))
         }
 
         //Spiked Ice Slime
@@ -391,7 +390,7 @@ object EntityCompendium: RegistryCompendium<EntityType<*>>(Registry.ENTITY_TYPE)
                 .and(BiomeSelectors.excludeByKey(ModConfig.SPIKED_ICE_SLIME.biomeBlacklist.map { RegistryKey.of(Registry.BIOME_KEY, Identifier(it)) }))
                 .or(BiomeSelectors.includeByKey(ModConfig.SPIKED_ICE_SLIME.biomeWhitelist.map { RegistryKey.of(Registry.BIOME_KEY, Identifier(it)) }))
             BiomeModifications.addSpawn(predicate, SpawnGroup.MONSTER, SPIKED_ICE_SLIME, ModConfig.SPIKED_ICE_SLIME.spawnWeight, 1, 1)
-            SpawnRestrictionAccessor.callRegister(SPIKED_ICE_SLIME, SpawnRestriction.Location.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, ModdedSlimeEntity.getSnowSpawnPredicate(ModConfig.SPIKED_ICE_SLIME.spawnProbability))
+            SpawnRestriction.register(SPIKED_ICE_SLIME, SpawnRestriction.Location.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, ModdedSlimeEntity.getSnowSpawnPredicate(ModConfig.SPIKED_ICE_SLIME.spawnProbability))
         }
 
         //Spiked Jungle Slime
@@ -403,7 +402,7 @@ object EntityCompendium: RegistryCompendium<EntityType<*>>(Registry.ENTITY_TYPE)
                 .and(BiomeSelectors.excludeByKey(ModConfig.SPIKED_JUNGLE_SLIME.biomeBlacklist.map { RegistryKey.of(Registry.BIOME_KEY, Identifier(it)) }))
                 .or(BiomeSelectors.includeByKey(ModConfig.SPIKED_JUNGLE_SLIME.biomeWhitelist.map { RegistryKey.of(Registry.BIOME_KEY, Identifier(it)) }))
             BiomeModifications.addSpawn(predicate, SpawnGroup.MONSTER, SPIKED_JUNGLE_SLIME, ModConfig.SPIKED_JUNGLE_SLIME.spawnWeight, 1, 1)
-            SpawnRestrictionAccessor.callRegister(SPIKED_JUNGLE_SLIME, SpawnRestriction.Location.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, ModdedSlimeEntity.getJungleSpawnPredicate(ModConfig.SPIKED_JUNGLE_SLIME.spawnProbability))
+            SpawnRestriction.register(SPIKED_JUNGLE_SLIME, SpawnRestriction.Location.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, ModdedSlimeEntity.getJungleSpawnPredicate(ModConfig.SPIKED_JUNGLE_SLIME.spawnProbability))
         }
 
         //Mother Slime & Baby Slime
@@ -414,7 +413,7 @@ object EntityCompendium: RegistryCompendium<EntityType<*>>(Registry.ENTITY_TYPE)
                 .and(BiomeSelectors.excludeByKey(ModConfig.MOTHER_SLIME.biomeBlacklist.map { RegistryKey.of(Registry.BIOME_KEY, Identifier(it)) }))
                 .or(BiomeSelectors.includeByKey(ModConfig.MOTHER_SLIME.biomeWhitelist.map { RegistryKey.of(Registry.BIOME_KEY, Identifier(it)) }))
             BiomeModifications.addSpawn(predicate, SpawnGroup.MONSTER, MOTHER_SLIME, ModConfig.MOTHER_SLIME.spawnWeight, 1, 1)
-            SpawnRestrictionAccessor.callRegister(MOTHER_SLIME, SpawnRestriction.Location.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, ModdedSlimeEntity.getCavernsSpawnPredicate(ModConfig.MOTHER_SLIME.spawnProbability))
+            SpawnRestriction.register(MOTHER_SLIME, SpawnRestriction.Location.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, ModdedSlimeEntity.getCavernsSpawnPredicate(ModConfig.MOTHER_SLIME.spawnProbability))
         }
         FabricDefaultAttributeRegistry.register(BABY_SLIME, HostileEntity.createHostileAttributes())
 
@@ -425,7 +424,7 @@ object EntityCompendium: RegistryCompendium<EntityType<*>>(Registry.ENTITY_TYPE)
                 .and(BiomeSelectors.excludeByKey(ModConfig.LAVA_SLIME.biomeBlacklist.map { RegistryKey.of(Registry.BIOME_KEY, Identifier(it)) }))
                 .or(BiomeSelectors.includeByKey(ModConfig.LAVA_SLIME.biomeWhitelist.map { RegistryKey.of(Registry.BIOME_KEY, Identifier(it)) }))
             BiomeModifications.addSpawn(predicate, SpawnGroup.MONSTER, LAVA_SLIME, ModConfig.LAVA_SLIME.spawnWeight, 1, 1)
-            SpawnRestrictionAccessor.callRegister(LAVA_SLIME, SpawnRestriction.Location.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, ModdedSlimeEntity.getHellSpawnPredicate(ModConfig.LAVA_SLIME.spawnProbability))
+            SpawnRestriction.register(LAVA_SLIME, SpawnRestriction.Location.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, ModdedSlimeEntity.getHellSpawnPredicate(ModConfig.LAVA_SLIME.spawnProbability))
         }
 
         //Pinky Slime
@@ -436,7 +435,7 @@ object EntityCompendium: RegistryCompendium<EntityType<*>>(Registry.ENTITY_TYPE)
                 .and(BiomeSelectors.excludeByKey(ModConfig.PINKY.biomeBlacklist.map { RegistryKey.of(Registry.BIOME_KEY, Identifier(it)) }))
                 .or(BiomeSelectors.includeByKey(ModConfig.PINKY.biomeWhitelist.map { RegistryKey.of(Registry.BIOME_KEY, Identifier(it)) }))
             BiomeModifications.addSpawn(predicate, SpawnGroup.MONSTER, PINKY, ModConfig.PINKY.spawnWeight, 1, 1)
-            SpawnRestrictionAccessor.callRegister(PINKY, SpawnRestriction.Location.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, ModdedSlimeEntity.getSurfaceSpawnPredicate(ModConfig.PINKY.spawnProbability))
+            SpawnRestriction.register(PINKY, SpawnRestriction.Location.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, ModdedSlimeEntity.getSurfaceSpawnPredicate(ModConfig.PINKY.spawnProbability))
         }
 
         //King Slime
@@ -455,7 +454,7 @@ object EntityCompendium: RegistryCompendium<EntityType<*>>(Registry.ENTITY_TYPE)
                 .and(BiomeSelectors.excludeByKey(ModConfig.UMBRELLA_SLIME.biomeBlacklist.map { RegistryKey.of(Registry.BIOME_KEY, Identifier(it)) }))
                 .or(BiomeSelectors.includeByKey(ModConfig.UMBRELLA_SLIME.biomeWhitelist.map { RegistryKey.of(Registry.BIOME_KEY, Identifier(it)) }))
             BiomeModifications.addSpawn(predicate, SpawnGroup.MONSTER, UMBRELLA_SLIME, ModConfig.UMBRELLA_SLIME.spawnWeight, 1, 1)
-            SpawnRestrictionAccessor.callRegister(UMBRELLA_SLIME, SpawnRestriction.Location.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, ModdedSlimeEntity.getRainySurfaceSpawnPredicate(ModConfig.UMBRELLA_SLIME.spawnProbability))
+            SpawnRestriction.register(UMBRELLA_SLIME, SpawnRestriction.Location.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, ModdedSlimeEntity.getRainySurfaceSpawnPredicate(ModConfig.UMBRELLA_SLIME.spawnProbability))
         }
 
         //Corrupt Slime & Slimeling
@@ -466,7 +465,7 @@ object EntityCompendium: RegistryCompendium<EntityType<*>>(Registry.ENTITY_TYPE)
                 .and(BiomeSelectors.excludeByKey(ModConfig.CORRUPT_SLIME.biomeBlacklist.map { RegistryKey.of(Registry.BIOME_KEY, Identifier(it)) }))
                 .or(BiomeSelectors.includeByKey(ModConfig.CORRUPT_SLIME.biomeWhitelist.map { RegistryKey.of(Registry.BIOME_KEY, Identifier(it)) }))
             BiomeModifications.addSpawn(predicate, SpawnGroup.MONSTER, CORRUPT_SLIME, ModConfig.CORRUPT_SLIME.spawnWeight, 1, 1)
-            SpawnRestrictionAccessor.callRegister(CORRUPT_SLIME, SpawnRestriction.Location.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, ModdedSlimeEntity.getHellSpawnPredicate(ModConfig.CORRUPT_SLIME.spawnProbability))
+            SpawnRestriction.register(CORRUPT_SLIME, SpawnRestriction.Location.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, ModdedSlimeEntity.getHellSpawnPredicate(ModConfig.CORRUPT_SLIME.spawnProbability))
         }
         FabricDefaultAttributeRegistry.register(SLIMELING, HostileEntity.createHostileAttributes())
 
@@ -478,7 +477,7 @@ object EntityCompendium: RegistryCompendium<EntityType<*>>(Registry.ENTITY_TYPE)
                 .and(BiomeSelectors.excludeByKey(ModConfig.CRIMSLIME.biomeBlacklist.map { RegistryKey.of(Registry.BIOME_KEY, Identifier(it)) }))
                 .or(BiomeSelectors.includeByKey(ModConfig.CRIMSLIME.biomeWhitelist.map { RegistryKey.of(Registry.BIOME_KEY, Identifier(it)) }))
             BiomeModifications.addSpawn(predicate, SpawnGroup.MONSTER, CRIMSLIME, ModConfig.CRIMSLIME.spawnWeight, 1, 1)
-            SpawnRestrictionAccessor.callRegister(CRIMSLIME, SpawnRestriction.Location.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, ModdedSlimeEntity.getHellSpawnPredicate(ModConfig.CRIMSLIME.spawnProbability))
+            SpawnRestriction.register(CRIMSLIME, SpawnRestriction.Location.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, ModdedSlimeEntity.getHellSpawnPredicate(ModConfig.CRIMSLIME.spawnProbability))
         }
 
         //Illuminant Slime
@@ -488,7 +487,7 @@ object EntityCompendium: RegistryCompendium<EntityType<*>>(Registry.ENTITY_TYPE)
                 .and(BiomeSelectors.excludeByKey(ModConfig.ILLUMINANT_SLIME.biomeBlacklist.map { RegistryKey.of(Registry.BIOME_KEY, Identifier(it)) }))
                 .or(BiomeSelectors.includeByKey(ModConfig.ILLUMINANT_SLIME.biomeWhitelist.map { RegistryKey.of(Registry.BIOME_KEY, Identifier(it)) }))
             BiomeModifications.addSpawn(predicate, SpawnGroup.MONSTER, ILLUMINANT_SLIME, ModConfig.ILLUMINANT_SLIME.spawnWeight, 1, 1)
-            SpawnRestrictionAccessor.callRegister(ILLUMINANT_SLIME, SpawnRestriction.Location.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, ModdedSlimeEntity.getTheEndSpawnPredicate(ModConfig.ILLUMINANT_SLIME.spawnProbability))
+            SpawnRestriction.register(ILLUMINANT_SLIME, SpawnRestriction.Location.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, ModdedSlimeEntity.getTheEndSpawnPredicate(ModConfig.ILLUMINANT_SLIME.spawnProbability))
         }
 
         //Rainbow Slime
@@ -498,7 +497,7 @@ object EntityCompendium: RegistryCompendium<EntityType<*>>(Registry.ENTITY_TYPE)
                 .and(BiomeSelectors.excludeByKey(ModConfig.RAINBOW_SLIME.biomeBlacklist.map { RegistryKey.of(Registry.BIOME_KEY, Identifier(it)) }))
                 .or(BiomeSelectors.includeByKey(ModConfig.RAINBOW_SLIME.biomeWhitelist.map { RegistryKey.of(Registry.BIOME_KEY, Identifier(it)) }))
             BiomeModifications.addSpawn(predicate, SpawnGroup.MONSTER, RAINBOW_SLIME, ModConfig.RAINBOW_SLIME.spawnWeight, 1, 1)
-            SpawnRestrictionAccessor.callRegister(RAINBOW_SLIME, SpawnRestriction.Location.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, ModdedSlimeEntity.getTheEndSpawnPredicate(ModConfig.RAINBOW_SLIME.spawnProbability))
+            SpawnRestriction.register(RAINBOW_SLIME, SpawnRestriction.Location.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, ModdedSlimeEntity.getTheEndSpawnPredicate(ModConfig.RAINBOW_SLIME.spawnProbability))
         }
 
     }

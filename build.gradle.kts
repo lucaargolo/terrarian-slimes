@@ -39,6 +39,7 @@ val environment: Map<String, String> = System.getenv()
 val releaseName = "${name.split("-").joinToString(" ") { it.capitalize() }} ${(version as String).split("+")[0]}"
 val releaseType = (version as String).split("+")[0].split("-").let { if(it.isNotEmpty()) if(it[1] == "BETA" || it[1] == "ALPHA") it[1] else "ALPHA" else "RELEASE" }
 val releaseFile = "${buildDir}/libs/${base.archivesName.get()}-${version}.jar"
+val sourcesFile = releaseFile.replace(".jar", "-sources.jar")
 val cfGameVersion = (version as String).split("+")[1].let{ if(!project["minecraft_version"].contains("-") && project["minecraft_version"].startsWith(it)) project["minecraft_version"] else "$it-Snapshot"}
 
 fun getChangeLog(): String {
@@ -112,6 +113,14 @@ java {
 
 tasks.jar {
     from("LICENSE")
+}
+
+publishing {
+    publications {
+        create<MavenPublication>("mavenJava") {
+            from(components["java"])
+        }
+    }
 }
 
 //Github publishing
